@@ -269,11 +269,12 @@ function HomePage() {
                 <MessageCircle size={18} /> WhatsApp Us
               </a>
             </div>
-
-            {/* Booking Form Widget */}
           </div>
         </div>
       </section>
+
+      {/* BOOKING WIDGET SECTION */}
+
       {/* SERVICES */}
       <section className="section pt-4">
         <div className="mx-auto max-w-7xl">
