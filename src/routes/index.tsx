@@ -148,175 +148,74 @@ function HomePage() {
   return (
     <div>
       {/* HERO */}
-      <section className="relative mx-3 mt-3 overflow-hidden rounded-[2.25rem] md:mx-6 min-h-[70vh] md:min-h-[60vh] lg:min-h-[55vh] flex items-center bg-gray-900">
-        {/* Background Carousel Images */}
-        {HERO_BG_IMAGES.map((img, idx) => (
-          <div
-            key={idx}
-            className="absolute inset-0 bg-cover bg-center transition-all duration-[3000ms] ease-in-out"
-            style={{
-              backgroundImage: `url(${img})`,
-              opacity: currentSlide === idx ? 1 : 0,
-              transform: currentSlide === idx ? "scale(1.05)" : "scale(1)",
-            }}
-          />
-        ))}
-
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-900/95 via-gray-900/70 to-transparent" />
-
-        <div className="relative grid gap-8 px-5 py-12 md:grid-cols-2 md:items-center md:gap-10 md:px-10 md:py-16 lg:py-20">
-          <div className="order-2 text-white md:order-1 z-10">
-            <span
-              className="chip"
+      <section
+        className="relative overflow-hidden"
+        style={{ minHeight: "clamp(32rem, 70vh, 48rem)", marginTop: "-6.5rem" }}
+      >
+        {/* Background Carousel */}
+        <div className="absolute inset-0 z-0">
+          {HERO_BG_IMAGES.map((image, index) => (
+            <div
+              key={index}
+              className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
               style={{
-                background: "rgba(255,255,255,0.1)",
-                color: "oklch(0.86 0.12 85)",
-                border: "1px solid oklch(0.86 0.12 85 / 0.3)",
+                opacity: currentSlide === index ? 1 : 0,
+                backgroundImage: `url(${image})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                transform: currentSlide === index ? "scale(1.05)" : "scale(1)",
+                transition: "opacity 1000ms ease-in-out, transform 8000ms ease-out",
               }}
-            >
-              <Sparkles size={14} /> Pan-India · 24×7
-            </span>
-            <h1 className="mt-4 text-3xl font-extrabold leading-[1.15] sm:text-4xl md:text-5xl lg:text-6xl tracking-tight">
-              Drive anywhere in India,
-              <br />
-              <span
-                className="bg-clip-text text-transparent"
-                style={{ backgroundImage: "var(--gradient-gold)" }}
-              >
-                booked in a tap.
+            />
+          ))}
+          {/* Dark overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+        </div>
+
+        {/* Hero Content */}
+        <div className="relative z-10 mx-auto flex h-full min-h-[clamp(32rem,70vh,48rem)] max-w-7xl flex-col justify-center px-4 md:px-6">
+          <div className="max-w-3xl mt-10">
+            {/* Badge */}
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 backdrop-blur-md border border-white/20">
+              <Sparkles size={16} className="text-[oklch(0.86_0.12_85)]" />
+              <span className="text-sm font-medium text-white/90">
+                Premium Car Rental Across India
+              </span>
+            </div>
+
+            {/* Main Heading */}
+            <h1 className="text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+              Your Journey,
+              <span className="block mt-2" style={{ color: "oklch(0.86 0.12 85)" }}>
+                Our Promise
               </span>
             </h1>
-            <p className="mt-3 max-w-lg text-sm text-gray-300 sm:text-base md:text-lg leading-relaxed">
-              Outstation, one-way, airport transfer or local hire — Tuhi puts a verified chauffeur
-              and a clean car at your door, with fares calculated live on Google Maps.
+
+            {/* Description */}
+            <p className="mt-6 max-w-2xl text-lg text-white/80 sm:text-xl leading-relaxed">
+              Verified chauffeurs, transparent fares, and 24×7 support. Book your next outstation
+              cab or airport transfer in seconds via WhatsApp.
             </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link to="/book" className="btn-gold">
-                Book a ride <ArrowRight size={18} />
+
+            {/* CTA Buttons */}
+            <div className="mt-8 flex flex-col sm:flex-row gap-4">
+              <Link to="/book" className="btn-gold text-base px-8 py-4 shadow-2xl">
+                <Car size={18} /> Book Your Ride
               </Link>
               <a
-                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Tuhi, I'd like to book a cab.")}`}
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Tuhi, I want to book a cab.")}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-ghost-glass"
+                className="btn-ghost-glass text-base px-8 py-4"
               >
-                <MessageCircle size={18} /> WhatsApp now
+                <MessageCircle size={18} /> WhatsApp Us
               </a>
             </div>
 
-            {/* Carousel Indicators - Hidden */}
-            {/* <div className="mt-8 flex gap-2">
-              {HERO_BG_IMAGES.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setCurrentSlide(idx)}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    currentSlide === idx
-                      ? "w-8 bg-[oklch(0.86_0.12_85)]"
-                      : "w-2 bg-white/40 hover:bg-white/60"
-                  }`}
-                  aria-label={`Go to slide ${idx + 1}`}
-                />
-              ))}
-            </div> */}
-
             {/* Stats */}
-            <div className="mt-4 grid max-w-md grid-cols-3 gap-2 sm:gap-3">
-              {[
-                { k: "50k+", v: "Happy riders" },
-                { k: "1500+", v: "Cities" },
-                { k: "4.9★", v: "Avg rating" },
-              ].map((m) => (
-                <div
-                  key={m.v}
-                  className="rounded-xl sm:rounded-2xl px-2 sm:px-3 py-2 sm:py-3 text-center bg-gray-900/40 backdrop-blur-md border border-white/10"
-                >
-                  <div className="text-lg sm:text-xl font-bold text-[oklch(0.86_0.12_85)] md:text-2xl">
-                    {m.k}
-                  </div>
-                  <div className="mt-0.5 text-[9px] sm:text-[10px] font-semibold uppercase tracking-widest text-gray-400">
-                    {m.v}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="relative order-1 md:order-2 z-10 hidden md:flex items-center justify-center">
-            <div className="relative">
-              <div
-                className="absolute -inset-4 lg:-inset-6 rounded-[3rem]"
-                style={{
-                  background:
-                    "radial-gradient(circle, oklch(0.86 0.12 85 / 0.35), transparent 60%)",
-                }}
-              />
-              <img
-                src={heroCar}
-                alt="Premium black sedan for Tuhi Car Rental"
-                width={1600}
-                height={1000}
-                className="relative max-w-xs lg:max-w-sm xl:max-w-lg animate-float drop-shadow-2xl"
-              />
-
-              {/* Floating glass badge */}
-              <div className="absolute -bottom-2 left-2 lg:-bottom-4 lg:left-4 hidden glass rounded-xl lg:rounded-2xl px-3 py-2 lg:px-4 lg:py-3 lg:flex items-center gap-2 lg:gap-3">
-                <div
-                  className="grid h-8 w-8 lg:h-10 lg:w-10 place-items-center rounded-lg lg:rounded-xl"
-                  style={{ background: "var(--gradient-gold)" }}
-                >
-                  <ShieldCheck size={14} className="lg:size-[18] text-[oklch(0.25_0.05_260)]" />
-                </div>
-                <div>
-                  <div className="text-[10px] lg:text-xs text-muted-foreground">100% verified</div>
-                  <div className="text-xs lg:text-sm font-bold">Police-checked drivers</div>
-                </div>
-              </div>
-              <div className="absolute -top-2 right-2 lg:-top-4 lg:right-4 hidden glass rounded-xl lg:rounded-2xl px-3 py-2 lg:px-4 lg:py-3 lg:flex items-center gap-2 lg:gap-3">
-                <div
-                  className="grid h-8 w-8 lg:h-10 lg:w-10 place-items-center rounded-lg lg:rounded-xl"
-                  style={{ background: "var(--gradient-gold)" }}
-                >
-                  <Star size={14} className="lg:size-[18] text-[oklch(0.25_0.05_260)]" />
-                </div>
-                <div>
-                  <div className="text-[10px] lg:text-xs text-muted-foreground">Loved by</div>
-                  <div className="text-xs lg:text-sm font-bold">50,000+ travellers</div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
-
-      {/* QUICK FARE STRIP */}
-      <section className="px-3 py-10 md:px-6">
-        <div className="mx-auto grid max-w-7xl gap-4 md:grid-cols-4">
-          {[
-            { icon: MapPin, label: "Pan-India coverage", value: "1500+ cities" },
-            { icon: IndianRupee, label: "Starts at", value: "₹12 / km" },
-            { icon: Clock, label: "Average pickup", value: "15 min" },
-            { icon: Car, label: "Cars in fleet", value: "5 classes" },
-          ].map((s) => (
-            <div key={s.label} className="neu flex items-center gap-4 p-5">
-              <div
-                className="grid h-12 w-12 place-items-center rounded-2xl text-[oklch(0.5_0.12_75)]"
-                style={{ background: "var(--gradient-gold)" }}
-              >
-                <s.icon size={20} />
-              </div>
-              <div>
-                <div className="text-xs uppercase tracking-wider text-muted-foreground">
-                  {s.label}
-                </div>
-                <div className="text-lg font-bold">{s.value}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* SERVICES */}
       <section className="section pt-4">
         <div className="mx-auto max-w-7xl">

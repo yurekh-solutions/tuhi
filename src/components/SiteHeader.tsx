@@ -14,9 +14,9 @@ const NAV = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   return (
-    <header className="sticky top-0 z-50">
-      <div className="mx-3 mt-3 md:mx-6">
-        <div className="glass flex items-center justify-between rounded-[2.25rem] px-4 py-3 backdrop-blur-xl md:px-6">
+    <header className="sticky top-0 z-50 bg-gray-900/50 backdrop-blur-xl">
+      <div className="mx-auto max-w-7xl px-4 md:px-6 py-3">
+        <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="group flex items-center gap-2 md:gap-3">
             <div className="relative grid h-9 w-9 md:h-11 md:w-11 place-items-center rounded-full bg-[var(--gradient-hero)] text-[oklch(0.86_0.12_85)] shadow-lg transition-transform group-hover:scale-105">
@@ -32,7 +32,7 @@ export function SiteHeader() {
                   PREMIUM
                 </span>
               </div>
-              <div className="text-[9px] md:text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+              <div className="text-[9px] md:text-[11px] uppercase tracking-[0.2em] text-white">
                 Car Rental
               </div>
             </div>
@@ -90,8 +90,8 @@ export function SiteHeader() {
 
       {/* Mobile Menu */}
       {open && (
-        <div className="mx-3 mt-2 md:mx-6">
-          <div className="glass overflow-hidden rounded-[2.25rem] backdrop-blur-xl md:hidden">
+        <div className="mx-auto max-w-7xl px-4 md:px-6 md:hidden">
+          <div className="glass overflow-hidden rounded-2xl backdrop-blur-xl">
             <nav className="flex flex-col gap-1 p-4">
               {NAV.map((n) => (
                 <Link

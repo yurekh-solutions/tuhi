@@ -80,7 +80,11 @@ function AdminBookingsPage() {
     }
   }, [router]);
 
-  const { data: bookings = [], isLoading, refetch } = useQuery({
+  const {
+    data: bookings = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["admin-bookings"],
     queryFn: () => fetchBookings({}),
     enabled: checkAdminAuth(),
@@ -116,8 +120,7 @@ function AdminBookingsPage() {
       b.phone.includes(searchQuery);
     const matchesStatus = statusFilter === "all" || b.status === statusFilter;
     const matchesPayment = paymentFilter === "all" || b.paymentStatus === paymentFilter;
-    const matchesDate =
-      (!dateFrom || b.date >= dateFrom) && (!dateTo || b.date <= dateTo);
+    const matchesDate = (!dateFrom || b.date >= dateFrom) && (!dateTo || b.date <= dateTo);
     return matchesSearch && matchesStatus && matchesPayment && matchesDate;
   });
 
@@ -164,18 +167,11 @@ function AdminBookingsPage() {
     a.click();
   }
 
-  async function handleStatusChange(
-    id: string,
-    status: Booking["status"],
-    notes?: string
-  ) {
+  async function handleStatusChange(id: string, status: Booking["status"], notes?: string) {
     await statusMutation.mutateAsync({ id, status, notes });
   }
 
-  async function handlePaymentChange(
-    id: string,
-    paymentStatus: Booking["paymentStatus"]
-  ) {
+  async function handlePaymentChange(id: string, paymentStatus: Booking["paymentStatus"]) {
     await paymentMutation.mutateAsync({ id, paymentStatus });
   }
 
@@ -191,10 +187,7 @@ function AdminBookingsPage() {
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <h1 className="text-2xl font-bold">Booking Management</h1>
           <div className="flex flex-wrap gap-2">
-            <button
-              onClick={() => setShowAnalytics(!showAnalytics)}
-              className="btn-gold"
-            >
+            <button onClick={() => setShowAnalytics(!showAnalytics)} className="btn-gold">
               <TrendingUp size={16} /> Analytics
             </button>
             <button onClick={exportToCSV} className="btn-gold">
@@ -210,9 +203,7 @@ function AdminBookingsPage() {
               <div className="flex items-center gap-2 text-muted-foreground">
                 <Calendar size={16} /> Total
               </div>
-              <div className="mt-2 text-2xl font-bold">
-                {analytics.totalBookings}
-              </div>
+              <div className="mt-2 text-2xl font-bold">{analytics.totalBookings}</div>
             </div>
             <div className="neu p-4">
               <div className="flex items-center gap-2 text-muted-foreground">
@@ -347,9 +338,7 @@ function AdminBookingsPage() {
           <div className="neu p-8 text-center">
             <AlertCircle className="mx-auto h-12 w-12 text-muted-foreground" />
             <p className="mt-4 text-lg font-semibold">No bookings found</p>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Try adjusting your filters
-            </p>
+            <p className="mt-2 text-sm text-muted-foreground">Try adjusting your filters</p>
           </div>
         ) : (
           <>
@@ -358,33 +347,17 @@ function AdminBookingsPage() {
               <table className="neu w-full">
                 <thead className="border-b border-[var(--border)] bg-[var(--muted)]">
                   <tr>
-                    <th className="px-3 py-3 text-left text-xs font-semibold uppercase">
-                      ID
-                    </th>
+                    <th className="px-3 py-3 text-left text-xs font-semibold uppercase">ID</th>
                     <th className="px-3 py-3 text-left text-xs font-semibold uppercase">
                       Customer
                     </th>
-                    <th className="px-3 py-3 text-left text-xs font-semibold uppercase">
-                      Route
-                    </th>
-                    <th className="px-3 py-3 text-left text-xs font-semibold uppercase">
-                      Date
-                    </th>
-                    <th className="px-3 py-3 text-left text-xs font-semibold uppercase">
-                      Fare
-                    </th>
-                    <th className="px-3 py-3 text-left text-xs font-semibold uppercase">
-                      Status
-                    </th>
-                    <th className="px-3 py-3 text-left text-xs font-semibold uppercase">
-                      Payment
-                    </th>
-                    <th className="px-3 py-3 text-left text-xs font-semibold uppercase">
-                      Driver
-                    </th>
-                    <th className="px-3 py-3 text-left text-xs font-semibold uppercase">
-                      Actions
-                    </th>
+                    <th className="px-3 py-3 text-left text-xs font-semibold uppercase">Route</th>
+                    <th className="px-3 py-3 text-left text-xs font-semibold uppercase">Date</th>
+                    <th className="px-3 py-3 text-left text-xs font-semibold uppercase">Fare</th>
+                    <th className="px-3 py-3 text-left text-xs font-semibold uppercase">Status</th>
+                    <th className="px-3 py-3 text-left text-xs font-semibold uppercase">Payment</th>
+                    <th className="px-3 py-3 text-left text-xs font-semibold uppercase">Driver</th>
+                    <th className="px-3 py-3 text-left text-xs font-semibold uppercase">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -393,14 +366,10 @@ function AdminBookingsPage() {
                       key={booking.id}
                       className="border-b border-[var(--border)] last:border-0 hover:bg-[var(--muted)]/50"
                     >
-                      <td className="px-3 py-3 text-sm font-semibold">
-                        {booking.id}
-                      </td>
+                      <td className="px-3 py-3 text-sm font-semibold">{booking.id}</td>
                       <td className="px-3 py-3 text-sm">
                         <div className="font-semibold">{booking.customerName}</div>
-                        <div className="text-xs text-muted-foreground">
-                          {booking.phone}
-                        </div>
+                        <div className="text-xs text-muted-foreground">{booking.phone}</div>
                       </td>
                       <td className="px-3 py-3 text-sm">
                         <div>{booking.from}</div>
@@ -408,9 +377,7 @@ function AdminBookingsPage() {
                       </td>
                       <td className="px-3 py-3 text-sm">
                         <div>{booking.date}</div>
-                        <div className="text-xs text-muted-foreground">
-                          {booking.time}
-                        </div>
+                        <div className="text-xs text-muted-foreground">{booking.time}</div>
                       </td>
                       <td className="px-3 py-3 text-sm font-bold">
                         ₹{booking.fare.toLocaleString("en-IN")}
@@ -419,10 +386,7 @@ function AdminBookingsPage() {
                         <select
                           value={booking.status}
                           onChange={(e) =>
-                            handleStatusChange(
-                              booking.id,
-                              e.target.value as Booking["status"]
-                            )
+                            handleStatusChange(booking.id, e.target.value as Booking["status"])
                           }
                           className={`rounded-full px-2 py-1 text-xs font-semibold border-0 cursor-pointer ${
                             booking.status === "completed"
@@ -446,7 +410,7 @@ function AdminBookingsPage() {
                           onChange={(e) =>
                             handlePaymentChange(
                               booking.id,
-                              e.target.value as Booking["paymentStatus"]
+                              e.target.value as Booking["paymentStatus"],
                             )
                           }
                           className={`rounded-full px-2 py-1 text-xs font-semibold border-0 cursor-pointer ${
@@ -525,10 +489,7 @@ function AdminBookingsPage() {
                     <select
                       value={booking.status}
                       onChange={(e) =>
-                        handleStatusChange(
-                          booking.id,
-                          e.target.value as Booking["status"]
-                        )
+                        handleStatusChange(booking.id, e.target.value as Booking["status"])
                       }
                       className="flex-1 rounded-lg border px-2 py-1 text-xs"
                     >
@@ -654,19 +615,10 @@ function AdminBookingsPage() {
               </button>
               <button
                 onClick={async () => {
-                  await handleStatusChange(
-                    editingBooking.id,
-                    editingBooking.status
-                  );
-                  await handlePaymentChange(
-                    editingBooking.id,
-                    editingBooking.paymentStatus
-                  );
+                  await handleStatusChange(editingBooking.id, editingBooking.status);
+                  await handlePaymentChange(editingBooking.id, editingBooking.paymentStatus);
                   if (editingBooking.driverName) {
-                    await handleDriverAssign(
-                      editingBooking.id,
-                      editingBooking.driverName
-                    );
+                    await handleDriverAssign(editingBooking.id, editingBooking.driverName);
                   }
                   setEditingBooking(null);
                 }}

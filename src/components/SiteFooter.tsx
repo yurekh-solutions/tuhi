@@ -12,11 +12,16 @@ export function SiteFooter() {
               TUHI <span className="text-[oklch(0.86_0.12_85)]">Car Rental</span>
             </div>
             <p className="mt-3 max-w-md text-sm text-white/70">
-              Pan-India outstation cabs, airport transfers, and local hires.
-              Verified drivers, clean cars, transparent fares — every ride.
+              Pan-India outstation cabs, airport transfers, and local hires. Verified drivers, clean
+              cars, transparent fares — every ride.
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
-              <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="btn-ghost-glass !py-2 !px-4 text-sm">
+              <a
+                href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ghost-glass !py-2 !px-4 text-sm"
+              >
                 <MessageCircle size={16} /> WhatsApp
               </a>
               <a href={`tel:+${WHATSAPP_NUMBER}`} className="btn-ghost-glass !py-2 !px-4 text-sm">
@@ -26,21 +31,47 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-white/90">Explore</h4>
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-white/90">
+              Explore
+            </h4>
             <ul className="mt-4 space-y-2 text-sm text-white/70">
-              <li><Link to="/fleet" className="hover:text-white">Our Fleet</Link></li>
-              <li><Link to="/services" className="hover:text-white">Services</Link></li>
-              <li><Link to="/about" className="hover:text-white">About</Link></li>
-              <li><Link to="/book" className="hover:text-white">Book Now</Link></li>
+              <li>
+                <Link to="/fleet" className="hover:text-white">
+                  Our Fleet
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" className="hover:text-white">
+                  Services
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="hover:text-white">
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link to="/book" className="hover:text-white">
+                  Book Now
+                </Link>
+              </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-white/90">Contact</h4>
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-white/90">
+              Contact
+            </h4>
             <ul className="mt-4 space-y-3 text-sm text-white/70">
-              <li className="flex items-start gap-2"><Phone size={14} className="mt-1" /> {PHONE_DISPLAY}</li>
-              <li className="flex items-start gap-2"><Mail size={14} className="mt-1" /> bookings@tuhicarrental.in</li>
-              <li className="flex items-start gap-2"><MapPin size={14} className="mt-1" /> Taj Lands End, Bandra, Mumbai</li>
+              <li className="flex items-start gap-2">
+                <Phone size={14} className="mt-1" /> {PHONE_DISPLAY}
+              </li>
+              <li className="flex items-start gap-2">
+                <Mail size={14} className="mt-1" /> bookings@tuhicarrental.in
+              </li>
+              <li className="flex items-start gap-2">
+                <MapPin size={14} className="mt-1" /> Taj Lands End, Bandra, Mumbai
+              </li>
             </ul>
           </div>
         </div>

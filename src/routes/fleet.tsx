@@ -39,7 +39,7 @@ function FleetPage() {
   });
 
   const filteredCars = useMemo(() => {
-    let filtered = cars.filter((car: Car) =>
+    const filtered = cars.filter((car: Car) =>
       car.name.toLowerCase().includes(searchQuery.toLowerCase()),
     );
 
