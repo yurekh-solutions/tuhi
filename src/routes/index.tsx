@@ -29,6 +29,9 @@ import {
   UserCheck,
   Navigation,
   Play,
+  Calendar,
+  Search,
+  X,
 } from "lucide-react";
 import heroCar from "@/assets/hero-car.jpg";
 import { CAR_CLASSES, PHONE_DISPLAY, WHATSAPP_NUMBER } from "@/lib/cars";
@@ -103,6 +106,12 @@ const SERVICES = [
     tag: "From ₹12/km",
   },
   {
+    icon: Clock,
+    title: "Local Trips",
+    desc: "8hrs/80km or 12hrs/120km packages available.",
+    tag: "From ₹999",
+  },
+  {
     icon: Building2,
     title: "Corporate Travel",
     desc: "GST invoices, monthly billing, dedicated SPOC.",
@@ -113,6 +122,24 @@ const SERVICES = [
     title: "Wedding & Events",
     desc: "Decorated cars, multi-day packages, group fleet.",
     tag: "On request",
+  },
+  {
+    icon: Car,
+    title: "Luxury Rentals",
+    desc: "Premium sedans & SUVs for special occasions.",
+    tag: "From ₹25/km",
+  },
+  {
+    icon: Users,
+    title: "Tempo Traveller",
+    desc: "8-12 seater AC vehicles for group travel.",
+    tag: "From ₹18/km",
+  },
+  {
+    icon: Mountain,
+    title: "Sightseeing Packages",
+    desc: "Local darshan & city tour packages.",
+    tag: "From ₹1,499",
   },
 ];
 
@@ -133,10 +160,36 @@ export const FEATURES = [
     t: "Free cancellation",
     d: "Cancel up to 1 hour before pickup, full refund.",
   },
+  {
+    icon: Clock,
+    t: "On-time service",
+    d: "We assure punctual pickup for every customer, any time of day.",
+  },
+  {
+    icon: Navigation,
+    t: "GPS tracking",
+    d: "Real-time vehicle tracking. Share live location with family.",
+  },
+  {
+    icon: Star,
+    t: "Professional drivers",
+    d: "Rigorously selected, licensed, with customer service training.",
+  },
+  {
+    icon: Award,
+    t: "Safety first",
+    d: "Regular vehicle maintenance & safety inspections.",
+  },
 ];
 
 function HomePage() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [bookingType, setBookingType] = useState<"outstation" | "local" | "airport">("outstation");
+  const [pickup, setPickup] = useState("");
+  const [drop, setDrop] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [carType, setCarType] = useState("sedan");
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -144,6 +197,11 @@ function HomePage() {
     }, 5000);
     return () => clearInterval(timer);
   }, []);
+
+  const handleBookNow = () => {
+    const message = `Hi Tuhi, I want to book a ${bookingType} cab:\nPickup: ${pickup}\nDrop: ${drop}\nDate: ${date}\nTime: ${time}\nCar: ${carType}`;
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank");
+  };
 
   return (
     <div>
@@ -212,7 +270,7 @@ function HomePage() {
               </a>
             </div>
 
-            {/* Stats */}
+            {/* Booking Form Widget */}
           </div>
         </div>
       </section>
