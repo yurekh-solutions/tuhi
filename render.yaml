@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: tuhi-car-rental
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npx serve dist/client -s -l $PORT
+    envVars:
+      - key: NODE_VERSION
+        value: 22.0.0
+      - key: NODE_ENV
+        value: production
