@@ -40,3 +40,6 @@ dist-ssr
 
 # Render temporary files
 .render-tmp
+
+# Vercel temporary files
+.vercel-tmp

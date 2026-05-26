@@ -49,7 +49,7 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.18 0.04 260);
 
-  --primary: oklch(0.22 0.06 265);            /* deep navy */
+  --primary: oklch(0.22 0.06 265); /* deep navy */
   --primary-foreground: oklch(0.98 0 0);
 
   --secondary: oklch(0.93 0.02 250);
@@ -58,7 +58,7 @@
   --muted: oklch(0.93 0.015 250);
   --muted-foreground: oklch(0.48 0.03 260);
 
-  --accent: oklch(0.78 0.14 80);              /* warm gold */
+  --accent: oklch(0.78 0.14 80); /* warm gold */
   --accent-foreground: oklch(0.2 0.05 260);
 
   --gold: oklch(0.78 0.14 80);
@@ -86,17 +86,25 @@
   --glass-border: oklch(1 0 0 / 0.6);
   --glass-bg-dark: oklch(0.22 0.06 265 / 0.55);
 
-  --gradient-hero: linear-gradient(135deg, oklch(0.22 0.06 265) 0%, oklch(0.18 0.05 260) 60%, oklch(0.3 0.08 270) 100%);
+  --gradient-hero: linear-gradient(
+    135deg,
+    oklch(0.22 0.06 265) 0%,
+    oklch(0.18 0.05 260) 60%,
+    oklch(0.3 0.08 270) 100%
+  );
   --gradient-gold: linear-gradient(135deg, oklch(0.86 0.12 85) 0%, oklch(0.72 0.16 75) 100%);
   --gradient-surface: linear-gradient(135deg, oklch(0.97 0.012 250) 0%, oklch(0.92 0.02 250) 100%);
 }
 
 @layer base {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
     border-color: var(--color-border);
   }
-  html, body {
+  html,
+  body {
     font-family: var(--font-sans);
     background: var(--gradient-surface);
     color: var(--color-foreground);
@@ -106,16 +114,27 @@
     overflow-x: hidden;
     width: 100%;
   }
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
     font-weight: 700;
   }
   /* Responsive font sizes */
-  h1 { font-size: clamp(1.875rem, 5vw, 3.75rem); }
-  h2 { font-size: clamp(1.5rem, 4vw, 2.25rem); }
-  h3 { font-size: clamp(1.25rem, 3vw, 1.5rem); }
-  p { font-size: clamp(0.875rem, 2vw, 1rem); }
+  h1 {
+    font-size: clamp(1.875rem, 5vw, 3.75rem);
+  }
+  h2 {
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+  }
+  h3 {
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
+  }
+  p {
+    font-size: clamp(0.875rem, 2vw, 1rem);
+  }
 }
 
 @layer components {
@@ -162,7 +181,9 @@
     transition: box-shadow 0.2s;
   }
   .neu-input:focus {
-    box-shadow: var(--shadow-neu-inset), 0 0 0 2px var(--ring);
+    box-shadow:
+      var(--shadow-neu-inset),
+      0 0 0 2px var(--ring);
   }
   .btn-gold {
     background: var(--gradient-gold);
@@ -170,8 +191,12 @@
     font-weight: 600;
     padding: 0.85rem 1.6rem;
     border-radius: 999px;
-    box-shadow: var(--shadow-gold), inset 0 1px 0 oklch(1 0 0 / 0.5);
-    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow:
+      var(--shadow-gold),
+      inset 0 1px 0 oklch(1 0 0 / 0.5);
+    transition:
+      transform 0.2s,
+      box-shadow 0.2s;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -193,30 +218,61 @@
     gap: 0.5rem;
     transition: background 0.2s;
   }
-  .btn-ghost-glass:hover { background: oklch(1 0 0 / 0.2); }
+  .btn-ghost-glass:hover {
+    background: oklch(1 0 0 / 0.2);
+  }
 
   .chip {
-    display: inline-flex; align-items: center; gap: 0.4rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
     padding: 0.35rem 0.85rem;
     border-radius: 999px;
     background: oklch(0.78 0.14 80 / 0.15);
     color: oklch(0.5 0.12 75);
-    font-size: 0.78rem; font-weight: 600;
-    letter-spacing: 0.04em; text-transform: uppercase;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
-  .section { padding: 2rem 0.75rem; }
-  @media (min-width: 640px) { .section { padding: 3rem 1rem; } }
-  @media (min-width: 768px) { .section { padding: 4rem 1.5rem; } }
-  @media (min-width: 1024px) { .section { padding: 5rem 2rem; } }
+  .section {
+    padding: 2rem 0.75rem;
+  }
+  @media (min-width: 640px) {
+    .section {
+      padding: 3rem 1rem;
+    }
+  }
+  @media (min-width: 768px) {
+    .section {
+      padding: 4rem 1.5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .section {
+      padding: 5rem 2rem;
+    }
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
 }
-.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
 
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
