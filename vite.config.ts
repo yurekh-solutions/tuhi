@@ -16,5 +16,8 @@ export default defineConfig({
     server: {
       allowedHosts: ["tuhi.onrender.com"],
     },
+    preview: {
+      allowedHosts: ["tuhi.onrender.com"],
+    },
   },
 });
