@@ -1,12 +1,18 @@
 services:
   - type: web
     name: tuhi-car-rental
-    env: node
+    env: static
     plan: free
     buildCommand: npm install && npm run build
-    startCommand: npx serve dist/client -s -l $PORT
+    staticPublishPath: ./dist/client
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache
     envVars:
       - key: NODE_VERSION
         value: 22.0.0
-      - key: NODE_ENV
-        value: production
