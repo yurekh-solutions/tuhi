@@ -1,0 +1,222 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Poppins", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem;
+  --radius-2xl: 2.25rem;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-surface: var(--surface);
+}
+
+:root {
+  /* Brand: deep navy + warm gold (matches the booking app screenshot) */
+  --background: oklch(0.965 0.012 250);
+  --foreground: oklch(0.18 0.04 260);
+  --surface: oklch(0.95 0.015 250);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.04 260);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.04 260);
+
+  --primary: oklch(0.22 0.06 265);            /* deep navy */
+  --primary-foreground: oklch(0.98 0 0);
+
+  --secondary: oklch(0.93 0.02 250);
+  --secondary-foreground: oklch(0.22 0.06 265);
+
+  --muted: oklch(0.93 0.015 250);
+  --muted-foreground: oklch(0.48 0.03 260);
+
+  --accent: oklch(0.78 0.14 80);              /* warm gold */
+  --accent-foreground: oklch(0.2 0.05 260);
+
+  --gold: oklch(0.78 0.14 80);
+  --gold-soft: oklch(0.86 0.1 85);
+
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+
+  --border: oklch(0.88 0.015 250);
+  --input: oklch(0.9 0.015 250);
+  --ring: oklch(0.78 0.14 80);
+
+  --radius: 1.25rem;
+
+  /* Neumorphism shadows on light surface */
+  --neu-light: oklch(1 0 0 / 0.9);
+  --neu-dark: oklch(0.78 0.02 250 / 0.55);
+  --shadow-neu: 10px 10px 30px var(--neu-dark), -10px -10px 30px var(--neu-light);
+  --shadow-neu-sm: 6px 6px 16px var(--neu-dark), -6px -6px 16px var(--neu-light);
+  --shadow-neu-inset: inset 6px 6px 14px var(--neu-dark), inset -6px -6px 14px var(--neu-light);
+  --shadow-gold: 0 18px 50px -12px oklch(0.78 0.14 80 / 0.55);
+
+  /* Glassmorphism */
+  --glass-bg: oklch(1 0 0 / 0.55);
+  --glass-border: oklch(1 0 0 / 0.6);
+  --glass-bg-dark: oklch(0.22 0.06 265 / 0.55);
+
+  --gradient-hero: linear-gradient(135deg, oklch(0.22 0.06 265) 0%, oklch(0.18 0.05 260) 60%, oklch(0.3 0.08 270) 100%);
+  --gradient-gold: linear-gradient(135deg, oklch(0.86 0.12 85) 0%, oklch(0.72 0.16 75) 100%);
+  --gradient-surface: linear-gradient(135deg, oklch(0.97 0.012 250) 0%, oklch(0.92 0.02 250) 100%);
+}
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    border-color: var(--color-border);
+  }
+  html, body {
+    font-family: var(--font-sans);
+    background: var(--gradient-surface);
+    color: var(--color-foreground);
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    width: 100%;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+  /* Responsive font sizes */
+  h1 { font-size: clamp(1.875rem, 5vw, 3.75rem); }
+  h2 { font-size: clamp(1.5rem, 4vw, 2.25rem); }
+  h3 { font-size: clamp(1.25rem, 3vw, 1.5rem); }
+  p { font-size: clamp(0.875rem, 2vw, 1rem); }
+}
+
+@layer components {
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+  }
+  .glass-dark {
+    background: var(--glass-bg-dark);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid oklch(1 0 0 / 0.15);
+    border-radius: var(--radius);
+    color: var(--primary-foreground);
+  }
+  .neu {
+    background: var(--surface);
+    box-shadow: var(--shadow-neu);
+    border-radius: var(--radius);
+  }
+  .neu-sm {
+    background: var(--surface);
+    box-shadow: var(--shadow-neu-sm);
+    border-radius: var(--radius);
+  }
+  .neu-inset {
+    background: var(--surface);
+    box-shadow: var(--shadow-neu-inset);
+    border-radius: var(--radius);
+  }
+  .neu-input {
+    background: var(--surface);
+    box-shadow: var(--shadow-neu-inset);
+    border-radius: 0.9rem;
+    border: none;
+    outline: none;
+    padding: 0.85rem 1.1rem;
+    width: 100%;
+    color: var(--foreground);
+    font-size: 0.95rem;
+    transition: box-shadow 0.2s;
+  }
+  .neu-input:focus {
+    box-shadow: var(--shadow-neu-inset), 0 0 0 2px var(--ring);
+  }
+  .btn-gold {
+    background: var(--gradient-gold);
+    color: oklch(0.2 0.05 260);
+    font-weight: 600;
+    padding: 0.85rem 1.6rem;
+    border-radius: 999px;
+    box-shadow: var(--shadow-gold), inset 0 1px 0 oklch(1 0 0 / 0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 24px 60px -10px oklch(0.78 0.14 80 / 0.7);
+  }
+  .btn-ghost-glass {
+    background: oklch(1 0 0 / 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid oklch(1 0 0 / 0.25);
+    color: var(--primary-foreground);
+    padding: 0.85rem 1.6rem;
+    border-radius: 999px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background 0.2s;
+  }
+  .btn-ghost-glass:hover { background: oklch(1 0 0 / 0.2); }
+
+  .chip {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    background: oklch(0.78 0.14 80 / 0.15);
+    color: oklch(0.5 0.12 75);
+    font-size: 0.78rem; font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .section { padding: 2rem 0.75rem; }
+  @media (min-width: 640px) { .section { padding: 3rem 1rem; } }
+  @media (min-width: 768px) { .section { padding: 4rem 1.5rem; } }
+  @media (min-width: 1024px) { .section { padding: 5rem 2rem; } }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+.animate-float { animation: float 6s ease-in-out infinite; }
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}

@@ -1,0 +1,17 @@
+[
+  {"id":"CUST001","name":"Rahul Sharma","phone":"+91 98765 43210","email":"rahul@example.com","totalBookings":5,"totalSpent":15000,"createdAt":"2026-01-15T10:00:00Z"},
+  {"id":"CUST002","name":"Priya Patel","phone":"+91 98765 43211","email":"priya@example.com","totalBookings":3,"totalSpent":8500,"createdAt":"2026-01-20T14:30:00Z"},
+  {"id":"CUST003","name":"Amit Kumar","phone":"+91 98765 43212","email":"amit@example.com","totalBookings":7,"totalSpent":18200,"createdAt":"2026-02-01T09:00:00Z"},
+  {"id":"CUST004","name":"Sneha Reddy","phone":"+91 98765 43213","email":"sneha@example.com","totalBookings":2,"totalSpent":5600,"createdAt":"2026-02-10T11:20:00Z"},
+  {"id":"CUST005","name":"Vikram Singh","phone":"+91 98765 43214","email":"vikram@example.com","totalBookings":4,"totalSpent":22000,"createdAt":"2026-02-15T16:45:00Z"},
+  {"id":"CUST006","name":"Ananya Iyer","phone":"+91 98765 43215","email":"ananya@example.com","totalBookings":6,"totalSpent":16800,"createdAt":"2026-02-20T08:30:00Z"},
+  {"id":"CUST007","name":"Rohan Mehta","phone":"+91 98765 43216","email":"rohan@example.com","totalBookings":3,"totalSpent":7200,"createdAt":"2026-03-01T13:00:00Z"},
+  {"id":"CUST008","name":"Kavita Joshi","phone":"+91 98765 43217","email":"kavita@example.com","totalBookings":8,"totalSpent":24500,"createdAt":"2026-03-05T10:15:00Z"},
+  {"id":"CUST009","name":"Arjun Nair","phone":"+91 98765 43218","email":"arjun@example.com","totalBookings":2,"totalSpent":12000,"createdAt":"2026-03-10T15:30:00Z"},
+  {"id":"CUST010","name":"Deepa Menon","phone":"+91 98765 43219","email":"deepa@example.com","totalBookings":4,"totalSpent":9800,"createdAt":"2026-03-15T09:45:00Z"},
+  {"id":"CUST011","name":"Sanjay Gupta","phone":"+91 98765 43220","email":"sanjay@example.com","totalBookings":5,"totalSpent":13500,"createdAt":"2026-03-20T12:00:00Z"},
+  {"id":"CUST012","name":"Meera Kapoor","phone":"+91 98765 43221","email":"meera@example.com","totalBookings":1,"totalSpent":15120,"createdAt":"2026-04-01T07:30:00Z"},
+  {"id":"CUST013","name":"Rajesh Verma","phone":"+91 98765 43222","email":"rajesh@example.com","totalBookings":9,"totalSpent":28700,"createdAt":"2026-04-05T14:20:00Z"},
+  {"id":"CUST014","name":"Pooja Desai","phone":"+91 98765 43223","email":"pooja@example.com","totalBookings":3,"totalSpent":8900,"createdAt":"2026-04-10T11:00:00Z"},
+  {"id":"CUST015","name":"Karan Malhotra","phone":"+91 98765 43224","email":"karan@example.com","totalBookings":6,"totalSpent":21500,"createdAt":"2026-04-15T16:15:00Z"}
+]

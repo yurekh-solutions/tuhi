@@ -1,0 +1,14 @@
+# TUHI Car Rental - robots.txt
+# Allow all crawlers access to the site
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://tuhicarrental.in/sitemap.xml
+
+# Crawl delay (be polite to servers)
+Crawl-delay: 1
+
+# Block admin area
+Disallow: /admin/
