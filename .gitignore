@@ -37,3 +37,6 @@ dist-ssr
 *.sw?
 
 .vercel
+
+# Render temporary files
+.render-tmp
