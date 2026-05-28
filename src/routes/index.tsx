@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   ArrowRight,
   MapPin,
@@ -27,6 +27,8 @@ import {
   Award,
   Navigation,
   Timer,
+  Calendar,
+  Search,
 } from "lucide-react";
 import { CAR_CLASSES, PHONE_DISPLAY, WHATSAPP_NUMBER } from "@/lib/cars";
 
@@ -160,7 +162,7 @@ const CITY_PRESENCE = [
     desc: "HITEC City rides, Shamshabad airport transfers & trips to Vijayawada & Tirupati.",
     routes: ["Hyderabad → Vijayawada", "Hyderabad → Tirupati", "Hyderabad → Warangal"],
     image:
-      "https://images.unsplash.com/photo-1572487594245-96e4443b4673?q=80&w=400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1614130365855-f920e0a57d5f?q=80&w=400&auto=format&fit=crop",
   },
   {
     name: "Chennai",
@@ -300,6 +302,10 @@ export const FEATURES = [
 
 function HomePage() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const fromInputRef = useRef<HTMLInputElement>(null);
+  const toInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -307,6 +313,66 @@ function HomePage() {
     }, 5000);
     return () => clearInterval(timer);
   }, []);
+
+  // Load Google Maps Places API
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    // Check if Google Maps is already loaded
+    if (window.google?.maps?.places) {
+      initAutocomplete();
+      return;
+    }
+
+    // Load Google Maps script
+    const script = document.createElement("script");
+    const apiKey =
+      import.meta.env.VITE_GOOGLE_MAPS_API_KEY || import.meta.env.GOOGLE_MAPS_API_KEY || "";
+
+    if (!apiKey) {
+      console.warn("Google Maps API key not found");
+      return;
+    }
+
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
+    script.async = true;
+    script.onload = () => initAutocomplete();
+    document.head.appendChild(script);
+
+    return () => {
+      if (document.head.contains(script)) {
+        document.head.removeChild(script);
+      }
+    };
+  }, []);
+
+  function initAutocomplete() {
+    if (!window.google?.maps?.places || !fromInputRef.current || !toInputRef.current) return;
+
+    const options = {
+      types: ["(cities)"],
+      componentRestrictions: { country: "in" },
+    };
+
+    const fromAutocomplete = new window.google.maps.places.Autocomplete(
+      fromInputRef.current,
+      options,
+    );
+    fromAutocomplete.addListener("place_changed", () => {
+      const place = fromAutocomplete.getPlace();
+      if (place.formatted_address) {
+        setFrom(place.formatted_address);
+      }
+    });
+
+    const toAutocomplete = new window.google.maps.places.Autocomplete(toInputRef.current, options);
+    toAutocomplete.addListener("place_changed", () => {
+      const place = toAutocomplete.getPlace();
+      if (place.formatted_address) {
+        setTo(place.formatted_address);
+      }
+    });
+  }
 
   return (
     <div>
@@ -480,41 +546,66 @@ function HomePage() {
           </div>
 
           {/* Booking Form */}
-          <div className="mx-auto max-w-4xl rounded-xl bg-white p-4 sm:p-6">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
+          <div className="mx-auto max-w-5xl rounded-xl bg-white p-4 sm:p-6">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
               {/* From */}
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700">From</label>
+                <label className="mb-1 flex items-center gap-1 text-xs font-medium text-gray-600">
+                  <MapPin size={12} /> From
+                </label>
                 <input
+                  ref={fromInputRef}
                   type="text"
-                  placeholder="Enter Pick Up City"
-                  className="w-full rounded-md border border-gray-200 px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[oklch(0.5_0.12_75)]"
+                  value={from}
+                  onChange={(e) => setFrom(e.target.value)}
+                  placeholder="Mumbai, Maharashtra, India"
+                  className="w-full rounded-md border border-gray-200 px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[oklch(0.5_0.12_75)]"
                 />
               </div>
 
-              {/* Package */}
+              {/* To */}
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700">Package</label>
-                <select className="w-full rounded-md border border-gray-200 px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[oklch(0.5_0.12_75)]">
-                  <option>8 Hours 80 Km</option>
-                  <option>12 Hours 120 Km</option>
-                  <option>200 Km Full Day</option>
-                </select>
+                <label className="mb-1 flex items-center gap-1 text-xs font-medium text-gray-600">
+                  <MapPin size={12} /> To
+                </label>
+                <input
+                  ref={toInputRef}
+                  type="text"
+                  value={to}
+                  onChange={(e) => setTo(e.target.value)}
+                  placeholder="Enter Destination City"
+                  className="w-full rounded-md border border-gray-200 px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[oklch(0.5_0.12_75)]"
+                />
               </div>
 
               {/* Departure */}
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700">Departure</label>
+                <label className="mb-1 flex items-center gap-1 text-xs font-medium text-gray-600">
+                  <Calendar size={12} /> Departure
+                </label>
                 <input
                   type="date"
-                  className="w-full rounded-md border border-gray-200 px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[oklch(0.5_0.12_75)]"
+                  className="w-full rounded-md border border-gray-200 px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[oklch(0.5_0.12_75)]"
+                />
+              </div>
+
+              {/* Return */}
+              <div>
+                <label className="mb-1 flex items-center gap-1 text-xs font-medium text-gray-600">
+                  <Calendar size={12} /> Return
+                </label>
+                <input
+                  type="date"
+                  className="w-full rounded-md border border-gray-200 px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[oklch(0.5_0.12_75)]"
                 />
               </div>
 
               {/* Pickup Time */}
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700">Pickup Time</label>
-                <select className="w-full rounded-md border border-gray-200 px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[oklch(0.5_0.12_75)]">
+                <label className="mb-1 flex items-center gap-1 text-xs font-medium text-gray-600">
+                  <Clock size={12} /> Pickup Time
+                </label>
+                <select className="w-full rounded-md border border-gray-200 px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[oklch(0.5_0.12_75)]">
                   <option>6:00 AM</option>
                   <option>7:00 AM</option>
                   <option>8:00 AM</option>
@@ -530,17 +621,19 @@ function HomePage() {
                   <option>6:00 PM</option>
                   <option>7:00 PM</option>
                   <option>8:00 PM</option>
+                  <option>9:00 PM</option>
+                  <option>10:00 PM</option>
                 </select>
               </div>
             </div>
 
             {/* Search Button */}
-            <div className="mt-4 flex justify-end">
+            <div className="mt-5 flex justify-end">
               <Link
                 to="/book"
-                className="rounded-md bg-red-500 px-8 py-3 text-sm font-bold text-white hover:bg-red-600"
+                className="flex items-center gap-2 rounded-md bg-red-500 px-8 py-3 text-sm font-bold text-white hover:bg-red-600"
               >
-                SEARCH
+                <Search size={16} /> Search
               </Link>
             </div>
           </div>
