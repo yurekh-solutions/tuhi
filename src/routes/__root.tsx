@@ -180,15 +180,19 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+  const pathname = router.state.location.pathname;
+  const isAdminRoute = pathname.startsWith("/admin");
+
   return (
     <QueryClientProvider client={queryClient}>
       <div className="flex min-h-screen flex-col">
-        <SiteHeader />
-        <main className="flex-1 pt-20 md:pt-24">
+        {!isAdminRoute && <SiteHeader />}
+        <main className={!isAdminRoute ? "flex-1 pt-20 md:pt-24" : "flex-1"}>
           <Outlet />
         </main>
-        <SiteFooter />
-        <WhatsAppFAB />
+        {!isAdminRoute && <SiteFooter />}
+        {!isAdminRoute && <WhatsAppFAB />}
       </div>
     </QueryClientProvider>
   );
