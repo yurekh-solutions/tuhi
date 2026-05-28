@@ -31,6 +31,7 @@ import {
   Search,
 } from "lucide-react";
 import { CAR_CLASSES, PHONE_DISPLAY, WHATSAPP_NUMBER } from "@/lib/cars";
+import hyderabadImg from "@/assets/image.png";
 
 // Google Maps type declaration
 declare global {
@@ -168,8 +169,7 @@ const CITY_PRESENCE = [
     name: "Hyderabad",
     desc: "HITEC City rides, Shamshabad airport transfers & trips to Vijayawada & Tirupati.",
     routes: ["Hyderabad → Vijayawada", "Hyderabad → Tirupati", "Hyderabad → Warangal"],
-    image:
-      "https://images.unsplash.com/photo-1614130365855-f920e0a57d5f?q=80&w=400&auto=format&fit=crop",
+    image: hyderabadImg,
   },
   {
     name: "Chennai",
