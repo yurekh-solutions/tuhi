@@ -505,9 +505,113 @@ function BookPage() {
                   </div>
                 </div>
 
-                <button type="submit" className="btn-gold mt-5 w-full justify-center">
-                  <MessageCircle size={18} /> Confirm on WhatsApp
-                </button>
+                {/* Payment Section - Shows BEFORE WhatsApp */}
+                {!paymentConfirmed ? (
+                  <div className="mt-5 space-y-3">
+                    <div className="rounded-2xl border-2 border-dashed border-[oklch(0.5_0.15_75)] bg-gradient-to-br from-gray-50 to-white p-6">
+                      <div className="text-center">
+                        <div className="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-full bg-gradient-to-br from-[oklch(0.85_0.15_85)] to-[oklch(0.9_0.12_80)]">
+                          <IndianRupee size={24} className="text-[oklch(0.3_0.1_250)]" />
+                        </div>
+                        <h4 className="text-sm font-bold text-gray-900">Booking Request Fee</h4>
+                        <p className="mt-1 text-xs text-gray-600">
+                          Pay ₹99 to confirm your booking
+                        </p>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          if (!pendingBooking) return;
+                          setIsProcessingPayment(true);
+
+                          try {
+                            const options = {
+                              key: import.meta.env.VITE_RAZORPAY_KEY_ID || "rzp_test_XXXXXXXXXXXX",
+                              amount: 9900,
+                              currency: "INR",
+                              name: "Tuhi Car Rental",
+                              description: "Booking Request Fee",
+                              image: "/favicon.svg",
+                              handler: function (response: any) {
+                                setPaymentConfirmed(true);
+                                setIsProcessingPayment(false);
+                                const updatedBooking = {
+                                  ...pendingBooking,
+                                  paymentStatus: "paid" as const,
+                                  notes: `Razorpay Payment ID: ${response.razorpay_payment_id}`,
+                                };
+                                setPendingBooking(updatedBooking);
+                              },
+                              prefill: {
+                                name: pendingBooking.customerName,
+                                contact: pendingBooking.phone,
+                              },
+                              theme: {
+                                color: "#4A5568",
+                              },
+                            };
+
+                            const script = document.createElement("script");
+                            script.src = "https://checkout.razorpay.com/v1/checkout.js";
+                            script.async = true;
+                            script.onload = () => {
+                              const razorpay = new (window as any).Razorpay(options);
+                              razorpay.open();
+                            };
+                            document.head.appendChild(script);
+                          } catch (error) {
+                            console.error("Payment failed:", error);
+                            setIsProcessingPayment(false);
+                            alert("Payment failed. Please try again.");
+                          }
+                        }}
+                        disabled={isProcessingPayment}
+                        className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[oklch(0.5_0.15_75)] to-[oklch(0.6_0.14_80)] py-3 text-sm font-bold text-white shadow-lg transition-all hover:from-[oklch(0.6_0.14_80)] hover:to-[oklch(0.7_0.12_85)] hover:shadow-xl active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
+                      >
+                        {isProcessingPayment ? (
+                          <>
+                            <Loader2 size={18} className="animate-spin" />
+                            Processing...
+                          </>
+                        ) : (
+                          <>
+                            <IndianRupee size={18} />
+                            Pay ₹99 via Razorpay
+                          </>
+                        )}
+                      </button>
+
+                      <p className="mt-3 text-center text-[10px] text-gray-500">
+                        Secure payment • Instant confirmation
+                      </p>
+                    </div>
+
+                    <div className="rounded-lg bg-blue-50 p-3 text-center">
+                      <p className="text-xs text-blue-800">
+                        <MessageCircle size={14} className="inline mr-1" />
+                        WhatsApp button will appear after payment
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  /* WhatsApp Button - Shows AFTER payment */
+                  <>
+                    <div className="mt-5 rounded-2xl bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-200 p-4 text-center">
+                      <CheckCircle2 size={32} className="mx-auto text-green-600" />
+                      <p className="mt-2 text-sm font-bold text-green-800">Payment Successful!</p>
+                      <p className="text-xs text-green-700">Your booking is confirmed</p>
+                    </div>
+
+                    <button
+                      type="submit"
+                      className="btn-gold mt-4 w-full justify-center bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700"
+                    >
+                      <MessageCircle size={18} /> Confirm on WhatsApp
+                    </button>
+                  </>
+                )}
+
                 {carId === "custom" && (
                   <button
                     type="button"
