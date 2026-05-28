@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import {
   ArrowRight,
@@ -308,6 +308,7 @@ export const FEATURES = [
 ];
 
 function HomePage() {
+  const router = useRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
@@ -542,186 +543,199 @@ function HomePage() {
       </section>
 
       {/* BOOKING FORM - hirecab.net inspired */}
-      <section className="section bg-gradient-to-br from-[oklch(0.3_0.1_250)] via-[oklch(0.25_0.15_260)] to-[oklch(0.35_0.12_240)] text-white">
-        <div className="mx-auto max-w-7xl">
-          <h2 className="mb-8 text-center text-2xl font-bold md:text-4xl">
-            Online Cab Booking Service
-          </h2>
-
-          {/* Trip Type Tabs */}
-          <div className="mb-6 flex justify-center gap-3">
-            <button
-              onClick={() => setTripType("local")}
-              className={`rounded-md px-5 py-2 text-sm font-semibold transition-all ${tripType === "local" ? "bg-white text-[oklch(0.3_0.1_250)]" : "border border-white/30 text-white hover:bg-white/10"}`}
-            >
-              Local Trip
-            </button>
-            <button
-              onClick={() => setTripType("outstation")}
-              className={`rounded-md px-5 py-2 text-sm font-semibold transition-all ${tripType === "outstation" ? "bg-white text-[oklch(0.3_0.1_250)]" : "border border-white/30 text-white hover:bg-white/10"}`}
-            >
-              Outstation Trip
-            </button>
-            <button
-              onClick={() => setTripType("bus")}
-              className={`rounded-md px-5 py-2 text-sm font-semibold transition-all ${tripType === "bus" ? "bg-white text-[oklch(0.3_0.1_250)]" : "border border-white/30 text-white hover:bg-white/10"}`}
-            >
-              Hire a Bus
-            </button>
+      <section className="relative overflow-hidden bg-gradient-to-br from-[oklch(0.25_0.12_260)] via-[oklch(0.3_0.1_250)] to-[oklch(0.35_0.12_240)] text-white">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-10"
+          style={{
+            backgroundImage:
+              "url(https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=2070&auto=format&fit=crop)",
+          }}
+        />
+        <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 sm:py-20 md:py-24">
+          {/* Header */}
+          <div className="mb-10 text-center">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-medium backdrop-blur-sm border border-white/20">
+              <Sparkles size={16} className="text-[oklch(0.86_0.12_85)]" />
+              Instant Booking Inquiry
+            </span>
+            <h2 className="mt-4 text-3xl font-bold md:text-5xl">Online Cab Booking Service</h2>
+            <p className="mx-auto mt-3 max-w-2xl text-base text-white/80">
+              Fill in your trip details and we'll get back to you instantly via WhatsApp with the
+              best fare!
+            </p>
           </div>
 
-          {/* Booking Form */}
-          <div className="mx-auto max-w-5xl rounded-xl bg-white p-4 sm:p-6">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+          {/* Booking Form Card */}
+          <div className="mx-auto max-w-5xl rounded-2xl bg-white p-6 shadow-2xl sm:p-8">
+            {/* Trip Type Tabs */}
+            <div className="mb-6 flex flex-wrap justify-center gap-3">
+              <button
+                onClick={() => setTripType("local")}
+                className={`flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold transition-all ${
+                  tripType === "local"
+                    ? "bg-[oklch(0.3_0.1_250)] text-white shadow-lg"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                <Clock size={16} /> Local Trip
+              </button>
+              <button
+                onClick={() => setTripType("outstation")}
+                className={`flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold transition-all ${
+                  tripType === "outstation"
+                    ? "bg-[oklch(0.3_0.1_250)] text-white shadow-lg"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                <Navigation size={16} /> Outstation Trip
+              </button>
+              <button
+                onClick={() => setTripType("bus")}
+                className={`flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold transition-all ${
+                  tripType === "bus"
+                    ? "bg-[oklch(0.3_0.1_250)] text-white shadow-lg"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                <Users size={16} /> Hire a Bus
+              </button>
+            </div>
+
+            {/* Form Fields Grid */}
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {/* From */}
-              <div>
-                <label className="mb-1 flex items-center gap-1 text-xs font-medium text-gray-600">
-                  <MapPin size={12} /> From
+              <div className="relative">
+                <label className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-gray-600">
+                  <MapPin size={14} className="text-[oklch(0.5_0.12_75)]" /> From
                 </label>
                 <input
                   ref={fromInputRef}
                   type="text"
                   value={from}
                   onChange={(e) => setFrom(e.target.value)}
-                  placeholder="Mumbai, Maharashtra, India"
-                  className="w-full rounded-md border border-gray-200 px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[oklch(0.5_0.12_75)]"
+                  placeholder="Enter Pick Up City"
+                  className="w-full rounded-lg border-2 border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900 transition-colors focus:border-[oklch(0.5_0.12_75)] focus:bg-white focus:outline-none"
                 />
               </div>
 
               {/* To */}
-              <div>
-                <label className="mb-1 flex items-center gap-1 text-xs font-medium text-gray-600">
-                  <MapPin size={12} /> To
-                </label>
-                <input
-                  ref={toInputRef}
-                  type="text"
-                  value={to}
-                  onChange={(e) => setTo(e.target.value)}
-                  placeholder="Enter Destination City"
-                  className="w-full rounded-md border border-gray-200 px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[oklch(0.5_0.12_75)]"
-                />
-              </div>
+              {tripType !== "local" && (
+                <div className="relative">
+                  <label className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-gray-600">
+                    <MapPin size={14} className="text-[oklch(0.5_0.12_75)]" /> To
+                  </label>
+                  <input
+                    ref={toInputRef}
+                    type="text"
+                    value={to}
+                    onChange={(e) => setTo(e.target.value)}
+                    placeholder="Enter Destination City"
+                    className="w-full rounded-lg border-2 border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900 transition-colors focus:border-[oklch(0.5_0.12_75)] focus:bg-white focus:outline-none"
+                  />
+                </div>
+              )}
 
-              {/* Departure */}
+              {/* Departure Date */}
               <div>
-                <label className="mb-1 flex items-center gap-1 text-xs font-medium text-gray-600">
-                  <Calendar size={12} /> Departure
+                <label className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-gray-600">
+                  <Calendar size={14} className="text-[oklch(0.5_0.12_75)]" /> Departure
                 </label>
                 <input
                   type="date"
                   value={departure}
                   onChange={(e) => setDeparture(e.target.value)}
-                  className="w-full rounded-md border border-gray-200 px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[oklch(0.5_0.12_75)]"
+                  className="w-full rounded-lg border-2 border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900 transition-colors focus:border-[oklch(0.5_0.12_75)] focus:bg-white focus:outline-none"
                 />
               </div>
 
-              {/* Return - Only for Outstation */}
+              {/* Return Date - Only for Outstation */}
               {tripType === "outstation" && (
                 <div>
-                  <label className="mb-1 flex items-center gap-1 text-xs font-medium text-gray-600">
-                    <Calendar size={12} /> Return
+                  <label className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-gray-600">
+                    <Calendar size={14} className="text-[oklch(0.5_0.12_75)]" /> Return
                   </label>
                   <input
                     type="date"
                     value={returnDate}
                     onChange={(e) => setReturnDate(e.target.value)}
-                    className="w-full rounded-md border border-gray-200 px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[oklch(0.5_0.12_75)]"
+                    className="w-full rounded-lg border-2 border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900 transition-colors focus:border-[oklch(0.5_0.12_75)] focus:bg-white focus:outline-none"
                   />
                 </div>
               )}
 
               {/* Pickup Time */}
               <div>
-                <label className="mb-1 flex items-center gap-1 text-xs font-medium text-gray-600">
-                  <Clock size={12} /> Pickup Time
+                <label className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-gray-600">
+                  <Clock size={14} className="text-[oklch(0.5_0.12_75)]" /> Pickup Time
                 </label>
                 <select
                   value={pickupTime}
                   onChange={(e) => setPickupTime(e.target.value)}
-                  className="w-full rounded-md border border-gray-200 px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[oklch(0.5_0.12_75)]"
+                  className="w-full rounded-lg border-2 border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900 transition-colors focus:border-[oklch(0.5_0.12_75)] focus:bg-white focus:outline-none"
                 >
-                  <option>6:00 AM</option>
-                  <option>7:00 AM</option>
-                  <option>8:00 AM</option>
-                  <option>9:00 AM</option>
-                  <option>10:00 AM</option>
-                  <option>11:00 AM</option>
-                  <option>12:00 PM</option>
-                  <option>1:00 PM</option>
-                  <option>2:00 PM</option>
-                  <option>3:00 PM</option>
-                  <option>4:00 PM</option>
-                  <option>5:00 PM</option>
-                  <option>6:00 PM</option>
-                  <option>7:00 PM</option>
-                  <option>8:00 PM</option>
-                  <option>9:00 PM</option>
-                  <option>10:00 PM</option>
+                  {Array.from({ length: 34 }, (_, i) => {
+                    const hour = Math.floor(i / 2) + 6;
+                    const minute = i % 2 === 0 ? "00" : "30";
+                    const period = hour < 12 ? "AM" : "PM";
+                    const displayHour = hour > 12 ? hour - 12 : hour;
+                    return (
+                      <option key={i}>
+                        {displayHour}:{minute} {period}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
             </div>
 
             {/* Search Button */}
-            <div className="mt-5 flex justify-end">
-              <Link
-                to="/book"
-                className="flex items-center gap-2 rounded-md bg-red-500 px-8 py-3 text-sm font-bold text-white hover:bg-red-600"
+            <div className="mt-6 flex justify-center">
+              <button
+                onClick={() => {
+                  if (!from) {
+                    alert("Please enter pickup location");
+                    return;
+                  }
+                  // Navigate to booking page with pre-filled data
+                  router.navigate({
+                    to: "/book",
+                    search: {
+                      from,
+                      to: tripType !== "local" ? to : "",
+                      date: departure,
+                      returnDate: tripType === "outstation" ? returnDate : undefined,
+                      time: pickupTime,
+                      tripType,
+                    } as Record<string, unknown>,
+                  });
+                }}
+                className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[oklch(0.5_0.15_75)] to-[oklch(0.6_0.14_80)] px-10 py-4 text-base font-bold text-white shadow-lg transition-all hover:from-[oklch(0.6_0.14_80)] hover:to-[oklch(0.7_0.12_85)] hover:shadow-xl active:scale-95"
               >
-                <Search size={16} /> Search
-              </Link>
+                <Search size={18} /> Search Cabs
+              </button>
+            </div>
+
+            {/* Trust Badges */}
+            <div className="mt-6 flex flex-wrap justify-center gap-6 border-t border-gray-200 pt-6">
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <CheckCircle2 size={16} className="text-green-500" />
+                <span>Instant WhatsApp Response</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <CheckCircle2 size={16} className="text-green-500" />
+                <span>Best Price Guaranteed</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <CheckCircle2 size={16} className="text-green-500" />
+                <span>Verified Drivers</span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CAB SERVICE IN INDIA — SEO LINKS */}
-      <section className="section pt-4">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-10 max-w-2xl">
-            <span className="chip">Since 2006</span>
-            <h2 className="mt-3 text-3xl font-bold md:text-5xl">Cab Service in India</h2>
-            <p className="mt-3 text-muted-foreground">
-              Tuhi Car Rental offers reliable cab services across India. Airport transfers,
-              outstation trips, luxury cars, sightseeing packages and group travel — all from one
-              trusted provider.
-            </p>
-          </div>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {CAB_SERVICE_LINKS.map((category) => (
-              <div
-                key={category.title}
-                className="rounded-2xl border border-[oklch(0.86_0.12_85_/_0.3)] bg-[oklch(0.86_0.12_85_/_0.08)] p-6"
-              >
-                <h3 className="text-lg font-bold">{category.title}</h3>
-                <ul className="mt-4 space-y-2.5">
-                  {category.links.map((link) => (
-                    <li key={link}>
-                      <Link
-                        to="/book"
-                        search={
-                          {
-                            from: link.split(" in ").pop() || link.split(" from ").pop() || "",
-                          } as never
-                        }
-                        className="text-sm text-foreground/80 transition-colors hover:text-[oklch(0.5_0.12_75)] hover:underline"
-                      >
-                        {link}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  to="/services"
-                  className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[oklch(0.5_0.12_75)]"
-                >
-                  More... <ArrowRight size={12} />
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+   
 
       {/* SERVICES */}
       <section className="section pt-4">
@@ -976,7 +990,53 @@ function HomePage() {
           </div>
         </div>
       </section>
-
+   {/* CAB SERVICE IN INDIA — SEO LINKS */}
+      <section className="section pt-4">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 max-w-2xl">
+            <span className="chip">Since 2006</span>
+            <h2 className="mt-3 text-3xl font-bold md:text-5xl">Cab Service in India</h2>
+            <p className="mt-3 text-muted-foreground">
+              Tuhi Car Rental offers reliable cab services across India. Airport transfers,
+              outstation trips, luxury cars, sightseeing packages and group travel — all from one
+              trusted provider.
+            </p>
+          </div>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {CAB_SERVICE_LINKS.map((category) => (
+              <div
+                key={category.title}
+                className="rounded-2xl border border-[oklch(0.86_0.12_85_/_0.3)] bg-[oklch(0.86_0.12_85_/_0.08)] p-6"
+              >
+                <h3 className="text-lg font-bold">{category.title}</h3>
+                <ul className="mt-4 space-y-2.5">
+                  {category.links.map((link) => (
+                    <li key={link}>
+                      <Link
+                        to="/book"
+                        search={
+                          {
+                            from: link.split(" in ").pop() || link.split(" from ").pop() || "",
+                          } as never
+                        }
+                        className="text-sm text-foreground/80 transition-colors hover:text-[oklch(0.5_0.12_75)] hover:underline"
+                      >
+                        {link}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  to="/services"
+                  className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[oklch(0.5_0.12_75)]"
+                >
+                  More... <ArrowRight size={12} />
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
       {/* TESTIMONIALS */}
       <section className="section pt-0">
         <div className="mx-auto max-w-7xl">

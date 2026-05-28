@@ -31,11 +31,25 @@ const saveBookingToAdmin = createServerFn({ method: "POST" })
     return { success: true };
   });
 
-type Search = { car?: string };
+type Search = {
+  car?: string;
+  from?: string;
+  to?: string;
+  date?: string;
+  returnDate?: string;
+  time?: string;
+  tripType?: string;
+};
 
 export const Route = createFileRoute("/book")({
   validateSearch: (s: Record<string, unknown>): Search => ({
     car: typeof s.car === "string" ? s.car : undefined,
+    from: typeof s.from === "string" ? s.from : undefined,
+    to: typeof s.to === "string" ? s.to : undefined,
+    date: typeof s.date === "string" ? s.date : undefined,
+    returnDate: typeof s.returnDate === "string" ? s.returnDate : undefined,
+    time: typeof s.time === "string" ? s.time : undefined,
+    tripType: typeof s.tripType === "string" ? s.tripType : undefined,
   }),
   head: () => ({
     meta: [
@@ -65,11 +79,17 @@ function today() {
 
 function BookPage() {
   const search = useSearch({ from: "/book" });
-  const [tripType, setTripType] = useState<"oneway" | "round" | "airport" | "local">("oneway");
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
-  const [date, setDate] = useState(today());
-  const [time, setTime] = useState("09:00");
+  const [tripType, setTripType] = useState<"oneway" | "round" | "airport" | "local">(() => {
+    const tt = search.tripType;
+    if (tt === "outstation") return "round";
+    if (tt === "local") return "local";
+    if (tt === "airport") return "airport";
+    return "oneway";
+  });
+  const [from, setFrom] = useState(search.from || "");
+  const [to, setTo] = useState(search.to || "");
+  const [date, setDate] = useState(search.date || today());
+  const [time, setTime] = useState(search.time || "09:00");
   const [carId, setCarId] = useState(search.car ?? "sedan");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
