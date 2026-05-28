@@ -32,6 +32,10 @@ import {
   Calendar,
   Search,
   X,
+  TrendingUp,
+  Map,
+  ThumbsUp,
+  Timer,
 } from "lucide-react";
 import heroCar from "@/assets/hero-car.jpg";
 import { CAR_CLASSES, PHONE_DISPLAY, WHATSAPP_NUMBER } from "@/lib/cars";
@@ -61,6 +65,58 @@ export const Route = createFileRoute("/")({
   }),
   component: HomePage,
 });
+
+const TRUST_STATS = [
+  { icon: Car, value: "50,000+", label: "Trips Completed", suffix: "" },
+  { icon: MapPin, value: "500+", label: "Cities Covered", suffix: "" },
+  { icon: Users, value: "10,000+", label: "Happy Customers", suffix: "" },
+  { icon: Timer, value: "24/7", label: "Support Available", suffix: "" },
+];
+
+const CITY_PRESENCE = [
+  {
+    name: "Mumbai",
+    desc: "Airport transfers, Pune expressway trips & local rides across the financial capital.",
+    routes: ["Mumbai → Pune", "Mumbai → Nashik", "Mumbai → Goa"],
+    image:
+      "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?q=80&w=400&auto=format&fit=crop",
+  },
+  {
+    name: "Delhi NCR",
+    desc: "Outstation cabs to Jaipur, Agra, Manali & beyond. Corporate travel in Gurgaon & Noida.",
+    routes: ["Delhi → Jaipur", "Delhi → Agra", "Delhi → Manali"],
+    image:
+      "https://images.unsplash.com/photo-1587474260584-136574528ed5?q=80&w=400&auto=format&fit=crop",
+  },
+  {
+    name: "Bangalore",
+    desc: "Tech park commutes, airport pickups & weekend getaways to Mysore, Coorg & Ooty.",
+    routes: ["Bangalore → Mysore", "Bangalore → Coorg", "Bangalore → Ooty"],
+    image:
+      "https://images.unsplash.com/photo-1596176530529-78163a4f7af2?q=80&w=400&auto=format&fit=crop",
+  },
+  {
+    name: "Hyderabad",
+    desc: "HITEC City rides, Shamshabad airport transfers & trips to Vijayawada & Tirupati.",
+    routes: ["Hyderabad → Vijayawada", "Hyderabad → Tirupati", "Hyderabad → Warangal"],
+    image:
+      "https://images.unsplash.com/photo-1572638001722-88e4ff6a0e44?q=80&w=400&auto=format&fit=crop",
+  },
+  {
+    name: "Chennai",
+    desc: "Marina beach to Mahabalipuram, airport cabs & Pondicherry weekend drives.",
+    routes: ["Chennai → Pondicherry", "Chennai → Tirupati", "Chennai → Madurai"],
+    image:
+      "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=400&auto=format&fit=crop",
+  },
+  {
+    name: "Kolkata",
+    desc: "Howrah pickups, Digha beach trips & Darjeeling hill station getaways.",
+    routes: ["Kolkata → Digha", "Kolkata → Darjeeling", "Kolkata → Puri"],
+    image:
+      "https://images.unsplash.com/photo-1558431382-27e303142255?q=80&w=400&auto=format&fit=crop",
+  },
+];
 
 const POPULAR_ROUTES = [
   { from: "Delhi", to: "Jaipur", km: 280, hrs: "5h", price: 3920, icon: Mountain },
@@ -273,7 +329,87 @@ function HomePage() {
         </div>
       </section>
 
-      {/* BOOKING WIDGET SECTION */}
+      {/* TRUST STATS BAR */}
+      <section className="relative z-20 -mt-16 pb-8">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 md:gap-6">
+            {TRUST_STATS.map((stat) => (
+              <div
+                key={stat.label}
+                className="glass group flex flex-col items-center gap-2 rounded-2xl p-5 text-center transition-transform hover:-translate-y-1 sm:p-6"
+              >
+                <div
+                  className="grid h-12 w-12 place-items-center rounded-xl text-[oklch(0.25_0.05_260)]"
+                  style={{ background: "var(--gradient-gold)" }}
+                >
+                  <stat.icon size={20} />
+                </div>
+                <div className="text-2xl font-bold sm:text-3xl">{stat.value}</div>
+                <div className="text-xs text-muted-foreground sm:text-sm">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CITY PRESENCE */}
+      <section className="section pt-4">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 max-w-2xl">
+            <span className="chip">Our Presence</span>
+            <h2 className="mt-3 text-3xl font-bold md:text-5xl">Serving across India</h2>
+            <p className="mt-3 text-muted-foreground">
+              From metro cities to hill stations — Tuhi's verified chauffeurs are ready in 500+
+              cities nationwide.
+            </p>
+          </div>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {CITY_PRESENCE.map((city) => (
+              <div
+                key={city.name}
+                className="neu group relative overflow-hidden rounded-2xl transition-transform hover:-translate-y-1"
+              >
+                {/* City Image */}
+                <div className="relative h-40 overflow-hidden sm:h-48">
+                  <img
+                    src={city.image}
+                    alt={city.name}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                  <h3 className="absolute bottom-4 left-5 text-xl font-bold text-white sm:text-2xl">
+                    {city.name}
+                  </h3>
+                </div>
+                {/* City Content */}
+                <div className="p-5">
+                  <p className="text-sm text-muted-foreground">{city.desc}</p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {city.routes.map((route) => (
+                      <span
+                        key={route}
+                        className="inline-flex items-center gap-1 rounded-full bg-[var(--muted)] px-3 py-1 text-xs font-medium"
+                      >
+                        <MapPin size={10} className="text-[oklch(0.5_0.12_75)]" />
+                        {route}
+                      </span>
+                    ))}
+                  </div>
+                  <a
+                    href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hi Tuhi, I want to book a cab in ${city.name}.`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[oklch(0.5_0.12_75)] transition-colors hover:text-[oklch(0.6_0.14_80)]"
+                  >
+                    Book in {city.name} <ArrowRight size={14} />
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* SERVICES */}
       <section className="section pt-4">
