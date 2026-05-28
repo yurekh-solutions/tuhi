@@ -160,7 +160,7 @@ const CITY_PRESENCE = [
     desc: "HITEC City rides, Shamshabad airport transfers & trips to Vijayawada & Tirupati.",
     routes: ["Hyderabad → Vijayawada", "Hyderabad → Tirupati", "Hyderabad → Warangal"],
     image:
-      "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?q=80&w=400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1614130365855-f920e0a57d5f?q=80&w=400&auto=format&fit=crop",
   },
   {
     name: "Chennai",
@@ -463,7 +463,7 @@ function HomePage() {
       <section className="section pt-4">
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 max-w-2xl">
-            <span className="chip">Since 2020</span>
+            <span className="chip">Since 2006</span>
             <h2 className="mt-3 text-3xl font-bold md:text-5xl">Cab Service in India</h2>
             <p className="mt-3 text-muted-foreground">
               Tuhi Car Rental offers reliable cab services across India. Airport transfers,
