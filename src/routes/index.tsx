@@ -9,7 +9,6 @@ import {
   Car,
   Phone,
   MessageCircle,
-  IndianRupee,
   Sparkles,
   Users,
   Briefcase,
@@ -26,18 +25,9 @@ import {
   Wallet,
   Headphones,
   Award,
-  UserCheck,
   Navigation,
-  Play,
-  Calendar,
-  Search,
-  X,
-  TrendingUp,
-  Map,
-  ThumbsUp,
   Timer,
 } from "lucide-react";
-import heroCar from "@/assets/hero-car.jpg";
 import { CAR_CLASSES, PHONE_DISPLAY, WHATSAPP_NUMBER } from "@/lib/cars";
 
 const HERO_BG_IMAGES = [
@@ -73,6 +63,76 @@ const TRUST_STATS = [
   { icon: Timer, value: "24/7", label: "Support Available", suffix: "" },
 ];
 
+const CAB_SERVICE_LINKS = [
+  {
+    title: "Airport Cab Service",
+    links: [
+      "Mumbai Airport Cab",
+      "New Delhi Airport Taxi",
+      "Bangalore Airport Car Rental",
+      "Hyderabad Airport Cab",
+      "Chennai Airport Taxi",
+      "Pune Airport Cab",
+      "Kolkata Airport Taxi",
+      "Goa Airport Cab",
+      "Jaipur Airport Taxi",
+      "Nagpur Airport Cab",
+    ],
+  },
+  {
+    title: "Luxury Car Rental",
+    links: [
+      "Luxury Car in Mumbai",
+      "Luxury Car in Delhi",
+      "Luxury Car in Pune",
+      "Luxury Car in Bangalore",
+      "Luxury Car in Hyderabad",
+      "Luxury Car in Chennai",
+      "Luxury Car in Kolkata",
+      "Wedding Car Rental",
+    ],
+  },
+  {
+    title: "Outstation Cab Booking",
+    links: [
+      "Outstation Taxi from Mumbai",
+      "Delhi Outstation Cab",
+      "Outstation Cab in Pune",
+      "Outstation Cabs from Bangalore",
+      "Hyderabad Outstation Taxi",
+      "Chennai Outstation Cab",
+      "Kolkata Outstation Cab",
+      "Jaipur Outstation Taxi",
+    ],
+  },
+  {
+    title: "Local Sightseeing Packages",
+    links: [
+      "Mumbai Darshan Cab",
+      "Delhi Darshan Cab",
+      "Pune Darshan Cab",
+      "Kolkata Darshan Taxi",
+      "Goa Sightseeing Cab",
+      "Jaipur City Tour",
+      "Hyderabad City Tour",
+      "Chennai City Tour",
+    ],
+  },
+  {
+    title: "Tempo Traveller & Buses",
+    links: [
+      "Hire a Bus in Mumbai",
+      "Rent a Bus in Delhi",
+      "Book Bus in Varanasi",
+      "Hire Bus in Pune",
+      "Bus on Rent in Bangalore",
+      "Tempo Traveller in Hyderabad",
+      "Group Travel in Goa",
+      "Tempo Traveller in Kolkata",
+    ],
+  },
+];
+
 const CITY_PRESENCE = [
   {
     name: "Mumbai",
@@ -100,7 +160,7 @@ const CITY_PRESENCE = [
     desc: "HITEC City rides, Shamshabad airport transfers & trips to Vijayawada & Tirupati.",
     routes: ["Hyderabad → Vijayawada", "Hyderabad → Tirupati", "Hyderabad → Warangal"],
     image:
-      "https://images.unsplash.com/photo-1572638001722-88e4ff6a0e44?q=80&w=400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?q=80&w=400&auto=format&fit=crop",
   },
   {
     name: "Chennai",
@@ -119,12 +179,12 @@ const CITY_PRESENCE = [
 ];
 
 const POPULAR_ROUTES = [
-  { from: "Delhi", to: "Jaipur", km: 280, hrs: "5h", price: 3920, icon: Mountain },
-  { from: "Mumbai", to: "Pune", km: 150, hrs: "3h", price: 2100, icon: Building2 },
-  { from: "Bangalore", to: "Mysore", km: 145, hrs: "3h", price: 2030, icon: Mountain },
-  { from: "Chennai", to: "Pondicherry", km: 165, hrs: "3.5h", price: 2310, icon: Heart },
-  { from: "Hyderabad", to: "Vijayawada", km: 275, hrs: "4.5h", price: 3850, icon: Building2 },
-  { from: "Kolkata", to: "Digha", km: 185, hrs: "4h", price: 2590, icon: Heart },
+  { from: "Delhi", to: "Jaipur", km: 280, hrs: "5h", icon: Mountain },
+  { from: "Mumbai", to: "Pune", km: 150, hrs: "3h", icon: Building2 },
+  { from: "Bangalore", to: "Mysore", km: 145, hrs: "3h", icon: Mountain },
+  { from: "Chennai", to: "Pondicherry", km: 165, hrs: "3.5h", icon: Heart },
+  { from: "Hyderabad", to: "Vijayawada", km: 275, hrs: "4.5h", icon: Building2 },
+  { from: "Kolkata", to: "Digha", km: 185, hrs: "4h", icon: Heart },
 ];
 
 const TESTIMONIALS = [
@@ -153,19 +213,19 @@ const SERVICES = [
     icon: Plane,
     title: "Airport Transfers",
     desc: "Meet & greet, flight tracking, free 60 min wait.",
-    tag: "From ₹699",
+    tag: "Most Popular",
   },
   {
     icon: MapPin,
     title: "Outstation One-way",
     desc: "Pay only one side. No return charges.",
-    tag: "From ₹12/km",
+    tag: "Pan India",
   },
   {
     icon: Clock,
     title: "Local Trips",
     desc: "8hrs/80km or 12hrs/120km packages available.",
-    tag: "From ₹999",
+    tag: "Flexible",
   },
   {
     icon: Building2,
@@ -183,19 +243,19 @@ const SERVICES = [
     icon: Car,
     title: "Luxury Rentals",
     desc: "Premium sedans & SUVs for special occasions.",
-    tag: "From ₹25/km",
+    tag: "Premium",
   },
   {
     icon: Users,
     title: "Tempo Traveller",
     desc: "8-12 seater AC vehicles for group travel.",
-    tag: "From ₹18/km",
+    tag: "Groups",
   },
   {
     icon: Mountain,
     title: "Sightseeing Packages",
     desc: "Local darshan & city tour packages.",
-    tag: "From ₹1,499",
+    tag: "Explore",
   },
 ];
 
@@ -240,12 +300,6 @@ export const FEATURES = [
 
 function HomePage() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [bookingType, setBookingType] = useState<"outstation" | "local" | "airport">("outstation");
-  const [pickup, setPickup] = useState("");
-  const [drop, setDrop] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [carType, setCarType] = useState("sedan");
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -253,11 +307,6 @@ function HomePage() {
     }, 5000);
     return () => clearInterval(timer);
   }, []);
-
-  const handleBookNow = () => {
-    const message = `Hi Tuhi, I want to book a ${bookingType} cab:\nPickup: ${pickup}\nDrop: ${drop}\nDate: ${date}\nTime: ${time}\nCar: ${carType}`;
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank");
-  };
 
   return (
     <div>
@@ -330,7 +379,7 @@ function HomePage() {
       </section>
 
       {/* TRUST STATS BAR */}
-      <section className="relative z-20 -mt-16 pb-8">
+      <section className="relative z-20 mt-8 pb-8">
         <div className="mx-auto max-w-6xl px-4">
           <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 md:gap-6">
             {TRUST_STATS.map((stat) => (
@@ -396,15 +445,62 @@ function HomePage() {
                       </span>
                     ))}
                   </div>
-                  <a
-                    href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hi Tuhi, I want to book a cab in ${city.name}.`)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    to="/book"
+                    search={{ from: city.name } as never}
                     className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[oklch(0.5_0.12_75)] transition-colors hover:text-[oklch(0.6_0.14_80)]"
                   >
                     Book in {city.name} <ArrowRight size={14} />
-                  </a>
+                  </Link>
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CAB SERVICE IN INDIA — SEO LINKS */}
+      <section className="section pt-4">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 max-w-2xl">
+            <span className="chip">Since 2020</span>
+            <h2 className="mt-3 text-3xl font-bold md:text-5xl">Cab Service in India</h2>
+            <p className="mt-3 text-muted-foreground">
+              Tuhi Car Rental offers reliable cab services across India. Airport transfers,
+              outstation trips, luxury cars, sightseeing packages and group travel — all from one
+              trusted provider.
+            </p>
+          </div>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {CAB_SERVICE_LINKS.map((category) => (
+              <div
+                key={category.title}
+                className="rounded-2xl border border-[oklch(0.86_0.12_85_/_0.3)] bg-[oklch(0.86_0.12_85_/_0.08)] p-6"
+              >
+                <h3 className="text-lg font-bold">{category.title}</h3>
+                <ul className="mt-4 space-y-2.5">
+                  {category.links.map((link) => (
+                    <li key={link}>
+                      <Link
+                        to="/book"
+                        search={
+                          {
+                            from: link.split(" in ").pop() || link.split(" from ").pop() || "",
+                          } as never
+                        }
+                        className="text-sm text-foreground/80 transition-colors hover:text-[oklch(0.5_0.12_75)] hover:underline"
+                      >
+                        {link}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  to="/services"
+                  className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[oklch(0.5_0.12_75)]"
+                >
+                  More... <ArrowRight size={12} />
+                </Link>
               </div>
             ))}
           </div>
@@ -504,15 +600,6 @@ function HomePage() {
                     <h3 className="text-xl font-bold">{c.name}</h3>
                     <p className="text-xs text-muted-foreground">{c.examples}</p>
                   </div>
-                  <div className="text-right">
-                    <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
-                      from
-                    </div>
-                    <div className="text-lg font-bold">
-                      ₹{c.perKm}
-                      <span className="text-xs font-medium text-muted-foreground">/km</span>
-                    </div>
-                  </div>
                 </div>
 
                 <p className="mt-3 text-sm text-muted-foreground">{c.tagline}</p>
@@ -577,17 +664,16 @@ function HomePage() {
             <span className="chip">Popular routes</span>
             <h2 className="mt-3 text-3xl font-bold md:text-5xl">India's most booked drives</h2>
             <p className="mt-3 text-muted-foreground">
-              Fixed sedan one-way fares. Book any of these in 30 seconds on WhatsApp.
+              Book any of these routes in under a minute through our booking form.
             </p>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {POPULAR_ROUTES.map((r) => (
-              <a
+              <Link
                 key={r.from + r.to}
-                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hi Tuhi, I want to book ${r.from} to ${r.to}.`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
+                to="/book"
+                search={{ from: r.from, to: r.to } as never}
                 className="glass group flex items-center gap-4 p-5 transition-transform hover:-translate-y-1"
               >
                 <div
@@ -607,12 +693,11 @@ function HomePage() {
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
-                    Sedan
-                  </div>
-                  <div className="text-base font-bold">₹{r.price.toLocaleString("en-IN")}</div>
+                  <span className="inline-flex items-center gap-1 text-sm font-semibold text-[oklch(0.5_0.12_75)]">
+                    Book <ArrowRight size={12} />
+                  </span>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         </div>

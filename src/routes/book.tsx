@@ -1,6 +1,6 @@
 import { createFileRoute, useSearch } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { useServerFn } from "@tanstack/react-start";
+import { useServerFn, createServerFn } from "@tanstack/react-start";
 import { useMutation } from "@tanstack/react-query";
 import {
   MapPin,
@@ -21,6 +21,15 @@ import {
 } from "lucide-react";
 import { CAR_CLASSES, PHONE_DISPLAY, WHATSAPP_NUMBER } from "@/lib/cars";
 import { computeDistance } from "@/lib/distance.functions";
+import { createBooking } from "@/lib/data.server";
+import type { Booking } from "@/lib/data.server";
+
+const saveBookingToAdmin = createServerFn({ method: "POST" })
+  .inputValidator((data: Booking) => data)
+  .handler(async ({ data }) => {
+    createBooking(data);
+    return { success: true };
+  });
 
 type Search = { car?: string };
 
@@ -75,6 +84,7 @@ function BookPage() {
   const [customRequirements, setCustomRequirements] = useState("");
 
   const distanceFn = useServerFn(computeDistance);
+  const saveBookingFn = useServerFn(saveBookingToAdmin);
   const distanceMut = useMutation({
     mutationFn: (vars: { origin: string; destination: string }) => distanceFn({ data: vars }),
     onSuccess: (d) => {
@@ -180,6 +190,30 @@ function BookPage() {
 
   function sendBooking(e: React.FormEvent) {
     e.preventDefault();
+    // Save to admin panel first
+    const bookingData = {
+      id: `BK-${Date.now().toString(36).toUpperCase()}`,
+      customerName: name,
+      phone,
+      email: "",
+      carId: carId,
+      carName: car.name,
+      from,
+      to,
+      date,
+      time,
+      distance: km || 0,
+      fare: fare || 0,
+      status: "pending" as const,
+      tripType,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      notes: "",
+      driverName: "",
+      paymentStatus: "pending" as const,
+    };
+    saveBookingFn({ data: bookingData }).catch(() => {});
+    // Then open WhatsApp
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildMessage())}`;
     window.open(url, "_blank");
   }

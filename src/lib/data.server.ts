@@ -101,6 +101,13 @@ export function saveBookings(bookings: Booking[]): void {
   writeFileSync(filePath, JSON.stringify(bookings, null, 2), "utf-8");
 }
 
+export function createBooking(booking: Booking): Booking {
+  const bookings = getAllBookings();
+  bookings.push(booking);
+  saveBookings(bookings);
+  return booking;
+}
+
 export function updateBookingStatus(
   id: string,
   status: Booking["status"],

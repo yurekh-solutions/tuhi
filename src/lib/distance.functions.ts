@@ -3,7 +3,12 @@ import { createServerFn } from "@tanstack/react-start";
 type Input = { origin: string; destination: string };
 
 // Environment variable names to check (priority order)
-const GOOGLE_MAPS_KEYS = ["GOOGLE_MAPS_API_KEY", "VITE_GOOGLE_MAPS_API_KEY", "MAPS_API_KEY"];
+const GOOGLE_MAPS_KEYS = [
+  "GOOGLE_MAPS_API_KEY",
+  "VITE_GOOGLE_MAPS_API_KEY",
+  "VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY",
+  "MAPS_API_KEY",
+];
 
 function getMapsApiKey(): string | undefined {
   // Try globalThis.env (Cloudflare Workers / Vite build-time)
