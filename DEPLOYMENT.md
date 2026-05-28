@@ -32,6 +32,7 @@ npm run build
 ### Option 1: Cloudflare Pages (Recommended)
 
 **Why Cloudflare?**
+
 - Free tier with generous limits
 - Global CDN
 - Built-in Workers for server-side logic
@@ -61,8 +62,8 @@ npm run build
      - `CLOUDFLARE_ACCOUNT_ID` - Your account ID
      - `VITE_ADMIN_USERNAME` - Admin username
      - `VITE_ADMIN_PASSWORD` - Admin password
-     - `VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY` - Maps API key
-     - `VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_TRACKING_ID` - GA tracking ID
+     - `VITE_OPENROUTESERVICE_API_KEY` - OpenRouteService API key (free)
+     - `OPENROUTESERVICE_API_KEY` - OpenRouteService API key (server-side)
 
 5. **Deploy**
    - Push to main branch
@@ -84,10 +85,11 @@ vercel --prod
 ```
 
 **Add Environment Variables in Vercel Dashboard:**
+
 - `VITE_ADMIN_USERNAME`
 - `VITE_ADMIN_PASSWORD`
-- `VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY`
-- `VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_TRACKING_ID`
+- `VITE_OPENROUTESERVICE_API_KEY`
+- `OPENROUTESERVICE_API_KEY`
 
 ---
 
@@ -141,12 +143,12 @@ drive-smooth-india-main/
 
 The `data/` folder contains JSON files that store your data. In most cloud platforms:
 
-| Platform | Data Persistent? | Solution |
-|----------|-----------------|----------|
-| Cloudflare Pages | ❌ No | Use Cloudflare D1 |
-| Vercel | ❌ No | Use Vercel Postgres |
-| Netlify | ❌ No | Use Netlify Blobs |
-| Local Dev | ✅ Yes | Uses filesystem |
+| Platform         | Data Persistent? | Solution            |
+| ---------------- | ---------------- | ------------------- |
+| Cloudflare Pages | ❌ No            | Use Cloudflare D1   |
+| Vercel           | ❌ No            | Use Vercel Postgres |
+| Netlify          | ❌ No            | Use Netlify Blobs   |
+| Local Dev        | ✅ Yes           | Uses filesystem     |
 
 **For production, migrate to a database:**
 
@@ -161,6 +163,7 @@ wrangler d1 execute tuhi-carrental --file=./schema.sql
 **Never commit `.env` to Git!**
 
 The `.env` file contains:
+
 - Admin credentials
 - Google Maps API keys
 - Analytics tracking IDs
@@ -200,14 +203,14 @@ git push -u origin main
 
 ### Required GitHub Secrets
 
-| Secret Name | Description | Where to Get |
-|-------------|--------------|--------------|
-| `CLOUDFLARE_API_TOKEN` | Cloudflare API token | dash.cloudflare.com → Profile → API Tokens |
-| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare account ID | Workers & Pages → Overview |
-| `VITE_ADMIN_USERNAME` | Admin login username | Your choice |
-| `VITE_ADMIN_PASSWORD` | Admin login password | Your choice |
-| `VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY` | Google Maps key | Google Cloud Console |
-| `VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_TRACKING_ID` | GA tracking ID | Google Analytics |
+| Secret Name                     | Description                       | Where to Get                               |
+| ------------------------------- | --------------------------------- | ------------------------------------------ |
+| `CLOUDFLARE_API_TOKEN`          | Cloudflare API token              | dash.cloudflare.com → Profile → API Tokens |
+| `CLOUDFLARE_ACCOUNT_ID`         | Cloudflare account ID             | Workers & Pages → Overview                 |
+| `VITE_ADMIN_USERNAME`           | Admin login username              | Your choice                                |
+| `VITE_ADMIN_PASSWORD`           | Admin login password              | Your choice                                |
+| `VITE_OPENROUTESERVICE_API_KEY` | OpenRouteService API key (client) | openrouteservice.org/dev/home/             |
+| `OPENROUTESERVICE_API_KEY`      | OpenRouteService API key (server) | openrouteservice.org/dev/home/             |
 
 ---
 
@@ -232,6 +235,7 @@ npm run build
 ## 📞 Support
 
 For deployment issues, check:
+
 - GitHub Actions logs
 - Cloudflare Pages dashboard
 - Vercel/Netlify deployment logs

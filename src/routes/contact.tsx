@@ -34,7 +34,10 @@ function ContactPage() {
   return (
     <div>
       {/* BANNER */}
-      <section className="relative mx-3 mt-3 overflow-hidden rounded-[2.25rem] md:mx-6 min-h-[40vh] md:min-h-[45vh] lg:min-h-[50vh] flex items-center bg-gray-900">
+      <section
+        style={{ marginTop: "-30px" }}
+        className="relative mx-3 overflow-hidden rounded-[2.25rem] md:mx-6 min-h-[40vh] md:min-h-[45vh] lg:min-h-[50vh] flex items-center bg-gray-900"
+      >
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -62,7 +65,7 @@ function ContactPage() {
       {/* CONTENT */}
       <div className="section">
         <div className="mx-auto max-w-6xl">
-          <div className="mt-8 md:mt-14 grid gap-4 md:gap-8 md:grid-cols-2">
+          <div className="grid gap-4 md:gap-8 md:grid-cols-2">
             <div className="space-y-4">
               <a
                 href={`tel:+${WHATSAPP_NUMBER}`}

@@ -57,7 +57,10 @@ function ServicesPage() {
   return (
     <div>
       {/* BANNER */}
-      <section className="relative mx-3 mt-3 overflow-hidden rounded-[2.25rem] md:mx-6 min-h-[40vh] md:min-h-[45vh] lg:min-h-[50vh] flex items-center bg-gray-900">
+      <section
+        style={{ marginTop: "-30px" }}
+        className="relative mx-3 overflow-hidden rounded-[2.25rem] md:mx-6 min-h-[40vh] md:min-h-[45vh] lg:min-h-[50vh] flex items-center bg-gray-900"
+      >
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -86,7 +89,7 @@ function ServicesPage() {
       {/* CONTENT */}
       <div className="section">
         <div className="mx-auto max-w-7xl">
-          <div className="mt-8 md:mt-14 grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className=" grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
             {SERVICES.map((s) => (
               <div key={s.title} className="neu p-5 md:p-7">
                 <div

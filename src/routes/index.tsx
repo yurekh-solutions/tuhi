@@ -330,8 +330,6 @@ function HomePage() {
   const [departure, setDeparture] = useState("");
   const [returnDate, setReturnDate] = useState("");
   const [pickupTime, setPickupTime] = useState("06:00");
-  const fromInputRef = useRef<HTMLInputElement>(null);
-  const toInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -340,70 +338,82 @@ function HomePage() {
     return () => clearInterval(timer);
   }, []);
 
-  // Load Google Maps Places API
-  useEffect(() => {
-    if (typeof window === "undefined") return;
+  // Custom autocomplete using OpenRouteService geocoding
+  const [fromSuggestions, setFromSuggestions] = useState<Array<{ label: string; value: string }>>(
+    [],
+  );
+  const [toSuggestions, setToSuggestions] = useState<Array<{ label: string; value: string }>>([]);
+  const [showFromSuggestions, setShowFromSuggestions] = useState(false);
+  const [showToSuggestions, setShowToSuggestions] = useState(false);
+  const fromSearchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const toSearchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-    // Check if Google Maps is already loaded
-    if ((window as any).google?.maps?.places) {
-      initAutocomplete();
+  const fetchLocationSuggestions = async (query: string, type: "from" | "to") => {
+    if (!query || query.length < 2) {
+      if (type === "from") {
+        setFromSuggestions([]);
+      } else {
+        setToSuggestions([]);
+      }
       return;
     }
 
-    // Load Google Maps script
-    const script = document.createElement("script");
-    const apiKey =
-      import.meta.env.VITE_GOOGLE_MAPS_API_KEY || import.meta.env.GOOGLE_MAPS_API_KEY || "";
+    try {
+      const apiKey =
+        import.meta.env.VITE_OPENROUTESERVICE_API_KEY ||
+        import.meta.env.OPENROUTESERVICE_API_KEY ||
+        "";
+      if (!apiKey) {
+        console.warn("OpenRouteService API key not found");
+        return;
+      }
 
-    if (!apiKey) {
-      console.warn("Google Maps API key not found");
-      return;
+      const url = `https://api.openrouteservice.org/geocode/autocomplete?api_key=${apiKey}&text=${encodeURIComponent(query)}&country=India&size=5`;
+      const res = await fetch(url);
+      const json = await res.json();
+
+      const suggestions = (json.features || []).map(
+        (feature: { properties: { name?: string; label?: string } }) => ({
+          label: feature.properties.name || feature.properties.label,
+          value: feature.properties.name || feature.properties.label,
+        }),
+      );
+
+      if (type === "from") {
+        setFromSuggestions(suggestions);
+        setShowFromSuggestions(suggestions.length > 0);
+      } else {
+        setToSuggestions(suggestions);
+        setShowToSuggestions(suggestions.length > 0);
+      }
+    } catch (error) {
+      console.error("Error fetching location suggestions:", error);
     }
+  };
 
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
-    script.async = true;
-    script.onload = () => initAutocomplete();
-    document.head.appendChild(script);
+  const handleFromChange = (value: string) => {
+    setFrom(value);
+    if (fromSearchTimer.current) clearTimeout(fromSearchTimer.current);
+    fromSearchTimer.current = setTimeout(() => fetchLocationSuggestions(value, "from"), 300);
+  };
 
-    return () => {
-      if (document.head.contains(script)) {
-        document.head.removeChild(script);
-      }
-    };
-  }, []);
+  const handleToChange = (value: string) => {
+    setTo(value);
+    if (toSearchTimer.current) clearTimeout(toSearchTimer.current);
+    toSearchTimer.current = setTimeout(() => fetchLocationSuggestions(value, "to"), 300);
+  };
 
-  function initAutocomplete() {
-    if (!(window as any).google?.maps?.places || !fromInputRef.current || !toInputRef.current)
-      return;
+  const selectFromSuggestion = (suggestion: string) => {
+    setFrom(suggestion);
+    setShowFromSuggestions(false);
+    setFromSuggestions([]);
+  };
 
-    const options = {
-      types: ["(cities)"],
-      componentRestrictions: { country: "in" },
-    };
-
-    const fromAutocomplete = new (window as any).google.maps.places.Autocomplete(
-      fromInputRef.current,
-      options,
-    );
-    fromAutocomplete.addListener("place_changed", () => {
-      const place = fromAutocomplete.getPlace();
-      if (place.formatted_address) {
-        setFrom(place.formatted_address);
-      }
-    });
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const toAutocomplete = new (window as any).google.maps.places.Autocomplete(
-      toInputRef.current,
-      options,
-    );
-    toAutocomplete.addListener("place_changed", () => {
-      const place = toAutocomplete.getPlace();
-      if (place.formatted_address) {
-        setTo(place.formatted_address);
-      }
-    });
-  }
+  const selectToSuggestion = (suggestion: string) => {
+    setTo(suggestion);
+    setShowToSuggestions(false);
+    setToSuggestions([]);
+  };
 
   return (
     <div>
@@ -869,13 +879,27 @@ function HomePage() {
                   <MapPin size={14} className="text-[oklch(0.5_0.12_75)]" /> From
                 </label>
                 <input
-                  ref={fromInputRef}
                   type="text"
                   value={from}
-                  onChange={(e) => setFrom(e.target.value)}
+                  onChange={(e) => handleFromChange(e.target.value)}
+                  onBlur={() => setTimeout(() => setShowFromSuggestions(false), 200)}
                   placeholder="Enter Pick Up City"
                   className="w-full rounded-lg border-2 border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900 transition-colors focus:border-[oklch(0.5_0.12_75)] focus:bg-white focus:outline-none"
                 />
+                {showFromSuggestions && fromSuggestions.length > 0 && (
+                  <div className="absolute left-0 right-0 top-full z-10 mt-1 max-h-60 overflow-auto rounded-lg border border-gray-200 bg-white shadow-lg">
+                    {fromSuggestions.map((suggestion, index) => (
+                      <button
+                        key={index}
+                        type="button"
+                        onMouseDown={() => selectFromSuggestion(suggestion.value)}
+                        className="w-full px-4 py-2 text-left text-sm text-gray-900 hover:bg-gray-100"
+                      >
+                        {suggestion.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* To */}
@@ -885,13 +909,27 @@ function HomePage() {
                     <MapPin size={14} className="text-[oklch(0.5_0.12_75)]" /> To
                   </label>
                   <input
-                    ref={toInputRef}
                     type="text"
                     value={to}
-                    onChange={(e) => setTo(e.target.value)}
+                    onChange={(e) => handleToChange(e.target.value)}
+                    onBlur={() => setTimeout(() => setShowToSuggestions(false), 200)}
                     placeholder="Enter Destination City"
                     className="w-full rounded-lg border-2 border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900 transition-colors focus:border-[oklch(0.5_0.12_75)] focus:bg-white focus:outline-none"
                   />
+                  {showToSuggestions && toSuggestions.length > 0 && (
+                    <div className="absolute left-0 right-0 top-full z-10 mt-1 max-h-60 overflow-auto rounded-lg border border-gray-200 bg-white shadow-lg">
+                      {toSuggestions.map((suggestion, index) => (
+                        <button
+                          key={index}
+                          type="button"
+                          onMouseDown={() => selectToSuggestion(suggestion.value)}
+                          className="w-full px-4 py-2 text-left text-sm text-gray-900 hover:bg-gray-100"
+                        >
+                          {suggestion.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
 

@@ -2,27 +2,16 @@ import { createServerFn } from "@tanstack/react-start";
 
 type Input = { origin: string; destination: string };
 
-// Environment variable names to check (priority order)
-const GOOGLE_MAPS_KEYS = ["GOOGLE_MAPS_API_KEY", "VITE_GOOGLE_MAPS_API_KEY", "MAPS_API_KEY"];
-
-function getMapsApiKey(): string | undefined {
+function getOpenRouteServiceApiKey(): string | undefined {
   // Try globalThis.env (Cloudflare Workers / Vite build-time)
   const env = (globalThis as { env?: Record<string, string> }).env;
-  if (env) {
-    for (const key of GOOGLE_MAPS_KEYS) {
-      if (env[key]) {
-        return env[key];
-      }
-    }
+  if (env?.OPENROUTESERVICE_API_KEY) {
+    return env.OPENROUTESERVICE_API_KEY;
   }
 
   // Try process.env (Node.js)
-  if (typeof process !== "undefined" && process.env) {
-    for (const key of GOOGLE_MAPS_KEYS) {
-      if (process.env[key]) {
-        return process.env[key];
-      }
-    }
+  if (typeof process !== "undefined" && process.env?.OPENROUTESERVICE_API_KEY) {
+    return process.env.OPENROUTESERVICE_API_KEY;
   }
 
   return undefined;
@@ -39,39 +28,62 @@ export const computeDistance = createServerFn({ method: "POST" })
     return data;
   })
   .handler(async ({ data }) => {
-    const GOOGLE_MAPS_API_KEY = getMapsApiKey();
+    const ORS_API_KEY = getOpenRouteServiceApiKey();
 
-    if (!GOOGLE_MAPS_API_KEY) {
-      throw new Error("GOOGLE_MAPS_API_KEY is not configured");
+    if (!ORS_API_KEY) {
+      throw new Error("OPENROUTESERVICE_API_KEY is not configured");
     }
 
-    // Use Google Distance Matrix API directly
-    const encodedOrigin = encodeURIComponent(data.origin);
-    const encodedDestination = encodeURIComponent(data.destination);
+    // First, geocode origin and destination to get coordinates
+    const geocodeLocation = async (address: string) => {
+      const geocodeUrl = `https://api.openrouteservice.org/geocode/search?api_key=${ORS_API_KEY}&text=${encodeURIComponent(address)}&country=India`;
+      const res = await fetch(geocodeUrl);
+      const json = await res.json();
 
-    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${encodedOrigin}&destinations=${encodedDestination}&mode=driving&language=en-IN&region=IN&key=${GOOGLE_MAPS_API_KEY}`;
+      if (!res.ok || !json.features?.length) {
+        throw new Error(`Location not found: ${address}`);
+      }
 
-    const res = await fetch(url);
+      const [longitude, latitude] = json.features[0].geometry.coordinates;
+      return { latitude, longitude };
+    };
+
+    const originCoords = await geocodeLocation(data.origin);
+    const destCoords = await geocodeLocation(data.destination);
+
+    // Use OpenRouteService Matrix API for distance calculation
+    const matrixUrl = `https://api.openrouteservice.org/v2/matrix/driving-car?api_key=${ORS_API_KEY}`;
+
+    const res = await fetch(matrixUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        locations: [
+          [originCoords.longitude, originCoords.latitude],
+          [destCoords.longitude, destCoords.latitude],
+        ],
+        metrics: ["distance", "duration"],
+        units: "m",
+      }),
+    });
 
     if (!res.ok) {
-      throw new Error(`Maps API failed [${res.status}]`);
+      const errorData = await res.json().catch(() => ({}));
+      throw new Error(
+        `OpenRouteService API failed [${res.status}]: ${errorData.error?.message || res.statusText}`,
+      );
     }
 
     const json = await res.json();
 
-    if (json.status !== "OK" || !json.rows?.[0]?.elements?.[0]) {
-      const errorMsg = json.error_message || json.status || "Unknown error";
-      throw new Error(`No driving route found: ${errorMsg}`);
+    if (!json.durations?.[0]?.[1] || !json.distances?.[0]?.[1]) {
+      throw new Error("No driving route found");
     }
 
-    const element = json.rows[0].elements[0];
-
-    if (element.status !== "OK" && element.status !== "ROUTE_EXISTS") {
-      throw new Error(`Route not available: ${element.status}`);
-    }
-
-    const distanceMeters = element.distance?.value || 0;
-    const durationSeconds = element.duration?.value || 0;
+    const durationSeconds = json.durations[0][1];
+    const distanceMeters = json.distances[0][1];
     const km = Math.round(distanceMeters / 1000);
     const durationMinutes = Math.round(durationSeconds / 60);
 

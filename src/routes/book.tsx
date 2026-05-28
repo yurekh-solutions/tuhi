@@ -269,7 +269,10 @@ function BookPage() {
   return (
     <div>
       {/* BANNER */}
-      <section className="relative mx-3 mt-3 overflow-hidden rounded-[2.25rem] md:mx-6 min-h-[40vh] md:min-h-[45vh] lg:min-h-[50vh] flex items-center bg-gray-900">
+      <section
+        style={{ marginTop: "-30px" }}
+        className="relative mx-3 overflow-hidden rounded-[2.25rem] md:mx-6 min-h-[40vh] md:min-h-[45vh] lg:min-h-[50vh] flex items-center bg-gray-900"
+      >
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{

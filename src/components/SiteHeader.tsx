@@ -15,7 +15,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   return (
     <header className="sticky top-0 z-50 bg-gray-900/50 backdrop-blur-xl">
-      <div className="mx-auto max-w-7xl px-4 md:px-6 py-3">
+      <div className="mx-auto max-w-7xl px-4 md:px-6 py-2">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="group flex items-center gap-2 md:gap-3">

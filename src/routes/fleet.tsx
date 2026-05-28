@@ -75,7 +75,10 @@ function FleetPage() {
   return (
     <div>
       {/* BANNER */}
-      <section className="relative mx-3 mt-3 overflow-hidden rounded-[2.25rem] md:mx-6 min-h-[40vh] md:min-h-[45vh] lg:min-h-[50vh] flex items-center bg-gray-900">
+      <section
+        style={{ marginTop: "-30px" }}
+        className="relative mx-3 overflow-hidden rounded-[2.25rem] md:mx-6 min-h-[40vh] md:min-h-[45vh] lg:min-h-[50vh] flex items-center bg-gray-900"
+      >
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -104,7 +107,7 @@ function FleetPage() {
       {/* CONTENT */}
       <div className="section">
         <div className="mx-auto max-w-7xl">
-          <div className="mt-8 space-y-4">
+          <div className=" space-y-4">
             {/* Category Tabs */}
             <div className="neu-inset flex flex-wrap gap-2 p-2">
               {CATEGORIES.map((cat) => (
