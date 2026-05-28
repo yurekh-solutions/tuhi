@@ -7,7 +7,6 @@ import {
   ShieldCheck,
   Star,
   Car,
-  Car as CarIcon,
   Phone,
   MessageCircle,
   Sparkles,
@@ -29,6 +28,7 @@ import {
   Navigation,
   Timer,
   Calendar,
+  CarIcon,
   Search,
   X,
 } from "lucide-react";
