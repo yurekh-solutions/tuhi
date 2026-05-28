@@ -90,7 +90,22 @@ function BookPage() {
   const [from, setFrom] = useState(search.from || "");
   const [to, setTo] = useState(search.to || "");
   const [date, setDate] = useState(search.date || today());
-  const [time, setTime] = useState(search.time || "09:00");
+  const [time, setTime] = useState(() => {
+    const searchTime = search.time || "09:00";
+    // Convert "6:00 AM" or "11:30 PM" format to "06:00" or "23:30"
+    if (searchTime.includes("AM") || searchTime.includes("PM")) {
+      const match = searchTime.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+      if (match) {
+        let hours = parseInt(match[1]);
+        const minutes = match[2];
+        const period = match[3].toUpperCase();
+        if (period === "PM" && hours !== 12) hours += 12;
+        if (period === "AM" && hours === 12) hours = 0;
+        return `${String(hours).padStart(2, "0")}:${minutes}`;
+      }
+    }
+    return searchTime;
+  });
   const [carId, setCarId] = useState(search.car ?? "sedan");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
