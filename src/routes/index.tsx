@@ -7,6 +7,7 @@ import {
   ShieldCheck,
   Star,
   Car,
+  Car as CarIcon,
   Phone,
   MessageCircle,
   Sparkles,
@@ -29,6 +30,7 @@ import {
   Timer,
   Calendar,
   Search,
+  X,
 } from "lucide-react";
 import { CAR_CLASSES, PHONE_DISPLAY, WHATSAPP_NUMBER } from "@/lib/cars";
 import hyderabadImg from "@/assets/image.png";
