@@ -329,7 +329,7 @@ function HomePage() {
   const [tripType, setTripType] = useState<"local" | "outstation" | "bus">("local");
   const [departure, setDeparture] = useState("");
   const [returnDate, setReturnDate] = useState("");
-  const [pickupTime, setPickupTime] = useState("6:00 AM");
+  const [pickupTime, setPickupTime] = useState("06:00");
   const fromInputRef = useRef<HTMLInputElement>(null);
   const toInputRef = useRef<HTMLInputElement>(null);
 

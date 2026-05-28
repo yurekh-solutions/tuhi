@@ -516,7 +516,6 @@ function BookPage() {
                       <button
                         type="button"
                         onClick={async () => {
-                          if (!pendingBooking) return;
                           setIsProcessingPayment(true);
 
                           try {
@@ -530,16 +529,10 @@ function BookPage() {
                               handler: function (response: any) {
                                 setPaymentConfirmed(true);
                                 setIsProcessingPayment(false);
-                                const updatedBooking = {
-                                  ...pendingBooking,
-                                  paymentStatus: "paid" as const,
-                                  notes: `Razorpay Payment ID: ${response.razorpay_payment_id}`,
-                                };
-                                setPendingBooking(updatedBooking);
                               },
                               prefill: {
-                                name: pendingBooking.customerName,
-                                contact: pendingBooking.phone,
+                                name: name,
+                                contact: phone,
                               },
                               theme: {
                                 color: "#4A5568",
