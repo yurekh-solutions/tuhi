@@ -310,6 +310,18 @@ export const FEATURES = [
 function HomePage() {
   const router = useRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
+
+  // Show popup after 3 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const hasSeenPopup = localStorage.getItem("hasSeenPromoPopup");
+      if (!hasSeenPopup) {
+        setShowPopup(true);
+      }
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [tripType, setTripType] = useState<"local" | "outstation" | "bus">("local");
@@ -393,6 +405,248 @@ function HomePage() {
 
   return (
     <div>
+      {/* PROMOTIONAL POPUP */}
+      {showPopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+          <div className="relative w-full max-w-4xl overflow-hidden rounded-2xl bg-white shadow-2xl">
+            {/* Close Button */}
+            <button
+              onClick={() => {
+                setShowPopup(false);
+                localStorage.setItem("hasSeenPromoPopup", "true");
+              }}
+              className="absolute right-4 top-4 z-10 grid h-8 w-8 place-items-center rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200"
+            >
+              <X size={18} />
+            </button>
+
+            {/* Popup Content */}
+            <div className="grid md:grid-cols-2">
+              {/* Left Side - Image/Offer */}
+              <div className="relative bg-gradient-to-br from-[oklch(0.85_0.15_85)] to-[oklch(0.75_0.12_80)] p-8 text-white">
+                <div className="absolute inset-0 opacity-10">
+                  <div className="h-full w-full bg-[radial-gradient(circle_at_50%_50%,white_1px,transparent_1px)] bg-[length:20px_20px]" />
+                </div>
+                <div className="relative z-10">
+                  <h3 className="text-2xl font-extrabold leading-tight">
+                    BOOK YOUR CAB NOW
+                    <br />
+                    <span className="text-[oklch(0.3_0.1_250)]">AT LOWEST COST</span>
+                  </h3>
+                  <div className="mt-6">
+                    <p className="text-sm font-semibold">CALL NOW & GET</p>
+                    <p className="mt-1 text-5xl font-extrabold text-[oklch(0.3_0.1_250)]">
+                      20% OFF
+                    </p>
+                    <p className="text-lg font-bold">TODAY</p>
+                  </div>
+
+                  {/* Features */}
+                  <div className="mt-6 space-y-2">
+                    {["Cost-Effective", "Guaranteed Safety", "Large Capacity", "Easy to Book"].map(
+                      (feature) => (
+                        <div key={feature} className="flex items-center gap-2">
+                          <CheckCircle2 size={16} className="text-[oklch(0.5_0.15_145)]" />
+                          <span className="text-sm font-medium text-gray-800">{feature}</span>
+                        </div>
+                      ),
+                    )}
+                  </div>
+
+                  <div className="mt-6 rounded-lg bg-white/20 px-4 py-2 text-center text-xs font-semibold backdrop-blur-sm">
+                    24/7 Booking Assistance • Trusted by 1 Lac+ Happy Customers
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Side - Content & CTA */}
+              <div className="p-8">
+                <h4 className="text-2xl font-bold text-[oklch(0.3_0.1_250)]">
+                  Most Trusted Cab Service - In Maharashtra
+                </h4>
+                <p className="mt-2 text-lg font-semibold text-gray-600">Book Your Ride Now</p>
+
+                {/* Trust Points */}
+                <ul className="mt-6 space-y-3">
+                  {[
+                    "15+ Years of Trusted Service",
+                    "Trusted by 1 Lac+ Customers",
+                    "Safe & Professional Drivers",
+                    "On-Time Pickup from Airport, Railway Station & Doorstep",
+                    "Book Luxury Cabs & Urbania Tempo Travellers",
+                  ].map((point) => (
+                    <li key={point} className="flex items-start gap-2">
+                      <CheckCircle2 size={18} className="mt-0.5 flex-shrink-0 text-green-500" />
+                      <span className="text-sm text-gray-700">{point}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* CTA Button */}
+                <a
+                  href={`tel:${PHONE_DISPLAY.replace(/\D/g, "")}`}
+                  className="mt-8 flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[oklch(0.85_0.15_85)] to-[oklch(0.9_0.12_80)] px-8 py-4 text-lg font-bold text-[oklch(0.3_0.1_250)] shadow-lg transition-all hover:from-[oklch(0.9_0.12_80)] hover:to-[oklch(0.95_0.1_85)] hover:shadow-xl active:scale-95"
+                >
+                  <Phone size={20} />
+                  Call Now
+                </a>
+
+                <p className="mt-4 text-center text-xs text-gray-500">
+                  Instant booking assistance • No hidden charges
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* POPUP MODAL - hirecab.net style */}
+      {showPopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+          <div className="relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-2xl bg-white shadow-2xl">
+            {/* Close Button */}
+            <button
+              onClick={() => setShowPopup(false)}
+              className="absolute right-4 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200"
+            >
+              <X size={18} />
+            </button>
+
+            <div className="grid md:grid-cols-2">
+              {/* Left Side - Promotional Image */}
+              <div className="relative bg-gradient-to-br from-yellow-400 via-yellow-500 to-orange-500 p-8 text-white">
+                <div className="absolute inset-0 opacity-10">
+                  <div
+                    className="h-full w-full bg-cover bg-center"
+                    style={{
+                      backgroundImage:
+                        "url(https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=2070&auto=format&fit=crop)",
+                    }}
+                  />
+                </div>
+                <div className="relative z-10">
+                  <h3 className="text-2xl font-extrabold uppercase tracking-tight">
+                    Book Your Cab Now
+                  </h3>
+                  <p className="mt-2 text-3xl font-black">AT LOWEST COST</p>
+
+                  <div className="mt-6">
+                    <p className="text-sm font-semibold">CALL NOW & GET</p>
+                    <p className="mt-1 text-5xl font-black text-yellow-200">20% OFF</p>
+                    <p className="text-lg font-bold">TODAY</p>
+                  </div>
+
+                  {/* Taxi Illustration */}
+                  <div className="mt-6 flex items-center justify-center">
+                    <div className="relative">
+                      <div className="h-32 w-48 rounded-lg bg-white/20 backdrop-blur-sm">
+                        <div className="flex h-full items-center justify-center">
+                          <CarIcon size={64} className="text-white" />
+                        </div>
+                      </div>
+                      <div className="absolute -right-2 -top-2 flex h-10 w-10 items-center justify-center rounded-full bg-red-500">
+                        <MapPin size={20} className="text-white" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Features */}
+                  <div className="mt-6 rounded-lg bg-white/90 p-4 text-gray-900">
+                    <div className="space-y-2 text-sm">
+                      <div className="flex items-center gap-2">
+                        <CheckCircle2 size={14} className="text-green-600" />
+                        <span className="font-medium">Cost-Effective</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle2 size={14} className="text-green-600" />
+                        <span className="font-medium">Guaranteed Safety</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle2 size={14} className="text-green-600" />
+                        <span className="font-medium">Large Capacity</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle2 size={14} className="text-green-600" />
+                        <span className="font-medium">Easy to Book</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Bottom Banner */}
+                  <div className="mt-4 flex justify-between text-xs font-semibold">
+                    <span>24/7 Booking Assistance</span>
+                    <span>Trusted by 1 Lac+ Happy Customers</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Side - Content */}
+              <div className="p-8 md:p-10">
+                <h2 className="text-2xl font-bold text-[oklch(0.5_0.15_75)]">
+                  Most Trusted Cab Service - In Maharashtra
+                </h2>
+                <p className="mt-2 text-lg font-semibold text-gray-700">Book Your Ride Now</p>
+
+                {/* Trust Points */}
+                <ul className="mt-6 space-y-3">
+                  <li className="flex items-start gap-3">
+                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[oklch(0.5_0.15_75)] text-white">
+                      ✓
+                    </span>
+                    <span className="text-gray-700">15+ Years of Trusted Service</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[oklch(0.5_0.15_75)] text-white">
+                      ✓
+                    </span>
+                    <span className="text-gray-700">Trusted by 1 Lac+ Customers</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[oklch(0.5_0.15_75)] text-white">
+                      ✓
+                    </span>
+                    <span className="text-gray-700">Safe & Professional Drivers</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[oklch(0.5_0.15_75)] text-white">
+                      ✓
+                    </span>
+                    <span className="text-gray-700">
+                      On-Time Pickup from Airport, Railway Station & Doorstep
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[oklch(0.5_0.15_75)] text-white">
+                      ✓
+                    </span>
+                    <span className="text-gray-700">
+                      Book Luxury Cabs & Urbania Tempo Travellers
+                    </span>
+                  </li>
+                </ul>
+
+                {/* Call Now Button */}
+                <a
+                  href={`tel:${PHONE_DISPLAY.replace(/\s/g, "")}`}
+                  className="mt-8 flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[oklch(0.5_0.15_75)] to-[oklch(0.6_0.14_80)] px-6 py-4 text-lg font-bold text-white shadow-lg transition-all hover:from-[oklch(0.6_0.14_80)] hover:to-[oklch(0.7_0.12_85)] hover:shadow-xl active:scale-95"
+                >
+                  <Phone size={20} /> Call Now
+                </a>
+
+                {/* WhatsApp Alternative */}
+                <a
+                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi, I want to book a cab with 20% off offer!")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-lg border-2 border-green-500 px-6 py-3 text-base font-semibold text-green-600 transition-colors hover:bg-green-50"
+                >
+                  <MessageCircle size={18} /> WhatsApp Inquiry
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* HERO */}
       <section
         className="relative overflow-hidden"
@@ -735,8 +989,6 @@ function HomePage() {
         </div>
       </section>
 
-   
-
       {/* SERVICES */}
       <section className="section pt-4">
         <div className="mx-auto max-w-7xl">
@@ -990,7 +1242,7 @@ function HomePage() {
           </div>
         </div>
       </section>
-   {/* CAB SERVICE IN INDIA — SEO LINKS */}
+      {/* CAB SERVICE IN INDIA — SEO LINKS */}
       <section className="section pt-4">
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 max-w-2xl">
