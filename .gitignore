@@ -3,6 +3,13 @@
 .env.local
 .env.*.local
 
+# Credentials and secrets
+*.csv
+*.key
+*.pem
+credentials.*
+secrets.*
+
 # Logs
 logs
 *.log
