@@ -11,6 +11,7 @@ import {
   X,
   TrendingUp,
   CheckCircle,
+  ArrowLeft,
 } from "lucide-react";
 import { checkAdminAuth, clearAdminAuth } from "@/lib/adminAuth";
 import { getAdminStats } from "@/lib/admin.server";
@@ -95,7 +96,13 @@ function AdminDashboard() {
             </Link>
           </nav>
 
-          <div className="border-t border-[var(--border)] px-4 py-4">
+          <div className="border-t border-[var(--border)] px-4 py-4 space-y-2">
+            <Link
+              to="/"
+              className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-muted-foreground hover:bg-[var(--muted)] hover:text-foreground"
+            >
+              <ArrowLeft size={18} /> Back to Website
+            </Link>
             <button
               onClick={handleLogout}
               className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-destructive hover:bg-[var(--muted)]"
