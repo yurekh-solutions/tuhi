@@ -160,7 +160,7 @@ const CITY_PRESENCE = [
     desc: "HITEC City rides, Shamshabad airport transfers & trips to Vijayawada & Tirupati.",
     routes: ["Hyderabad → Vijayawada", "Hyderabad → Tirupati", "Hyderabad → Warangal"],
     image:
-      "https://images.unsplash.com/photo-1614130365855-f920e0a57d5f?q=80&w=400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1572487594245-96e4443b4673?q=80&w=400&auto=format&fit=crop",
   },
   {
     name: "Chennai",
