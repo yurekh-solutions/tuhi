@@ -459,6 +459,94 @@ function HomePage() {
         </div>
       </section>
 
+      {/* BOOKING FORM - hirecab.net inspired */}
+      <section className="section bg-gradient-to-br from-[oklch(0.3_0.1_250)] via-[oklch(0.25_0.15_260)] to-[oklch(0.35_0.12_240)] text-white">
+        <div className="mx-auto max-w-7xl">
+          <h2 className="mb-8 text-center text-2xl font-bold md:text-4xl">
+            Online Cab Booking Service
+          </h2>
+
+          {/* Trip Type Tabs */}
+          <div className="mb-6 flex justify-center gap-3">
+            <button className="rounded-md bg-white px-5 py-2 text-sm font-semibold text-[oklch(0.3_0.1_250)]">
+              Local Trip
+            </button>
+            <button className="rounded-md border border-white/30 px-5 py-2 text-sm font-semibold hover:bg-white/10">
+              Outstation Trip
+            </button>
+            <button className="rounded-md border border-white/30 px-5 py-2 text-sm font-semibold hover:bg-white/10">
+              Hire a Bus
+            </button>
+          </div>
+
+          {/* Booking Form */}
+          <div className="mx-auto max-w-4xl rounded-xl bg-white p-4 sm:p-6">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
+              {/* From */}
+              <div>
+                <label className="mb-1 block text-sm font-medium text-gray-700">From</label>
+                <input
+                  type="text"
+                  placeholder="Enter Pick Up City"
+                  className="w-full rounded-md border border-gray-200 px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[oklch(0.5_0.12_75)]"
+                />
+              </div>
+
+              {/* Package */}
+              <div>
+                <label className="mb-1 block text-sm font-medium text-gray-700">Package</label>
+                <select className="w-full rounded-md border border-gray-200 px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[oklch(0.5_0.12_75)]">
+                  <option>8 Hours 80 Km</option>
+                  <option>12 Hours 120 Km</option>
+                  <option>200 Km Full Day</option>
+                </select>
+              </div>
+
+              {/* Departure */}
+              <div>
+                <label className="mb-1 block text-sm font-medium text-gray-700">Departure</label>
+                <input
+                  type="date"
+                  className="w-full rounded-md border border-gray-200 px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[oklch(0.5_0.12_75)]"
+                />
+              </div>
+
+              {/* Pickup Time */}
+              <div>
+                <label className="mb-1 block text-sm font-medium text-gray-700">Pickup Time</label>
+                <select className="w-full rounded-md border border-gray-200 px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[oklch(0.5_0.12_75)]">
+                  <option>6:00 AM</option>
+                  <option>7:00 AM</option>
+                  <option>8:00 AM</option>
+                  <option>9:00 AM</option>
+                  <option>10:00 AM</option>
+                  <option>11:00 AM</option>
+                  <option>12:00 PM</option>
+                  <option>1:00 PM</option>
+                  <option>2:00 PM</option>
+                  <option>3:00 PM</option>
+                  <option>4:00 PM</option>
+                  <option>5:00 PM</option>
+                  <option>6:00 PM</option>
+                  <option>7:00 PM</option>
+                  <option>8:00 PM</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Search Button */}
+            <div className="mt-4 flex justify-end">
+              <Link
+                to="/book"
+                className="rounded-md bg-red-500 px-8 py-3 text-sm font-bold text-white hover:bg-red-600"
+              >
+                SEARCH
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CAB SERVICE IN INDIA — SEO LINKS */}
       <section className="section pt-4">
         <div className="mx-auto max-w-7xl">
