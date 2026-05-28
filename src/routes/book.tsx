@@ -18,6 +18,7 @@ import {
   X,
   Send,
   FileText,
+  CheckCircle2,
 } from "lucide-react";
 import { CAR_CLASSES, PHONE_DISPLAY, WHATSAPP_NUMBER } from "@/lib/cars";
 import { computeDistance } from "@/lib/distance.functions";
@@ -98,7 +99,9 @@ function BookPage() {
 
   // Payment modal state
   const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const [pendingBooking, setPendingBooking] = useState<any>(null);
+  const [pendingBooking, setPendingBooking] = useState<Booking | null>(null);
+  const [paymentConfirmed, setPaymentConfirmed] = useState(false);
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
   // Custom car request modal state
   const [showCustomCarModal, setShowCustomCarModal] = useState(false);
@@ -244,13 +247,14 @@ function BookPage() {
   }
 
   function confirmPaymentAndRedirect() {
-    if (!pendingBooking) return;
+    if (!pendingBooking || !paymentConfirmed) return;
 
     // Open WhatsApp after payment confirmation
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildMessage())}`;
     window.open(url, "_blank");
     setShowPaymentModal(false);
     setPendingBooking(null);
+    setPaymentConfirmed(false);
   }
 
   return (
@@ -588,23 +592,101 @@ function BookPage() {
                 <div className="flex items-start gap-3">
                   <MessageCircle size={18} className="mt-0.5 flex-shrink-0 text-blue-600" />
                   <div className="text-sm text-blue-800">
-                    <p className="font-semibold">After Payment:</p>
+                    <p className="font-semibold">Payment Required:</p>
                     <p className="mt-1">
-                      Click "Continue to WhatsApp" to send your booking request with payment
-                      confirmation.
+                      Pay ₹99 via Razorpay to unlock WhatsApp booking submission.
                     </p>
                   </div>
                 </div>
               </div>
+
+              {/* Razorpay Payment Button */}
+              <button
+                onClick={async () => {
+                  if (!pendingBooking) return;
+                  setIsProcessingPayment(true);
+
+                  try {
+                    // Razorpay integration
+                    const options = {
+                      key: import.meta.env.VITE_RAZORPAY_KEY_ID || "rzp_test_XXXXXXXXXXXX", // Replace with your Razorpay key
+                      amount: 9900, // ₹99 in paise
+                      currency: "INR",
+                      name: "Tuhi Car Rental",
+                      description: "Booking Request Fee",
+                      image: "/favicon.svg",
+                      handler: function (response: any) {
+                        // Payment successful
+                        setPaymentConfirmed(true);
+                        setIsProcessingPayment(false);
+                        // Update booking with payment ID
+                        const updatedBooking = {
+                          ...pendingBooking,
+                          paymentStatus: "paid" as const,
+                          notes: `Razorpay Payment ID: ${response.razorpay_payment_id}`,
+                        };
+                        setPendingBooking(updatedBooking);
+                      },
+                      prefill: {
+                        name: pendingBooking.customerName,
+                        contact: pendingBooking.phone,
+                      },
+                      theme: {
+                        color: "#4A5568",
+                      },
+                    };
+
+                    // Load Razorpay script dynamically
+                    const script = document.createElement("script");
+                    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+                    script.async = true;
+                    script.onload = () => {
+                      const razorpay = new (window as any).Razorpay(options);
+                      razorpay.open();
+                    };
+                    document.head.appendChild(script);
+                  } catch (error) {
+                    console.error("Payment failed:", error);
+                    setIsProcessingPayment(false);
+                    alert("Payment failed. Please try again.");
+                  }
+                }}
+                disabled={isProcessingPayment || paymentConfirmed}
+                className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[oklch(0.5_0.15_75)] to-[oklch(0.6_0.14_80)] py-4 text-base font-bold text-white shadow-lg transition-all hover:from-[oklch(0.6_0.14_80)] hover:to-[oklch(0.7_0.12_85)] hover:shadow-xl active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {isProcessingPayment ? (
+                  <>
+                    <Loader2 size={20} className="animate-spin" />
+                    Processing Payment...
+                  </>
+                ) : paymentConfirmed ? (
+                  <>
+                    <CheckCircle2 size={20} />
+                    Payment Confirmed!
+                  </>
+                ) : (
+                  <>
+                    <IndianRupee size={20} />
+                    Pay ₹99 via Razorpay
+                  </>
+                )}
+              </button>
+
+              {/* WhatsApp Button - Disabled until payment */}
               <button
                 onClick={confirmPaymentAndRedirect}
-                className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[oklch(0.5_0.15_75)] to-[oklch(0.6_0.14_80)] py-4 text-base font-bold text-white shadow-lg transition-all hover:from-[oklch(0.6_0.14_80)] hover:to-[oklch(0.7_0.12_85)] hover:shadow-xl active:scale-95"
+                disabled={!paymentConfirmed}
+                className={`mt-3 flex w-full items-center justify-center gap-2 rounded-xl py-4 text-base font-bold shadow-lg transition-all active:scale-95 ${
+                  paymentConfirmed
+                    ? "bg-gradient-to-r from-green-500 to-green-600 text-white hover:from-green-600 hover:to-green-700 hover:shadow-xl"
+                    : "cursor-not-allowed bg-gray-200 text-gray-400"
+                }`}
               >
                 <MessageCircle size={20} />
-                Continue to WhatsApp
+                {paymentConfirmed ? "Continue to WhatsApp" : "Pay First to Continue"}
               </button>
               <p className="mt-3 text-center text-xs text-gray-500">
-                Secure payment • Instant WhatsApp confirmation
+                Secure payment via Razorpay • Instant WhatsApp confirmation
               </p>
             </div>
           </div>

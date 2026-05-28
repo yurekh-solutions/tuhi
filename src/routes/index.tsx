@@ -935,9 +935,11 @@ function HomePage() {
                     const minute = i % 2 === 0 ? "00" : "30";
                     const period = hour < 12 ? "AM" : "PM";
                     const displayHour = hour > 12 ? hour - 12 : hour;
+                    const timeValue = `${hour.toString().padStart(2, "0")}:${minute}`;
+                    const displayLabel = `${displayHour}:${minute} ${period}`;
                     return (
-                      <option key={i}>
-                        {displayHour}:{minute} {period}
+                      <option key={i} value={timeValue}>
+                        {displayLabel}
                       </option>
                     );
                   })}
