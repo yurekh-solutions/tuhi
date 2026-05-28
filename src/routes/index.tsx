@@ -32,6 +32,13 @@ import {
 } from "lucide-react";
 import { CAR_CLASSES, PHONE_DISPLAY, WHATSAPP_NUMBER } from "@/lib/cars";
 
+// Google Maps type declaration
+declare global {
+  interface Window {
+    google: any;
+  }
+}
+
 const HERO_BG_IMAGES = [
   "https://images.unsplash.com/photo-1493238792000-8113da705763?q=80&w=2070&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=2070&auto=format&fit=crop",
@@ -304,6 +311,10 @@ function HomePage() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
+  const [tripType, setTripType] = useState<"local" | "outstation" | "bus">("local");
+  const [departure, setDeparture] = useState("");
+  const [returnDate, setReturnDate] = useState("");
+  const [pickupTime, setPickupTime] = useState("6:00 AM");
   const fromInputRef = useRef<HTMLInputElement>(null);
   const toInputRef = useRef<HTMLInputElement>(null);
 
@@ -319,7 +330,7 @@ function HomePage() {
     if (typeof window === "undefined") return;
 
     // Check if Google Maps is already loaded
-    if (window.google?.maps?.places) {
+    if ((window as any).google?.maps?.places) {
       initAutocomplete();
       return;
     }
@@ -347,14 +358,15 @@ function HomePage() {
   }, []);
 
   function initAutocomplete() {
-    if (!window.google?.maps?.places || !fromInputRef.current || !toInputRef.current) return;
+    if (!(window as any).google?.maps?.places || !fromInputRef.current || !toInputRef.current)
+      return;
 
     const options = {
       types: ["(cities)"],
       componentRestrictions: { country: "in" },
     };
 
-    const fromAutocomplete = new window.google.maps.places.Autocomplete(
+    const fromAutocomplete = new (window as any).google.maps.places.Autocomplete(
       fromInputRef.current,
       options,
     );
@@ -365,7 +377,11 @@ function HomePage() {
       }
     });
 
-    const toAutocomplete = new window.google.maps.places.Autocomplete(toInputRef.current, options);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const toAutocomplete = new (window as any).google.maps.places.Autocomplete(
+      toInputRef.current,
+      options,
+    );
     toAutocomplete.addListener("place_changed", () => {
       const place = toAutocomplete.getPlace();
       if (place.formatted_address) {
@@ -534,13 +550,22 @@ function HomePage() {
 
           {/* Trip Type Tabs */}
           <div className="mb-6 flex justify-center gap-3">
-            <button className="rounded-md bg-white px-5 py-2 text-sm font-semibold text-[oklch(0.3_0.1_250)]">
+            <button
+              onClick={() => setTripType("local")}
+              className={`rounded-md px-5 py-2 text-sm font-semibold transition-all ${tripType === "local" ? "bg-white text-[oklch(0.3_0.1_250)]" : "border border-white/30 text-white hover:bg-white/10"}`}
+            >
               Local Trip
             </button>
-            <button className="rounded-md border border-white/30 px-5 py-2 text-sm font-semibold hover:bg-white/10">
+            <button
+              onClick={() => setTripType("outstation")}
+              className={`rounded-md px-5 py-2 text-sm font-semibold transition-all ${tripType === "outstation" ? "bg-white text-[oklch(0.3_0.1_250)]" : "border border-white/30 text-white hover:bg-white/10"}`}
+            >
               Outstation Trip
             </button>
-            <button className="rounded-md border border-white/30 px-5 py-2 text-sm font-semibold hover:bg-white/10">
+            <button
+              onClick={() => setTripType("bus")}
+              className={`rounded-md px-5 py-2 text-sm font-semibold transition-all ${tripType === "bus" ? "bg-white text-[oklch(0.3_0.1_250)]" : "border border-white/30 text-white hover:bg-white/10"}`}
+            >
               Hire a Bus
             </button>
           </div>
@@ -585,27 +610,37 @@ function HomePage() {
                 </label>
                 <input
                   type="date"
+                  value={departure}
+                  onChange={(e) => setDeparture(e.target.value)}
                   className="w-full rounded-md border border-gray-200 px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[oklch(0.5_0.12_75)]"
                 />
               </div>
 
-              {/* Return */}
-              <div>
-                <label className="mb-1 flex items-center gap-1 text-xs font-medium text-gray-600">
-                  <Calendar size={12} /> Return
-                </label>
-                <input
-                  type="date"
-                  className="w-full rounded-md border border-gray-200 px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[oklch(0.5_0.12_75)]"
-                />
-              </div>
+              {/* Return - Only for Outstation */}
+              {tripType === "outstation" && (
+                <div>
+                  <label className="mb-1 flex items-center gap-1 text-xs font-medium text-gray-600">
+                    <Calendar size={12} /> Return
+                  </label>
+                  <input
+                    type="date"
+                    value={returnDate}
+                    onChange={(e) => setReturnDate(e.target.value)}
+                    className="w-full rounded-md border border-gray-200 px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[oklch(0.5_0.12_75)]"
+                  />
+                </div>
+              )}
 
               {/* Pickup Time */}
               <div>
                 <label className="mb-1 flex items-center gap-1 text-xs font-medium text-gray-600">
                   <Clock size={12} /> Pickup Time
                 </label>
-                <select className="w-full rounded-md border border-gray-200 px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[oklch(0.5_0.12_75)]">
+                <select
+                  value={pickupTime}
+                  onChange={(e) => setPickupTime(e.target.value)}
+                  className="w-full rounded-md border border-gray-200 px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[oklch(0.5_0.12_75)]"
+                >
                   <option>6:00 AM</option>
                   <option>7:00 AM</option>
                   <option>8:00 AM</option>
