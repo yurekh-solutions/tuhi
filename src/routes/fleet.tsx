@@ -90,8 +90,8 @@ function FleetPage() {
     <div>
       {/* BANNER */}
       <section
-        style={{ marginTop: "-30px" }}
-        className="relative mx-3 overflow-hidden rounded-[2.25rem] md:mx-6 min-h-[40vh] md:min-h-[45vh] lg:min-h-[50vh] flex items-center"
+        style={{ marginTop: "-6.5rem" }}
+        className="relative overflow-hidden min-h-[40vh] md:min-h-[45vh] lg:min-h-[50vh] flex items-center justify-center"
       >
         <div
           className="absolute inset-0 bg-cover bg-center"
@@ -101,17 +101,18 @@ function FleetPage() {
           }}
         />
 
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-900/95 via-gray-900/70 to-transparent" />
+        <div className="absolute inset-0 bg-[oklch(0.15_0.02_80/0.85)]" />
+        <div className="absolute bottom-0 left-0 right-0 h-2 bg-[oklch(0.85_0.18_80)]" />
 
-        <div className="relative grid gap-8 px-5 py-10 md:px-10 md:py-14 lg:py-16 w-full">
-          <div className="max-w-3xl text-white">
-            <span className="chip bg-white/20 backdrop-blur-sm border-white/30 text-white">
+        <div className="relative z-10 text-center px-5 py-10 md:px-10 md:py-14 lg:py-16 w-full">
+          <div className="max-w-3xl mx-auto text-white">
+            <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[oklch(0.88_0.12_85)] to-[oklch(0.75_0.16_75)] px-4 py-2 backdrop-blur-md border border-[oklch(0.85_0.18_80)] text-sm font-semibold text-[oklch(0.15_0.02_80)]">
               THE FLEET
             </span>
             <h1 className="mt-4 text-3xl font-extrabold leading-[1.15] sm:text-4xl md:text-5xl lg:text-6xl tracking-tight">
               Pick your perfect ride
             </h1>
-            <p className="mt-3 max-w-lg text-sm text-gray-300 sm:text-base md:text-lg leading-relaxed">
+            <p className="mt-3 max-w-lg mx-auto text-sm text-white/90 sm:text-base md:text-lg leading-relaxed">
               {cars.length} cars available. Every car is sanitised and driven by a verified
               chauffeur.
             </p>
@@ -414,12 +415,8 @@ function FleetPage() {
       </section>
 
       {/* CTA */}
-      <section className="section pt-0">
-        <div className="mx-auto max-w-7xl">
-          <div
-            className="overflow-hidden rounded-[2.25rem] px-6 py-12 text-center md:px-16 md:py-20"
-            style={{ background: "var(--gradient-hero)" }}
-          >
+      <section className="pt-0">
+        <div className="overflow-hidden bg-gradient-to-br from-[oklch(0.15_0.05_260)] to-[oklch(0.18_0.06_265)] px-6 py-12 text-center md:px-16 md:py-20">
             <h2 className="text-3xl font-bold text-white md:text-5xl">
               Ready to choose your perfect ride?
             </h2>
@@ -428,20 +425,22 @@ function FleetPage() {
               across India.
             </p>
             <div className="mt-7 flex flex-wrap justify-center gap-3">
-              <Link to="/book" className="btn-gold">
-                Book Now <ArrowRight size={16} />
+              <Link
+                to="/book"
+                className="rounded-full bg-gradient-to-r from-[oklch(0.88_0.12_85)] to-[oklch(0.75_0.16_75)] px-8 py-4 text-lg font-bold text-[oklch(0.18_0.02_260)] shadow-[0_16px_48px_-12px_oklch(0.78_0.14_80/0.4)] transition-all hover:shadow-[0_20px_56px_-10px_oklch(0.78_0.14_80/0.6)] active:scale-95"
+              >
+                Book Now <ArrowRight size={16} className="inline ml-1" />
               </Link>
               <a
                 href={`https://wa.me/${process.env.VITE_WHATSAPP_NUMBER || "919136242706"}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-ghost-glass"
+                className="rounded-full border border-white/20 bg-white/10 px-8 py-4 text-lg font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/20 active:scale-95"
               >
-                <MessageCircle size={16} /> WhatsApp Us
+                <MessageCircle size={16} className="inline mr-2" /> WhatsApp Us
               </a>
             </div>
           </div>
-        </div>
       </section>
     </div>
   );

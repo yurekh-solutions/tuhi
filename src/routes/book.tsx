@@ -270,8 +270,8 @@ function BookPage() {
     <div>
       {/* BANNER */}
       <section
-        style={{ marginTop: "-30px" }}
-        className="relative mx-3 overflow-hidden rounded-[2.25rem] md:mx-6 min-h-[40vh] md:min-h-[45vh] lg:min-h-[50vh] flex items-center bg-gray-900"
+        style={{ marginTop: "-100px" }}
+        className="relative overflow-hidden min-h-[40vh] md:min-h-[45vh] lg:min-h-[50vh] flex items-center justify-center bg-gray-900"
       >
         <div
           className="absolute inset-0 bg-cover bg-center"
@@ -280,17 +280,18 @@ function BookPage() {
               "url(https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=2069&auto=format&fit=crop)",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-900/95 via-gray-900/70 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-gray-900/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-transparent to-transparent" />
 
-        <div className="relative grid gap-8 px-5 py-10 md:px-10 md:py-14 lg:py-16 w-full">
-          <div className="max-w-3xl text-white">
-            <span className="chip bg-white/20 backdrop-blur-sm border-white/30 text-white">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 md:px-6 text-center">
+          <div className="max-w-3xl mx-auto">
+            <span className="inline-flex items-center gap-2 rounded-full  bg-gradient-to-r from-[oklch(0.88_0.12_85)] to-[oklch(0.75_0.16_75)]  text-black bg-white/10 backdrop-blur-md border border-white/20 px-6 py-2.5 text-sm font-medium text-black">
               BOOKING
             </span>
-            <h1 className="mt-4 text-3xl font-extrabold leading-[1.15] sm:text-4xl md:text-5xl lg:text-6xl tracking-tight">
+            <h1 className="mt-6 text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl lg:text-6xl">
               Plan your trip
             </h1>
-            <p className="mt-3 max-w-lg text-sm text-gray-300 sm:text-base md:text-lg leading-relaxed">
+            <p className="mt-6 max-w-2xl mx-auto text-base text-white/90 md:text-lg leading-relaxed">
               Fill in your details and we'll send your booking request via WhatsApp instantly.
             </p>
           </div>

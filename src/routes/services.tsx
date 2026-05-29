@@ -72,8 +72,8 @@ function ServicesPage() {
     <div>
       {/* BANNER */}
       <section
-        style={{ marginTop: "-30px" }}
-        className="relative mx-3 overflow-hidden rounded-[2.25rem] md:mx-6 min-h-[40vh] md:min-h-[45vh] lg:min-h-[50vh] flex items-center bg-gray-900"
+        style={{ marginTop: "-6.5rem" }}
+        className="relative overflow-hidden min-h-[40vh] md:min-h-[45vh] lg:min-h-[50vh] flex items-center justify-center"
       >
         <div
           className="absolute inset-0 bg-cover bg-center"
@@ -82,17 +82,18 @@ function ServicesPage() {
               "url(https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2070&auto=format&fit=crop)",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-900/95 via-gray-900/70 to-transparent" />
+        <div className="absolute inset-0 bg-[oklch(0.15_0.02_80/0.85)]" />
+        <div className="absolute bottom-0 left-0 right-0 h-2 bg-[oklch(0.85_0.18_80)]" />
 
-        <div className="relative grid gap-8 px-5 py-10 md:px-10 md:py-14 lg:py-16 w-full">
-          <div className="max-w-3xl text-white">
-            <span className="chip bg-white/20 backdrop-blur-sm border-white/30 text-white">
+        <div className="relative z-10 text-center px-5 py-10 md:px-10 md:py-14 lg:py-16 w-full">
+          <div className="max-w-3xl mx-auto text-white">
+            <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[oklch(0.88_0.12_85)] to-[oklch(0.75_0.16_75)] px-4 py-2 backdrop-blur-md border border-[oklch(0.85_0.18_80)] text-sm font-semibold text-[oklch(0.15_0.02_80)]">
               SERVICES
             </span>
             <h1 className="mt-4 text-3xl font-extrabold leading-[1.15] sm:text-4xl md:text-5xl lg:text-6xl tracking-tight">
               Everything that moves you
             </h1>
-            <p className="mt-3 max-w-lg text-sm text-gray-300 sm:text-base md:text-lg leading-relaxed">
+            <p className="mt-3 max-w-lg mx-auto text-sm text-white/90 sm:text-base md:text-lg leading-relaxed">
               From a quick airport drop to a 10-day Rajasthan tour — one number, one trusted
               operator.
             </p>

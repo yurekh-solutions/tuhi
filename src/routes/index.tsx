@@ -683,47 +683,50 @@ function HomePage() {
               }}
             />
           ))}
-          {/* Dark overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+          {/* Dark overlay with yellow accent */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[oklch(0.15_0.02_80/0.95)] via-[oklch(0.15_0.02_80/0.7)] to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.15_0.02_80/0.8)] via-transparent to-transparent" />
+          {/* Yellow accent stripe */}
+          <div className="absolute bottom-0 left-0 right-0 h-2 bg-[oklch(0.85_0.18_80)]" />
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 mx-auto flex h-full min-h-[clamp(32rem,70vh,48rem)] max-w-7xl flex-col justify-center px-4 md:px-6">
-          <div className="max-w-3xl mt-10">
+        <div className="relative z-10 mx-auto flex h-full min-h-[clamp(32rem,70vh,48rem)] max-w-7xl flex-col items-center justify-center px-4 md:px-6 text-center">
+          <div className="max-w-4xl">
             {/* Badge */}
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 backdrop-blur-md border border-white/20">
-              <Sparkles size={16} className="text-[oklch(0.86_0.12_85)]" />
-              <span className="text-sm font-medium text-white/90">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-6 py-2.5">
+              <Sparkles size={14} className="text-white" />
+              <span className="text-sm font-medium text-white">
                 Premium Car Rental Across India
               </span>
             </div>
 
             {/* Main Heading */}
-            <h1 className="text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-              Your Journey,
-              <span className="block mt-2" style={{ color: "oklch(0.86 0.12 85)" }}>
-                Our Promise
-              </span>
+            <h1 className="text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl lg:text-6xl">
+              Trusted & Reliable
+              <br />
+              Taxi Service Company
             </h1>
 
-            {/* Description */}
-            <p className="mt-6 max-w-2xl text-lg text-white/80 sm:text-xl leading-relaxed">
-              Verified chauffeurs, transparent fares, and 24×7 support. Book your next outstation
-              cab or airport transfer in seconds via WhatsApp.
+            {/* Subtitle */}
+            <p className="mt-6 max-w-2xl mx-auto text-base text-white/90 md:text-lg leading-relaxed">
+              Book reliable outstation cabs, airport transfers & local rides. Verified drivers,
+              transparent fares, instant booking.
             </p>
 
             {/* CTA Buttons */}
-            <div className="mt-8 flex flex-col sm:flex-row gap-4">
-              <Link to="/book" className="btn-gold text-base px-8 py-4 shadow-2xl">
-                <Car size={18} /> Book Your Ride
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+              <Link
+                to="/book"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[oklch(0.88_0.12_85)] to-[oklch(0.75_0.16_75)] px-8 py-4 text-base font-bold text-[#1a1a2e] shadow-lg transition-all hover:bg-[#ffc800] hover:shadow-xl hover:scale-105 active:scale-95"
+              >
+                Learn More <ArrowRight size={18} />
               </Link>
               <a
-                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Tuhi, I want to book a cab.")}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-ghost-glass text-base px-8 py-4"
+                href={`tel:+${WHATSAPP_NUMBER}`}
+                className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-white/20 hover:border-white/40 hover:scale-105 active:scale-95"
               >
-                <MessageCircle size={18} /> WhatsApp Us
+                <Phone size={18} /> Find a Taxi
               </a>
             </div>
           </div>
@@ -758,7 +761,9 @@ function HomePage() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 max-w-2xl">
             <span className="chip">Our Presence</span>
-            <h2 className="mt-3 text-3xl font-bold md:text-5xl">Serving across India</h2>
+            <h2 className="mt-3 text-2xl font-semibold md:text-3xl font-sans">
+              Serving across India
+            </h2>
             <p className="mt-3 text-muted-foreground">
               From metro cities to hill stations — Tuhi's verified chauffeurs are ready in 500+
               cities nationwide.
@@ -828,7 +833,9 @@ function HomePage() {
               <Sparkles size={16} className="text-[oklch(0.86_0.12_85)]" />
               Instant Booking Inquiry
             </span>
-            <h2 className="mt-4 text-3xl font-bold md:text-5xl">Online Cab Booking Service</h2>
+            <h2 className="mt-4 text-2xl font-semibold md:text-3xl font-sans">
+              Online Cab Booking Service
+            </h2>
             <p className="mx-auto mt-3 max-w-2xl text-base text-white/80">
               Fill in your trip details and we'll get back to you instantly via WhatsApp with the
               best fare!
@@ -1009,7 +1016,7 @@ function HomePage() {
                     } as Record<string, unknown>,
                   });
                 }}
-                className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[oklch(0.5_0.15_75)] to-[oklch(0.6_0.14_80)] px-10 py-4 text-base font-bold text-white shadow-lg transition-all hover:from-[oklch(0.6_0.14_80)] hover:to-[oklch(0.7_0.12_85)] hover:shadow-xl active:scale-95"
+                className="flex items-center gap-2 rounded-lg  bg-gradient-to-r from-[oklch(0.5_0.15_75)] to-[oklch(0.6_0.14_80)] px-10 py-4 text-base font-bold text-white shadow-lg transition-all hover:from-[oklch(0.6_0.14_80)] hover:to-[oklch(0.7_0.12_85)] hover:shadow-xl active:scale-95"
               >
                 <Search size={18} /> Search Cabs
               </button>
@@ -1039,7 +1046,7 @@ function HomePage() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 max-w-2xl">
             <span className="chip">What we offer</span>
-            <h2 className="mt-3 text-3xl font-bold md:text-5xl">
+            <h2 className="mt-3 text-2xl font-semibold md:text-3xl font-sans">
               Every kind of ride, one phone number
             </h2>
             <p className="mt-3 text-muted-foreground">
@@ -1082,7 +1089,9 @@ function HomePage() {
           <div className="mb-10 pt-10 flex items-end justify-between">
             <div>
               <span className="chip">Our Fleet</span>
-              <h2 className="mt-3 text-3xl font-bold md:text-5xl">A car for every journey</h2>
+              <h2 className="mt-3 text-2xl font-semibold md:text-3xl font-sans">
+                A car for every journey
+              </h2>
               <p className="mt-3 max-w-xl text-muted-foreground">
                 Each car is sanitised before pickup, GPS-tracked, and driven by a verified
                 chauffeur.
@@ -1111,7 +1120,7 @@ function HomePage() {
                   {c.rating}
                 </div>
 
-                <div className="relative aspect-[16/10] overflow-hidden rounded-2xl neu-inset grid place-items-center">
+                <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-gray-50 grid place-items-center">
                   <img
                     src={c.image}
                     alt={c.name}
@@ -1189,7 +1198,9 @@ function HomePage() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 pt-10 max-w-2xl">
             <span className="chip">Popular routes</span>
-            <h2 className="mt-3 text-3xl font-bold md:text-5xl">India's most booked drives</h2>
+            <h2 className="mt-3 text-2xl font-semibold md:text-3xl font-sans">
+              India's most booked drives
+            </h2>
             <p className="mt-3 text-muted-foreground">
               Book any of these routes in under a minute through our booking form.
             </p>
@@ -1235,7 +1246,7 @@ function HomePage() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 max-w-2xl">
             <span className="chip">Why Tuhi</span>
-            <h2 className="mt-3 text-3xl font-bold md:text-5xl">
+            <h2 className="mt-3 text-2xl font-semibold md:text-3xl font-sans">
               The little things that make the difference
             </h2>
           </div>
@@ -1257,7 +1268,9 @@ function HomePage() {
       <section className="section pt-0">
         <div className="mx-auto max-w-7xl glass p-8 md:p-12">
           <span className="chip">How it works</span>
-          <h2 className="mt-3 text-3xl font-bold md:text-4xl">Three steps to the open road</h2>
+          <h2 className="mt-3 text-2xl font-semibold md:text-3xl font-sans">
+            Three steps to the open road
+          </h2>
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             {[
               {
@@ -1292,7 +1305,9 @@ function HomePage() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-10  mt-5 max-w-2xl">
             <span className="chip">Since 2006</span>
-            <h2 className="mt-3 text-3xl font-bold md:text-5xl">Cab Service in India</h2>
+            <h2 className="mt-3 text-2xl font-semibold md:text-3xl font-sans">
+              Cab Service in India
+            </h2>
             <p className="mt-3 text-muted-foreground">
               Tuhi Car Rental offers reliable cab services across India. Airport transfers,
               outstation trips, luxury cars, sightseeing packages and group travel — all from one
@@ -1334,65 +1349,121 @@ function HomePage() {
           </div>
         </div>
       </section>
-      {/* TESTIMONIALS */}
-      <section className="section pt-0">
+      {/* TESTIMONIALS - MARQUEE */}
+      <section className="section pt-0 overflow-hidden">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-10  mt-5 max-w-2xl">
+          <div className="mb-10 mt-5 text-center">
             <span className="chip">Loved by riders</span>
-            <h2 className="mt-3 text-3xl font-bold md:text-5xl">Real reviews from real trips</h2>
+            <h2 className="mt-3 text-2xl font-semibold md:text-3xl font-sans">
+              Real reviews from real trips
+            </h2>
           </div>
-          <div className="grid gap-6 md:grid-cols-3">
-            {TESTIMONIALS.map((t) => (
-              <div key={t.name} className="neu relative p-7">
-                <Quote
-                  className="absolute right-5 top-5 text-[oklch(0.86_0.12_85_/_0.4)]"
-                  size={40}
-                />
-                <div className="flex gap-0.5">
-                  {Array.from({ length: t.rating }).map((_, i) => (
-                    <Star
-                      key={i}
-                      size={15}
-                      className="fill-[oklch(0.78_0.14_80)] text-[oklch(0.78_0.14_80)]"
-                    />
-                  ))}
-                </div>
-                <p className="mt-4 text-sm leading-relaxed text-foreground/85">"{t.text}"</p>
-                <div className="mt-6 flex items-center gap-3 border-t border-border/60 pt-4">
-                  <div
-                    className="grid h-10 w-10 place-items-center rounded-full text-sm font-bold text-[oklch(0.25_0.05_260)]"
-                    style={{ background: "var(--gradient-gold)" }}
-                  >
-                    {t.name[0]}
+
+          {/* Marquee Container */}
+          <div className="relative w-full overflow-hidden">
+            {/* Row 1 - Forward Direction */}
+            <div
+              className="flex animate-marquee-forward mb-6 gap-6"
+              style={{ width: "max-content" }}
+            >
+              {[...TESTIMONIALS, ...TESTIMONIALS].map((t, index) => (
+                <div
+                  key={`forward-${index}`}
+                  className="neu relative p-6 sm:p-7 min-w-[300px] sm:min-w-[350px] max-w-[350px] sm:max-w-[400px]"
+                >
+                  <Quote
+                    className="absolute right-5 top-5 text-[oklch(0.86_0.12_85_/_0.4)]"
+                    size={40}
+                  />
+                  <div className="flex gap-0.5">
+                    {Array.from({ length: t.rating }).map((_, i) => (
+                      <Star
+                        key={i}
+                        size={15}
+                        className="fill-[oklch(0.78_0.14_80)] text-[oklch(0.78_0.14_80)]"
+                      />
+                    ))}
                   </div>
-                  <div>
-                    <div className="text-sm font-bold">{t.name}</div>
-                    <div className="text-xs text-muted-foreground">{t.trip}</div>
+                  <p className="mt-4 text-sm leading-relaxed text-foreground/85">"{t.text}"</p>
+                  <div className="mt-6 flex items-center gap-3 border-t border-border/60 pt-4">
+                    <div
+                      className="grid h-10 w-10 place-items-center rounded-full text-sm font-bold text-[oklch(0.25_0.05_260)]"
+                      style={{ background: "var(--gradient-gold)" }}
+                    >
+                      {t.name[0]}
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold">{t.name}</div>
+                      <div className="text-xs text-muted-foreground">{t.trip}</div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+
+            {/* Row 2 - Reverse Direction */}
+            <div className="flex animate-marquee-reverse gap-6" style={{ width: "max-content" }}>
+              {[...TESTIMONIALS, ...TESTIMONIALS].map((t, index) => (
+                <div
+                  key={`reverse-${index}`}
+                  className="neu relative p-6 sm:p-7 min-w-[300px] sm:min-w-[350px] max-w-[350px] sm:max-w-[400px]"
+                >
+                  <Quote
+                    className="absolute right-5 top-5 text-[oklch(0.86_0.12_85_/_0.4)]"
+                    size={40}
+                  />
+                  <div className="flex gap-0.5">
+                    {Array.from({ length: t.rating }).map((_, i) => (
+                      <Star
+                        key={i}
+                        size={15}
+                        className="fill-[oklch(0.78_0.14_80)] text-[oklch(0.78_0.14_80)]"
+                      />
+                    ))}
+                  </div>
+                  <p className="mt-4 text-sm leading-relaxed text-foreground/85">"{t.text}"</p>
+                  <div className="mt-6 flex items-center gap-3 border-t border-border/60 pt-4">
+                    <div
+                      className="grid h-10 w-10 place-items-center rounded-full text-sm font-bold text-[oklch(0.25_0.05_260)]"
+                      style={{ background: "var(--gradient-gold)" }}
+                    >
+                      {t.name[0]}
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold">{t.name}</div>
+                      <div className="text-xs text-muted-foreground">{t.trip}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="section pt-0">
-        <div
-          className="mx-auto max-w-7xl overflow-hidden rounded-[2.25rem] px-4 py-10 text-center md:px-16 md:py-20"
-          style={{ background: "var(--gradient-hero)" }}
-        >
-          <h2 className="text-3xl font-bold text-white md:text-5xl">Ready when you are.</h2>
+      <section className="pt-0">
+        <div className="overflow-hidden bg-gradient-to-br from-[oklch(0.15_0.05_260)] to-[oklch(0.18_0.06_265)] px-6 py-12 text-center md:px-16 md:py-20">
+          <h2 className="text-2xl font-semibold text-white md:text-3xl font-sans">
+            Ready when you are.
+          </h2>
           <p className="mx-auto mt-3 max-w-xl text-white/70">
             Speak to a real human. Call or WhatsApp{" "}
             <span className="font-semibold text-white">{PHONE_DISPLAY}</span> for instant booking.
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
-            <Link to="/book" className="btn-gold">
+            <Link
+              to="/book"
+              className="rounded-full bg-gradient-to-r from-[oklch(0.88_0.12_85)] to-[oklch(0.75_0.16_75)] px-8 py-4 text-lg font-bold text-[oklch(0.18_0.02_260)] shadow-[0_16px_48px_-12px_oklch(0.78_0.14_80/0.4)] transition-all hover:shadow-[0_20px_56px_-10px_oklch(0.78_0.14_80/0.6)] active:scale-95"
+            >
               Book a cab
             </Link>
-            <a href={`tel:+${WHATSAPP_NUMBER}`} className="btn-ghost-glass">
-              <Phone size={16} /> Call now
+            <a
+              href={`tel:+${WHATSAPP_NUMBER}`}
+              className="rounded-full border border-white/20 bg-white/10 px-8 py-4 text-lg font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/20 active:scale-95"
+            >
+              <Phone size={16} className="inline mr-2" />
+              Call now
             </a>
           </div>
         </div>
