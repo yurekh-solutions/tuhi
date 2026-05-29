@@ -773,7 +773,7 @@ function HomePage() {
             {CITY_PRESENCE.map((city) => (
               <div
                 key={city.name}
-                className="neu group relative overflow-hidden rounded-2xl transition-transform hover:-translate-y-1"
+                className="glass group relative overflow-hidden rounded-2xl transition-transform hover:-translate-y-1"
               >
                 {/* City Image */}
                 <div className="relative h-40 overflow-hidden sm:h-48">
@@ -1058,7 +1058,7 @@ function HomePage() {
             {SERVICES.map((s) => (
               <div
                 key={s.title}
-                className="neu group p-6 transition-transform hover:-translate-y-1"
+                className="glass group p-6 transition-transform hover:-translate-y-1"
               >
                 <div
                   className="grid h-14 w-14 place-items-center rounded-2xl text-[oklch(0.25_0.05_260)]"
@@ -1109,7 +1109,7 @@ function HomePage() {
             {CAR_CLASSES.slice(0, 3).map((c) => (
               <div
                 key={c.id}
-                className="group neu relative overflow-hidden p-5 transition-transform hover:-translate-y-1"
+                className="group glass relative overflow-hidden p-5 transition-transform hover:-translate-y-1"
               >
                 {/* Top rating badge */}
                 <div className="absolute right-4 top-4 z-10 flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-xs font-bold shadow">
@@ -1252,7 +1252,7 @@ function HomePage() {
           </div>
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {FEATURES.map((f) => (
-              <div key={f.t} className="neu-sm p-6">
+              <div key={f.t} className="glass p-6">
                 <div className="grid h-12 w-12 place-items-center rounded-2xl bg-[var(--muted)] text-[oklch(0.5_0.12_75)]">
                   <f.icon size={20} />
                 </div>
@@ -1289,7 +1289,7 @@ function HomePage() {
                 d: "Verified chauffeur, sanitised car, and a transparent bill at the end. No surprises.",
               },
             ].map((s) => (
-              <div key={s.n} className="neu-sm p-6">
+              <div key={s.n} className="glass p-6">
                 <div className="text-4xl font-bold" style={{ color: "oklch(0.78 0.14 80)" }}>
                   {s.n}
                 </div>
@@ -1369,7 +1369,7 @@ function HomePage() {
               {[...TESTIMONIALS, ...TESTIMONIALS].map((t, index) => (
                 <div
                   key={`forward-${index}`}
-                  className="neu relative p-6 sm:p-7 min-w-[300px] sm:min-w-[350px] max-w-[350px] sm:max-w-[400px]"
+                  className="glass relative p-6 sm:p-7 min-w-[300px] sm:min-w-[350px] max-w-[350px] sm:max-w-[400px]"
                 >
                   <Quote
                     className="absolute right-5 top-5 text-[oklch(0.86_0.12_85_/_0.4)]"
@@ -1406,7 +1406,7 @@ function HomePage() {
               {[...TESTIMONIALS, ...TESTIMONIALS].map((t, index) => (
                 <div
                   key={`reverse-${index}`}
-                  className="neu relative p-6 sm:p-7 min-w-[300px] sm:min-w-[350px] max-w-[350px] sm:max-w-[400px]"
+                  className="glass relative p-6 sm:p-7 min-w-[300px] sm:min-w-[350px] max-w-[350px] sm:max-w-[400px]"
                 >
                   <Quote
                     className="absolute right-5 top-5 text-[oklch(0.86_0.12_85_/_0.4)]"

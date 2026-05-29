@@ -117,7 +117,7 @@ function ServicesPage() {
             {SERVICES.map((s, idx) => (
               <div
                 key={s.title}
-                className="group neu overflow-hidden p-6 transition-all hover:-translate-y-1 hover:shadow-lg"
+                className="group glass overflow-hidden p-6 transition-all hover:-translate-y-1 hover:shadow-lg"
               >
                 <div
                   className="grid h-14 w-14 place-items-center rounded-2xl text-[oklch(0.25_0.05_260)]"
@@ -339,7 +339,7 @@ function ServicesPage() {
                 key={pkg.route}
                 to="/book"
                 search={{ from: pkg.route.split(" → ")[0], to: pkg.route.split(" → ")[1] } as never}
-                className="neu group flex items-center gap-4 p-5 transition-transform hover:-translate-y-1"
+                className="glass group flex items-center gap-4 p-5 transition-transform hover:-translate-y-1"
               >
                 <div className="flex-1">
                   <h3 className="text-lg font-bold">{pkg.route}</h3>
@@ -390,7 +390,7 @@ function ServicesPage() {
                 desc: "Book in under 1 minute via WhatsApp or our online form",
               },
             ].map((feature) => (
-              <div key={feature.title} className="neu-sm p-6 text-center">
+              <div key={feature.title} className="glass p-6 text-center">
                 <div
                   className="mx-auto grid h-14 w-14 place-items-center rounded-2xl text-[oklch(0.25_0.05_260)]"
                   style={{ background: "var(--gradient-gold)" }}

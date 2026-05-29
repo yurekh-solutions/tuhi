@@ -305,7 +305,7 @@ function BookPage() {
             {/* Left: form */}
             <div className="glass p-4 md:p-6 lg:p-8">
               {/* Trip type */}
-              <div className="neu-inset flex gap-1 p-1.5 text-sm font-semibold">
+              <div className="glass flex gap-1 p-1.5 text-sm font-semibold">
                 {(["oneway", "round", "airport", "local"] as const).map((t) => (
                   <button
                     key={t}
@@ -326,7 +326,7 @@ function BookPage() {
               <div className="mt-4 md:mt-6 grid gap-3 md:gap-4 md:grid-cols-2">
                 <Field label="Pickup City / Address" icon={MapPin}>
                   <input
-                    className="neu-input"
+                    className="glass-input"
                     required
                     value={from}
                     onChange={(e) => setFrom(e.target.value)}
@@ -335,7 +335,7 @@ function BookPage() {
                 </Field>
                 <Field label={tripType === "local" ? "Local Area" : "Destination"} icon={MapPin}>
                   <input
-                    className="neu-input"
+                    className="glass-input"
                     required
                     value={to}
                     onChange={(e) => setTo(e.target.value)}
@@ -349,7 +349,7 @@ function BookPage() {
                 <Field label="Travel Date" icon={Calendar}>
                   <input
                     type="date"
-                    className="neu-input"
+                    className="glass-input"
                     required
                     min={today()}
                     value={date}
@@ -359,7 +359,7 @@ function BookPage() {
                 <Field label="Pickup Time" icon={Clock}>
                   <input
                     type="time"
-                    className="neu-input"
+                    className="glass-input"
                     required
                     value={time}
                     onChange={(e) => setTime(e.target.value)}
@@ -446,7 +446,7 @@ function BookPage() {
                 <Field label="Your Name" icon={User}>
                   <input
                     required
-                    className="neu-input"
+                    className="glass-input"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Full name"
@@ -456,7 +456,7 @@ function BookPage() {
                   <input
                     required
                     type="tel"
-                    className="neu-input"
+                    className="glass-input"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="+91 ..."
@@ -467,7 +467,7 @@ function BookPage() {
 
             {/* Right: summary */}
             <aside className="lg:sticky lg:top-28 lg:self-start">
-              <div className="neu p-7">
+              <div className="glass p-7">
                 <div className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                   Booking Summary
                 </div>
@@ -482,7 +482,7 @@ function BookPage() {
                 <div className="my-6 h-px bg-border" />
 
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="neu-inset rounded-2xl p-4 text-center">
+                  <div className="glass rounded-2xl p-4 text-center">
                     <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
                       Distance
                     </div>
@@ -490,7 +490,7 @@ function BookPage() {
                       {km != null ? `${km} km` : "—"}
                     </div>
                   </div>
-                  <div className="neu-inset rounded-2xl p-4 text-center">
+                  <div className="glass rounded-2xl p-4 text-center">
                     <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
                       Est. Time
                     </div>

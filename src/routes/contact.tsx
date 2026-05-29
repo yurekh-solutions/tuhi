@@ -129,7 +129,7 @@ function ContactPage() {
             <div className="space-y-4">
               <a
                 href={`tel:+${WHATSAPP_NUMBER}`}
-                className="neu flex items-center gap-3 md:gap-4 p-4 md:p-6 transition-transform hover:-translate-y-0.5"
+                className="glass flex items-center gap-3 md:gap-4 p-4 md:p-6 transition-transform hover:-translate-y-0.5"
               >
                 <div
                   className="grid h-12 w-12 place-items-center rounded-2xl text-[oklch(0.5_0.12_75)]"
@@ -146,7 +146,7 @@ function ContactPage() {
                 href={`https://wa.me/${WHATSAPP_NUMBER}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="neu flex items-center gap-3 md:gap-4 p-4 md:p-6 transition-transform hover:-translate-y-0.5"
+                className="glass flex items-center gap-3 md:gap-4 p-4 md:p-6 transition-transform hover:-translate-y-0.5"
               >
                 <div
                   className="grid h-10 w-10 md:h-12 md:w-12 place-items-center rounded-2xl text-white"
@@ -163,7 +163,7 @@ function ContactPage() {
               </a>
               <a
                 href="mailto:bookings@tuhicarrental.in"
-                className="neu flex items-center gap-3 md:gap-4 p-4 md:p-6 transition-transform hover:-translate-y-0.5"
+                className="glass flex items-center gap-3 md:gap-4 p-4 md:p-6 transition-transform hover:-translate-y-0.5"
               >
                 <div
                   className="grid h-10 w-10 md:h-12 md:w-12 place-items-center rounded-2xl text-[oklch(0.5_0.12_75)]"
