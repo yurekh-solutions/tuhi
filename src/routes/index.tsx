@@ -731,16 +731,16 @@ function HomePage() {
       </section>
 
       {/* TRUST STATS BAR */}
-      <section className="relative z-20 mt-8 pb-8">
+      <section className=" relative z-20 mt-8 pb-8">
         <div className="mx-auto max-w-6xl px-4">
           <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 md:gap-6">
             {TRUST_STATS.map((stat) => (
               <div
                 key={stat.label}
-                className="glass group flex flex-col items-center gap-2 rounded-2xl p-5 text-center transition-transform hover:-translate-y-1 sm:p-6"
+                className=" bg-[#f9f8f6] glass group flex flex-col items-center gap-2 rounded-2xl p-5 text-center transition-transform hover:-translate-y-1 sm:p-6"
               >
                 <div
-                  className="grid h-12 w-12 place-items-center rounded-xl text-[oklch(0.25_0.05_260)]"
+                  className=" bg-[#f9f8f6] grid h-12 w-12 place-items-center rounded-xl text-[oklch(0.25_0.05_260)]"
                   style={{ background: "var(--gradient-gold)" }}
                 >
                   <stat.icon size={20} />
@@ -754,7 +754,7 @@ function HomePage() {
       </section>
 
       {/* CITY PRESENCE */}
-      <section className="section pt-4">
+      <section className=" bg-[#fefefe] section pt-4">
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 max-w-2xl">
             <span className="chip">Our Presence</span>
@@ -1077,9 +1077,9 @@ function HomePage() {
       </section>
 
       {/* FLEET PREVIEW — RICH DETAIL CARDS */}
-      <section className="section pt-0">
+      <section className=" bg-[#fefefe] section pt-0">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-10 flex items-end justify-between">
+          <div className="mb-10 pt-10 flex items-end justify-between">
             <div>
               <span className="chip">Our Fleet</span>
               <h2 className="mt-3 text-3xl font-bold md:text-5xl">A car for every journey</h2>
@@ -1187,7 +1187,7 @@ function HomePage() {
       {/* POPULAR ROUTES */}
       <section className="section pt-0">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-10 max-w-2xl">
+          <div className="mb-10 pt-10 max-w-2xl">
             <span className="chip">Popular routes</span>
             <h2 className="mt-3 text-3xl font-bold md:text-5xl">India's most booked drives</h2>
             <p className="mt-3 text-muted-foreground">
@@ -1288,9 +1288,9 @@ function HomePage() {
         </div>
       </section>
       {/* CAB SERVICE IN INDIA — SEO LINKS */}
-      <section className="section pt-4">
+      <section className=" bg-[#fefefe]  section pt-4">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-10 max-w-2xl">
+          <div className="mb-10  mt-5 max-w-2xl">
             <span className="chip">Since 2006</span>
             <h2 className="mt-3 text-3xl font-bold md:text-5xl">Cab Service in India</h2>
             <p className="mt-3 text-muted-foreground">
@@ -1337,7 +1337,7 @@ function HomePage() {
       {/* TESTIMONIALS */}
       <section className="section pt-0">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-10 max-w-2xl">
+          <div className="mb-10  mt-5 max-w-2xl">
             <span className="chip">Loved by riders</span>
             <h2 className="mt-3 text-3xl font-bold md:text-5xl">Real reviews from real trips</h2>
           </div>

@@ -1,7 +1,21 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Users, Briefcase, Snowflake, ArrowRight, Search, SlidersHorizontal } from "lucide-react";
+import {
+  Users,
+  Briefcase,
+  Snowflake,
+  ArrowRight,
+  Search,
+  SlidersHorizontal,
+  Star,
+  ShieldCheck,
+  Clock,
+  Award,
+  Phone,
+  MessageCircle,
+  CheckCircle2,
+} from "lucide-react";
 import { fetchCars } from "@/routes/api-server/cars";
 import type { Car } from "@/lib/data.server";
 
@@ -77,7 +91,7 @@ function FleetPage() {
       {/* BANNER */}
       <section
         style={{ marginTop: "-30px" }}
-        className="relative mx-3 overflow-hidden rounded-[2.25rem] md:mx-6 min-h-[40vh] md:min-h-[45vh] lg:min-h-[50vh] flex items-center bg-gray-900"
+        className="relative mx-3 overflow-hidden rounded-[2.25rem] md:mx-6 min-h-[40vh] md:min-h-[45vh] lg:min-h-[50vh] flex items-center"
       >
         <div
           className="absolute inset-0 bg-cover bg-center"
@@ -86,6 +100,7 @@ function FleetPage() {
               "url(https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=2070&auto=format&fit=crop)",
           }}
         />
+
         <div className="absolute inset-0 bg-gradient-to-r from-gray-900/95 via-gray-900/70 to-transparent" />
 
         <div className="relative grid gap-8 px-5 py-10 md:px-10 md:py-14 lg:py-16 w-full">
@@ -103,6 +118,105 @@ function FleetPage() {
           </div>
         </div>
       </section>
+
+      {/* IMAGE GALLERY */}
+      <div className="section">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 text-center">
+            <h2 className="text-3xl font-bold">Our Premium Fleet</h2>
+            <p className="mt-3 text-muted-foreground">
+              Choose from our wide range of well-maintained vehicles
+            </p>
+          </div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600",
+                title: "Luxury Sedans",
+                desc: "Premium comfort for business travel",
+              },
+              {
+                image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600",
+                title: "SUVs & MUVs",
+                desc: "Perfect for family trips",
+              },
+              {
+                image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=600",
+                title: "Hatchbacks",
+                desc: "Economical city rides",
+              },
+            ].map((item, idx) => (
+              <div key={idx} className="group overflow-hidden rounded-2xl shadow-lg">
+                <div className="aspect-[16/10] overflow-hidden">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
+                <div className="bg-white p-5">
+                  <h3 className="text-xl font-bold">{item.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* WHY CHOOSE OUR FLEET */}
+      <div className="bg-gradient-to-br from-[oklch(0.97_0.01_250)] to-[oklch(0.95_0.015_250)] py-12 md:py-16">
+        <div className="mx-auto max-w-7xl px-4 md:px-6">
+          <div className="mb-10 text-center">
+            <span className="chip">Why Choose Our Fleet</span>
+            <h2 className="mt-3 text-3xl font-bold md:text-5xl">
+              Quality vehicles, professional service
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
+              Every vehicle in our fleet is carefully maintained, sanitized before each trip, and
+              driven by verified professionals.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                icon: ShieldCheck,
+                title: "Verified Drivers",
+                desc: "Background-checked professionals with 5+ years experience",
+              },
+              {
+                icon: CheckCircle2,
+                title: "Sanitized Cars",
+                desc: "Deep cleaned and sanitized before every trip",
+              },
+              {
+                icon: Clock,
+                title: "24/7 Support",
+                desc: "Round-the-clock assistance during your journey",
+              },
+              {
+                icon: Award,
+                title: "Best Prices",
+                desc: "Competitive, transparent pricing with no hidden fees",
+              },
+            ].map((feature, idx) => (
+              <div
+                key={idx}
+                className="neu p-6 text-center transition-transform hover:-translate-y-1"
+              >
+                <div
+                  className="mx-auto grid h-14 w-14 place-items-center rounded-2xl text-[oklch(0.25_0.05_260)]"
+                  style={{ background: "var(--gradient-gold)" }}
+                >
+                  <feature.icon size={24} />
+                </div>
+                <h3 className="mt-4 text-lg font-bold">{feature.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{feature.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
       {/* CONTENT */}
       <div className="section">
@@ -227,6 +341,108 @@ function FleetPage() {
           )}
         </div>
       </div>
+
+      {/* TESTIMONIALS */}
+      <section className="section">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 text-center">
+            <span className="chip">Customer Reviews</span>
+            <h2 className="mt-3 text-3xl font-bold md:text-5xl">What our customers say</h2>
+            <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
+              Real reviews from real travelers who experienced our premium fleet and service.
+            </p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            {[
+              {
+                name: "Vikram Patel",
+                rating: 5,
+                text: "Innova was spotless and comfortable. Driver was professional and knew the routes well. Great experience for our family trip to Goa!",
+                trip: "Mumbai → Goa",
+                car: "Toyota Innova",
+              },
+              {
+                name: "Sneha Iyer",
+                rating: 5,
+                text: "Booked a Mercedes for my wedding. The car was beautifully maintained and the driver was punctual. Made our special day even more memorable.",
+                trip: "Wedding Event",
+                car: "Mercedes E-Class",
+              },
+              {
+                name: "Amit Desai",
+                rating: 5,
+                text: "Regular corporate traveler. Tuhi's sedan service is consistently excellent. Professional drivers, clean cars, and transparent billing.",
+                trip: "Corporate Travel",
+                car: "Honda City",
+              },
+            ].map((testimonial) => (
+              <div
+                key={testimonial.name}
+                className="neu p-6 transition-transform hover:-translate-y-1"
+              >
+                <div className="flex gap-0.5">
+                  {Array.from({ length: testimonial.rating }).map((_, i) => (
+                    <Star
+                      key={i}
+                      size={16}
+                      className="fill-[oklch(0.78_0.14_80)] text-[oklch(0.78_0.14_80)]"
+                    />
+                  ))}
+                </div>
+                <p className="mt-4 text-sm leading-relaxed text-foreground/85">
+                  "{testimonial.text}"
+                </p>
+                <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
+                  <span className="font-semibold text-[oklch(0.5_0.12_75)]">{testimonial.car}</span>
+                  <span>•</span>
+                  <span>{testimonial.trip}</span>
+                </div>
+                <div className="mt-4 flex items-center gap-3 border-t border-border/60 pt-4">
+                  <div
+                    className="grid h-10 w-10 place-items-center rounded-full text-sm font-bold text-[oklch(0.25_0.05_260)]"
+                    style={{ background: "var(--gradient-gold)" }}
+                  >
+                    {testimonial.name[0]}
+                  </div>
+                  <div className="text-sm font-bold">{testimonial.name}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="section pt-0">
+        <div className="mx-auto max-w-7xl">
+          <div
+            className="overflow-hidden rounded-[2.25rem] px-6 py-12 text-center md:px-16 md:py-20"
+            style={{ background: "var(--gradient-hero)" }}
+          >
+            <h2 className="text-3xl font-bold text-white md:text-5xl">
+              Ready to choose your perfect ride?
+            </h2>
+            <p className="mx-auto mt-3 max-w-xl text-white/70">
+              Browse our fleet, compare vehicles, and book your ideal car for a comfortable journey
+              across India.
+            </p>
+            <div className="mt-7 flex flex-wrap justify-center gap-3">
+              <Link to="/book" className="btn-gold">
+                Book Now <ArrowRight size={16} />
+              </Link>
+              <a
+                href={`https://wa.me/${process.env.VITE_WHATSAPP_NUMBER || "919136242706"}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ghost-glass"
+              >
+                <MessageCircle size={16} /> WhatsApp Us
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

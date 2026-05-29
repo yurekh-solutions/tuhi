@@ -90,40 +90,66 @@ export function SiteHeader() {
 
       {/* Mobile Menu */}
       {open && (
-        <div className="mx-auto max-w-7xl px-4 md:px-6 md:hidden">
-          <div className="glass overflow-hidden rounded-2xl backdrop-blur-xl">
-            <nav className="flex flex-col gap-1 p-4">
-              {NAV.map((n) => (
-                <Link
-                  key={n.to}
-                  to={n.to}
-                  onClick={() => setOpen(false)}
-                  className="rounded-xl px-4 py-3.5 text-sm font-medium transition-colors hover:bg-white/80"
-                  activeProps={{
-                    className: "rounded-xl px-4 py-3.5 text-sm font-semibold bg-white/90 shadow-sm",
-                  }}
-                  activeOptions={{ exact: true }}
-                >
-                  {n.label}
-                </Link>
-              ))}
-              <div className="mt-2 border-t border-[var(--border)] pt-3">
-                <a
-                  href={`tel:+${WHATSAPP_NUMBER}`}
-                  className="flex items-center gap-2 rounded-xl bg-[var(--surface)] px-4 py-3 text-sm font-semibold shadow-sm"
-                >
-                  <Phone size={15} className="text-[oklch(0.5_0.12_75)]" />
-                  {PHONE_DISPLAY}
-                </a>
-                <Link
-                  to="/book"
-                  onClick={() => setOpen(false)}
-                  className="btn-gold mt-2 w-full justify-center shadow-lg"
-                >
-                  <Car size={15} /> Book Now
-                </Link>
-              </div>
-            </nav>
+        <div className="md:hidden" style={{ zIndex: 9999, position: "relative" }}>
+          <div className="mx-auto max-w-7xl px-4 md:px-6">
+            <div
+              className="overflow-hidden rounded-2xl shadow-2xl border border-blue-100"
+              style={{
+                background: "#ffffff",
+              }}
+            >
+              <nav className="flex flex-col gap-2 p-5" style={{ pointerEvents: "auto" }}>
+                {NAV.map((n) => (
+                  <Link
+                    key={n.to}
+                    to={n.to}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setOpen(false);
+                      setTimeout(() => {
+                        window.location.href = n.to;
+                      }, 100);
+                    }}
+                    className="group flex items-center justify-between rounded-xl px-5 py-4 text-base font-semibold text-gray-700 transition-all hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:text-blue-600 hover:shadow-md active:scale-95"
+                    activeProps={{
+                      className:
+                        "flex items-center justify-between rounded-xl px-5 py-4 text-base font-bold bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-600 shadow-md",
+                    }}
+                    activeOptions={{ exact: true }}
+                  >
+                    <span>{n.label}</span>
+                    <span className="text-gray-400 group-hover:text-blue-500 transition-colors text-lg">
+                      →
+                    </span>
+                  </Link>
+                ))}
+                <div className="mt-3 pt-4 border-t border-gray-200 space-y-3">
+                  <a
+                    href={`tel:+${WHATSAPP_NUMBER}`}
+                    className="flex items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 px-5 py-4 text-base font-bold text-gray-700 border border-gray-200 shadow-sm transition-all hover:from-gray-100 hover:to-gray-200 hover:shadow-md active:scale-95"
+                    style={{ pointerEvents: "auto" }}
+                  >
+                    <Phone size={18} className="text-blue-600" />
+                    <span>{PHONE_DISPLAY}</span>
+                  </a>
+                  <Link
+                    to="/book"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setOpen(false);
+                      setTimeout(() => {
+                        window.location.href = "/book";
+                      }, 100);
+                    }}
+                    className="flex items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-500 px-5 py-4 text-base font-bold text-white shadow-lg transition-all hover:shadow-xl hover:scale-[1.02] active:scale-95"
+                    style={{ pointerEvents: "auto" }}
+                  >
+                    <Car size={18} />
+                    <span>Book Now</span>
+                  </Link>
+                </div>
+              </nav>
+            </div>
           </div>
         </div>
       )}

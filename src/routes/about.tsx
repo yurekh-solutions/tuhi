@@ -1,5 +1,18 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { ShieldCheck, Award, Smile, MapPin } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  ShieldCheck,
+  Award,
+  Smile,
+  MapPin,
+  Clock,
+  Users,
+  CheckCircle2,
+  ArrowRight,
+  Star,
+  Heart,
+  Target,
+  Globe,
+} from "lucide-react";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -50,42 +63,298 @@ function AboutPage() {
         </div>
       </section>
 
-      {/* CONTENT */}
-      <div className="section">
-        <div className="mx-auto max-w-5xl">
-          <div className=" grid gap-4 md:gap-6 md:grid-cols-2">
-            <div className="neu p-5 md:p-8">
-              <h2 className="text-2xl font-bold">Our promise</h2>
-              <p className="mt-3 text-foreground/80">
-                No hidden charges. No last-minute cancellations. Just a clean car, a verified
-                chauffeur and a fare you saw before the ride began.
-              </p>
-            </div>
-            <div className="neu p-5 md:p-8">
-              <h2 className="text-2xl font-bold">Pan-India network</h2>
-              <p className="mt-3 text-foreground/80">
-                Local partners in every state, audited by our central operations team. That's how a
-                Mumbai booking gets you a Bengaluru pickup without missing a beat.
-              </p>
-            </div>
+      {/* MISSION & VALUES */}
+      <section className="section">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 text-center">
+            <span className="chip">Our Mission</span>
+            <h2 className="mt-3 text-3xl font-bold md:text-5xl">Making travel effortless</h2>
+            <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
+              We believe every journey should be comfortable, safe, and transparent. Our mission is
+              to revolutionize road travel in India.
+            </p>
           </div>
 
-          <div className="mt-6 md:mt-10 grid gap-3 md:gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {[
-              { icon: ShieldCheck, k: "100%", v: "Verified drivers" },
-              { icon: Award, k: "4.9★", v: "Customer rating" },
-              { icon: Smile, k: "50k+", v: "Happy travellers" },
-              { icon: MapPin, k: "1500+", v: "Cities served" },
-            ].map((s) => (
-              <div key={s.v} className="neu-sm p-6 text-center">
-                <s.icon className="mx-auto text-[oklch(0.5_0.12_75)]" size={22} />
-                <div className="mt-2 text-2xl font-extrabold">{s.k}</div>
-                <div className="text-xs text-muted-foreground">{s.v}</div>
+              {
+                icon: Target,
+                title: "Our Mission",
+                desc: "To provide reliable, affordable, and safe transportation across India with transparent pricing and exceptional customer service.",
+              },
+              {
+                icon: Heart,
+                title: "Our Values",
+                desc: "Safety first, transparency always, customer obsession, and continuous innovation in everything we do.",
+              },
+              {
+                icon: Globe,
+                title: "Our Vision",
+                desc: "To become India's most trusted car rental service, covering every city and route by 2030.",
+              },
+            ].map((item) => (
+              <div key={item.title} className="neu p-6 transition-transform hover:-translate-y-1">
+                <div
+                  className="grid h-14 w-14 place-items-center rounded-2xl text-[oklch(0.25_0.05_260)]"
+                  style={{ background: "var(--gradient-gold)" }}
+                >
+                  <item.icon size={24} />
+                </div>
+                <h3 className="mt-5 text-xl font-bold">{item.title}</h3>
+                <p className="mt-3 text-muted-foreground">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* TIMELINE */}
+      <section className="section pt-0">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-10 text-center">
+            <span className="chip">Our Journey</span>
+            <h2 className="mt-3 text-3xl font-bold md:text-5xl">Milestones that define us</h2>
+          </div>
+
+          <div className="space-y-6">
+            {[
+              {
+                year: "2006",
+                title: "Founded in Mumbai",
+                desc: "Started with just 5 cars and a vision to simplify outstation travel.",
+              },
+              {
+                year: "2010",
+                title: "Expanded to 50 Cars",
+                desc: "Grew our fleet to serve Mumbai-Pune, Mumbai-Nashik, and Mumbai-Goa routes.",
+              },
+              {
+                year: "2014",
+                title: "Pan-India Service",
+                desc: "Launched services in Delhi, Bangalore, Hyderabad, and Chennai.",
+              },
+              {
+                year: "2018",
+                title: "50,000+ Trips Completed",
+                desc: "Reached a major milestone with verified drivers and transparent pricing.",
+              },
+              {
+                year: "2020",
+                title: "Digital Transformation",
+                desc: "Introduced WhatsApp booking, GPS tracking, and online fare calculation.",
+              },
+              {
+                year: "2024",
+                title: "500+ Cities Coverage",
+                desc: "Now serving over 500 cities with 100+ vehicles and 24/7 support.",
+              },
+            ].map((milestone, idx) => (
+              <div key={idx} className="flex gap-4 md:gap-6">
+                <div className="flex flex-col items-center">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[oklch(0.5_0.12_75)] to-[oklch(0.6_0.14_80)] text-sm font-bold text-white">
+                    {milestone.year}
+                  </div>
+                  {idx < 5 && (
+                    <div className="mt-2 h-12 w-0.5 bg-gradient-to-b from-[oklch(0.5_0.12_75)] to-transparent" />
+                  )}
+                </div>
+                <div className="flex-1 neu-sm p-5">
+                  <h3 className="text-lg font-bold">{milestone.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">{milestone.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TEAM STATS */}
+      <section className="section pt-0">
+        <div className="mx-auto max-w-7xl glass p-8 md:p-12">
+          <div className="mb-10 text-center">
+            <span className="chip">By the Numbers</span>
+            <h2 className="mt-3 text-3xl font-bold md:text-5xl">Our impact in numbers</h2>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { icon: Users, value: "10,000+", label: "Happy Customers" },
+              { icon: MapPin, value: "500+", label: "Cities Served" },
+              { icon: Clock, value: "24/7", label: "Support Available" },
+              { icon: Award, value: "4.9★", label: "Average Rating" },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center">
+                <div
+                  className="mx-auto grid h-16 w-16 place-items-center rounded-2xl text-[oklch(0.25_0.05_260)]"
+                  style={{ background: "var(--gradient-gold)" }}
+                >
+                  <stat.icon size={28} />
+                </div>
+                <div className="mt-4 text-3xl font-extrabold">{stat.value}</div>
+                <div className="mt-1 text-sm text-muted-foreground">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WHY CHOOSE US */}
+      <section className="section pt-0">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 text-center">
+            <span className="chip">Why Choose Us</span>
+            <h2 className="mt-3 text-3xl font-bold md:text-5xl">What sets us apart</h2>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            {[
+              {
+                title: "Verified & Trained Drivers",
+                desc: "Every driver undergoes rigorous background checks, professional training, and customer service workshops. Your safety is our priority.",
+                features: [
+                  "Police verification",
+                  "5+ years experience",
+                  "Customer service training",
+                  "Regular performance reviews",
+                ],
+              },
+              {
+                title: "Transparent Pricing",
+                desc: "No hidden charges, no surge pricing. What you see is what you pay. We use Google Maps to calculate exact distances and fares.",
+                features: [
+                  "No hidden fees",
+                  "Google Maps pricing",
+                  "No surge pricing",
+                  "Free cancellation",
+                ],
+              },
+              {
+                title: "24/7 Customer Support",
+                desc: "Our support team is available round the clock via phone, WhatsApp, or email. We're always here when you need us.",
+                features: [
+                  "24/7 availability",
+                  "WhatsApp support",
+                  "Real-time tracking",
+                  "Quick response time",
+                ],
+              },
+              {
+                title: "Well-Maintained Fleet",
+                desc: "All our vehicles are regularly serviced, sanitized before every trip, and equipped with GPS tracking for your safety.",
+                features: [
+                  "Regular maintenance",
+                  "Pre-trip sanitization",
+                  "GPS tracking",
+                  "Insurance covered",
+                ],
+              },
+            ].map((item) => (
+              <div key={item.title} className="neu p-6 transition-transform hover:-translate-y-1">
+                <h3 className="text-xl font-bold">{item.title}</h3>
+                <p className="mt-3 text-muted-foreground">{item.desc}</p>
+                <ul className="mt-4 space-y-2">
+                  {item.features.map((feature) => (
+                    <li key={feature} className="flex items-center gap-2 text-sm">
+                      <CheckCircle2 size={16} className="text-[oklch(0.5_0.12_75)]" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TESTIMONIALS */}
+      <section className="section pt-0">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 text-center">
+            <span className="chip">Testimonials</span>
+            <h2 className="mt-3 text-3xl font-bold md:text-5xl">What our customers say</h2>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            {[
+              {
+                name: "Rajesh Kumar",
+                location: "Delhi",
+                rating: 5,
+                text: "Excellent service! Driver was punctual, car was clean, and the fare was exactly as quoted. Will definitely use again.",
+                trip: "Delhi → Jaipur",
+              },
+              {
+                name: "Priya Sharma",
+                location: "Mumbai",
+                rating: 5,
+                text: "Booked via WhatsApp in minutes. The whole experience was seamless. Highly recommended for outstation trips!",
+                trip: "Mumbai → Pune",
+              },
+              {
+                name: "Arun Reddy",
+                location: "Hyderabad",
+                rating: 5,
+                text: "Professional driver, comfortable car, and transparent billing. Best cab service I've used in India.",
+                trip: "Hyderabad → Vijayawada",
+              },
+            ].map((testimonial) => (
+              <div
+                key={testimonial.name}
+                className="neu p-6 transition-transform hover:-translate-y-1"
+              >
+                <div className="flex gap-0.5">
+                  {Array.from({ length: testimonial.rating }).map((_, i) => (
+                    <Star
+                      key={i}
+                      size={16}
+                      className="fill-[oklch(0.78_0.14_80)] text-[oklch(0.78_0.14_80)]"
+                    />
+                  ))}
+                </div>
+                <p className="mt-4 text-sm leading-relaxed text-foreground/85">
+                  "{testimonial.text}"
+                </p>
+                <div className="mt-6 flex items-center gap-3 border-t border-border/60 pt-4">
+                  <div
+                    className="grid h-10 w-10 place-items-center rounded-full text-sm font-bold text-[oklch(0.25_0.05_260)]"
+                    style={{ background: "var(--gradient-gold)" }}
+                  >
+                    {testimonial.name[0]}
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold">{testimonial.name}</div>
+                    <div className="text-xs text-muted-foreground">{testimonial.trip}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="section pt-0">
+        <div className="mx-auto max-w-7xl">
+          <div
+            className="overflow-hidden rounded-[2.25rem] px-6 py-12 text-center md:px-16 md:py-20"
+            style={{ background: "var(--gradient-hero)" }}
+          >
+            <h2 className="text-3xl font-bold text-white md:text-5xl">Ready to travel with us?</h2>
+            <p className="mx-auto mt-3 max-w-xl text-white/70">
+              Book your next ride today and experience the Tuhi difference. Safe, reliable, and
+              affordable.
+            </p>
+            <div className="mt-7 flex flex-wrap justify-center gap-3">
+              <Link to="/book" className="btn-gold">
+                Book a Cab <ArrowRight size={16} />
+              </Link>
+              <Link to="/contact" className="btn-ghost-glass">
+                Contact Us
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

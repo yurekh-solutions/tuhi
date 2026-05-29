@@ -39,37 +39,37 @@
 }
 
 :root {
-  /* Brand: deep navy + warm gold (matches the booking app screenshot) */
-  --background: oklch(0.965 0.012 250);
-  --foreground: oklch(0.18 0.04 260);
-  --surface: oklch(0.95 0.015 250);
+  /* Brand: Clean white + blue professional theme (Ritzyard style) */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.15 0.02 250);
+  --surface: oklch(0.99 0 0);
 
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.04 260);
+  --card-foreground: oklch(0.15 0.02 250);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.04 260);
+  --popover-foreground: oklch(0.15 0.02 250);
 
-  --primary: oklch(0.22 0.06 265); /* deep navy */
-  --primary-foreground: oklch(0.98 0 0);
+  --primary: oklch(0.45 0.15 250); /* professional blue */
+  --primary-foreground: oklch(1 0 0);
 
-  --secondary: oklch(0.93 0.02 250);
-  --secondary-foreground: oklch(0.22 0.06 265);
+  --secondary: oklch(0.97 0.01 250);
+  --secondary-foreground: oklch(0.15 0.02 250);
 
-  --muted: oklch(0.93 0.015 250);
-  --muted-foreground: oklch(0.48 0.03 260);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.45 0.02 250);
 
   --accent: oklch(0.78 0.14 80); /* warm gold */
-  --accent-foreground: oklch(0.2 0.05 260);
+  --accent-foreground: oklch(0.15 0.02 250);
 
   --gold: oklch(0.78 0.14 80);
   --gold-soft: oklch(0.86 0.1 85);
 
   --destructive: oklch(0.6 0.22 25);
-  --destructive-foreground: oklch(0.98 0 0);
+  --destructive-foreground: oklch(1 0 0);
 
-  --border: oklch(0.88 0.015 250);
-  --input: oklch(0.9 0.015 250);
-  --ring: oklch(0.78 0.14 80);
+  --border: oklch(0.92 0 0);
+  --input: oklch(0.98 0 0);
+  --ring: oklch(0.45 0.15 250);
 
   --radius: 1.25rem;
 

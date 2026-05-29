@@ -537,14 +537,38 @@ function BookPage() {
                           setIsProcessingPayment(true);
 
                           try {
+                            // Auto-detect environment: use test key locally, live key on Render
+                            const hostname = window.location.hostname;
+                            const isLocalhost =
+                              hostname === "localhost" ||
+                              hostname === "127.0.0.1" ||
+                              hostname.startsWith("192.168.") ||
+                              hostname.startsWith("10.0.");
+
+                            const isProduction = !isLocalhost;
+
+                            const razorpayKey = isProduction
+                              ? import.meta.env.VITE_RAZORPAY_KEY_ID || "rzp_live_SumAEof8gTU5To"
+                              : import.meta.env.VITE_RAZORPAY_KEY_ID || "rzp_test_XXXXXXXXXXXX";
+
+                            // Log which mode is being used (for debugging)
+                            console.log(
+                              `🔐 Razorpay Mode: ${isProduction ? "LIVE" : "TEST"} | Host: ${hostname}`,
+                            );
+
                             const options = {
-                              key: import.meta.env.VITE_RAZORPAY_KEY_ID || "rzp_test_XXXXXXXXXXXX",
+                              key: razorpayKey,
                               amount: 9900,
                               currency: "INR",
                               name: "Tuhi Car Rental",
                               description: "Booking Request Fee",
                               image: "/favicon.svg",
-                              handler: function (response: any) {
+                              handler: function (response: {
+                                razorpay_payment_id: string;
+                                razorpay_order_id?: string;
+                                razorpay_signature?: string;
+                              }) {
+                                console.log("Payment successful:", response);
                                 setPaymentConfirmed(true);
                                 setIsProcessingPayment(false);
                               },
@@ -554,6 +578,12 @@ function BookPage() {
                               },
                               theme: {
                                 color: "#4A5568",
+                              },
+                              modal: {
+                                ondismiss: function () {
+                                  console.log("Payment modal closed");
+                                  setIsProcessingPayment(false);
+                                },
                               },
                             };
 
