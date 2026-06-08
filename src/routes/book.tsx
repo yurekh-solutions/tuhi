@@ -305,16 +305,16 @@ function BookPage() {
             {/* Left: form */}
             <div className="glass p-4 md:p-6 lg:p-8">
               {/* Trip type */}
-              <div className="glass flex gap-1 p-1.5 text-sm font-semibold">
+              <div className="flex gap-2 p-1 bg-gray-100 rounded-xl text-sm font-semibold">
                 {(["oneway", "round", "airport", "local"] as const).map((t) => (
                   <button
                     key={t}
                     type="button"
                     onClick={() => setTripType(t)}
-                    className={`flex-1 rounded-xl px-3 py-2.5 transition ${
+                    className={`flex-1 rounded-lg px-3 py-2.5 transition-all ${
                       tripType === t
-                        ? "bg-[var(--surface)] text-foreground shadow-[var(--shadow-neu-sm)]"
-                        : "text-muted-foreground hover:text-foreground"
+                        ? "bg-[#ffbe00] text-[#1a1a2e] shadow-md"
+                        : "text-gray-600 hover:text-gray-900"
                     }`}
                   >
                     {labelFor(t)}
@@ -467,8 +467,8 @@ function BookPage() {
 
             {/* Right: summary */}
             <aside className="lg:sticky lg:top-28 lg:self-start">
-              <div className="glass p-7">
-                <div className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+              <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-7">
+                <div className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">
                   Booking Summary
                 </div>
                 <div className="mt-4 space-y-3 text-sm">
@@ -479,22 +479,22 @@ function BookPage() {
                   <Row label="Vehicle" value={car.name} />
                 </div>
 
-                <div className="my-6 h-px bg-border" />
+                <div className="my-6 h-px bg-gray-200" />
 
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="glass rounded-2xl p-4 text-center">
-                    <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                  <div className="bg-gray-50 rounded-2xl p-4 text-center border border-gray-100">
+                    <div className="text-[10px] uppercase tracking-wider text-gray-500">
                       Distance
                     </div>
-                    <div className="mt-1 text-xl font-extrabold">
+                    <div className="mt-1 text-xl font-extrabold text-gray-900">
                       {km != null ? `${km} km` : "—"}
                     </div>
                   </div>
-                  <div className="glass rounded-2xl p-4 text-center">
-                    <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                  <div className="bg-gray-50 rounded-2xl p-4 text-center border border-gray-100">
+                    <div className="text-[10px] uppercase tracking-wider text-gray-500">
                       Est. Time
                     </div>
-                    <div className="mt-1 text-xl font-extrabold">
+                    <div className="mt-1 text-xl font-extrabold text-gray-900">
                       {durationMin != null
                         ? `${Math.floor(durationMin / 60)}h ${durationMin % 60}m`
                         : "—"}
@@ -772,12 +772,12 @@ function CustomCarModal({
               value={customCarName}
               onChange={(e) => setCustomCarName(e.target.value)}
               placeholder="e.g. Toyota Innova, BMW 5 Series"
-              className="neu-input w-full"
+              className="glass-input w-full"
             />
           </div>
 
           <div>
-            <label className="mb-1.5 block text-xs font-semibold uppercase text-muted-foreground">
+            <label className="mb-1.5 block text-xs font-semibold uppercase text-gray-500">
               <FileText size={12} className="inline mr-1" />
               Brand / Model (Optional)
             </label>
@@ -786,19 +786,19 @@ function CustomCarModal({
               value={customCarBrand}
               onChange={(e) => setCustomCarBrand(e.target.value)}
               placeholder="e.g. Toyota, Mercedes, BMW"
-              className="neu-input w-full"
+              className="glass-input w-full"
             />
           </div>
 
           <div>
-            <label className="mb-1.5 block text-xs font-semibold uppercase text-muted-foreground">
+            <label className="mb-1.5 block text-xs font-semibold uppercase text-gray-500">
               <User size={12} className="inline mr-1" />
               Seating Required
             </label>
             <select
               value={customSeats}
               onChange={(e) => setCustomSeats(e.target.value)}
-              className="neu-input w-full"
+              className="glass-input w-full"
             >
               <option value="">Select seats</option>
               <option value="4">4 Seats</option>
@@ -811,7 +811,7 @@ function CustomCarModal({
           </div>
 
           <div>
-            <label className="mb-1.5 block text-xs font-semibold uppercase text-muted-foreground">
+            <label className="mb-1.5 block text-xs font-semibold uppercase text-gray-500">
               Additional Requirements
             </label>
             <textarea
@@ -819,7 +819,7 @@ function CustomCarModal({
               onChange={(e) => setCustomRequirements(e.target.value)}
               placeholder="e.g. AC required, music system, special occasion, luggage space..."
               rows={3}
-              className="neu-input w-full"
+              className="glass-input w-full"
             />
           </div>
         </div>
